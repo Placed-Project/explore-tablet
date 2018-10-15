@@ -1,0 +1,23 @@
+{
+  "message": "hello i18n !!",
+  "app_is_loading":"Application is loading",
+  "week-day-0": "monday",
+  "week-day-1": "tuesday",
+  "week-day-2": "wednesday",
+  "week-day-3": "thursday",
+  "week-day-4": "friday",
+  "week-day-5": "saturday",
+  "week-day-6": "sunday",
+  "month-0": "january",
+  "month-1": "february",
+  "month-2": "march",
+  "month-3": "april",
+  "month-4": "may",
+  "month-5": "june",
+  "month-6": "july",
+  "month-7": "august",
+  "month-8": "september",
+  "month-9": "october",
+  "month-10": "november",
+  "month-11": "december"
+}

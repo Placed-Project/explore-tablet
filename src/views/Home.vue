@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="event-desc" v-html="eventData['event_description']"></div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  computed: {
+    eventData () {
+      return this.$store.state.eventData
+    }
   }
 }
 </script>
+
+<style>
+.home {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+}
+
+.event-desc {
+  grid-column: 1;
+}
+</style>
