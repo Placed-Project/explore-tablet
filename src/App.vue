@@ -56,7 +56,7 @@ export default {
       this.timeoutId = setTimeout(() => {
         this.showCatchScreen = true
         console.log('showCatchScreen')
-      }, 60000)
+      }, 6000)
     }
   },
   created () {
