@@ -217,6 +217,7 @@ export default {
   transition: height 1s;
   background: linear-gradient(to right, #F2B135 0%, #B62525 100%);
 	-webkit-background-clip: text;
+	background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
 
