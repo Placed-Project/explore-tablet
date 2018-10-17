@@ -25,5 +25,10 @@
   "address-label": "Adresse",
   "contact-label": "Contact",
   "date-label": "Date",
-  "website-label": "Site web"
+  "website-label": "Site web",
+  "nav-dates": "Autres dates",
+  "nav-biography": "Biographie",
+  "nav-video": "Vidéos",
+  "nav-partner": "Partenaire",
+  "nav-documents": "Documents"
 }
