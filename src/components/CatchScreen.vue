@@ -8,9 +8,9 @@
         <p>{{beautifulDate}}</p>
         <p id="call-to-action">Cliquez pour en savoir plus</p>
       </div>
-      <div class="seethrough-band" id="seethrough-band-1"></div>
-      <div class="seethrough-band" id="seethrough-band-2"></div>
-      <div class="seethrough-band" id="seethrough-band-3"></div>
+      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-1"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
+      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-2"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
+      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-3"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
     </div>
     <video id="video" width="320" height="240" preload autoplay loop muted></video>
   </div>
@@ -20,8 +20,6 @@
 import {} from 'tracking/build/tracking-min.js'
 import {} from 'tracking/build/data/face-min.js'
 import baffle from 'baffle'
-
-console.log(tracking)
 
 export default {
   name: 'catchscreen',
@@ -37,7 +35,8 @@ export default {
   data: function () {
     return {
       trackingInterval: -1,
-      cameraInterval: -1
+      cameraInterval: -1,
+      halfTone: true
     }
   },
   beforeDestroy: function () {
@@ -57,6 +56,10 @@ export default {
     let bandOne = document.querySelector('#seethrough-band-1')
     let bandTwo = document.querySelector('#seethrough-band-2')
     let bandThree = document.querySelector('#seethrough-band-3')
+
+    //bandOne.style.backgroundImage = `url(${this.eventData['image_url']})`
+    //bandTwo.style.backgroundImage = `url(${this.eventData['image_url']})`
+    //bandThree.style.backgroundImage = `url(${this.eventData['image_url']})`
 
     navigator.mediaDevices.getUserMedia(
       {
@@ -107,9 +110,9 @@ export default {
       
       if(facefound) {
         if(!keepDetail) {
-          bandThree.style.width = bandTwo.style.width = bandOne.style.width = `33vw`
-          bandThree.style.height = bandTwo.style.height = bandOne.style.height = `11vh`
-          bandTwo.style.left = `33vw`
+          bandThree.style.width = bandTwo.style.width = bandOne.style.width = `50vw`
+          bandThree.style.height = bandTwo.style.height = bandOne.style.height = `20vh`
+          bandTwo.style.left = `25vw`
 
           document.querySelector('#short-desc').style.height = 'auto'
           document.querySelector('#call-to-action').style.height = 'auto'
@@ -158,7 +161,7 @@ export default {
 }
 
 .seethrough-band {
-  background-image: url("https://images.unsplash.com/photo-1530061738406-233b0e977ea7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b652fbe3813716c0f321ddd75fa85a6&auto=format&fit=crop&w=2176&q=80");
+  /*background-image: url("https://images.unsplash.com/photo-1530061738406-233b0e977ea7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b652fbe3813716c0f321ddd75fa85a6&auto=format&fit=crop&w=2176&q=80");*/
   background-size: 100vw;
   background-attachment: fixed;
   width: 33vw;
@@ -230,6 +233,40 @@ export default {
   bottom: 20vh;
   right: 64px;
   text-align: right;
+}
+
+.halftone {
+    background: white;
+    filter: contrast(25000%) grayscale(50%);
+    overflow: hidden;
+    transform: translateZ(0); /* force a HW accelerated layer */
+}
+
+.halftone > * {
+    filter: brightness(0.5) blur(4px);
+  background-image: url("https://www.bm-lyon.fr/agenda/documents/images/mediums/med_100718142748.jpg");
+  background-attachment: fixed;
+    background-size: 100vw;
+  /*width: 100vw;*/
+  height: 100vh;
+}
+.halftone::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    background-blend-mode: multiply;
+    background:
+        radial-gradient(8px 8px, cyan, white),
+        radial-gradient(8px 8px, magenta, white),
+        radial-gradient(8px 8px, yellow, white);
+    background-size: 8px 8px;
+    background-position: 0 -3px, -2px 0, 2px 0;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
 }
 
 </style>

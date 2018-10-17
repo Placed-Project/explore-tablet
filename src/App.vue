@@ -6,12 +6,12 @@
     </div>
     <div v-else id="app-content">
       <nav id="nav">
-        <router-link to="/"><div class="nav-item"><span>Home</span></div></router-link>
-        <router-link to="/about"><div class="nav-item"><span>About</span></div></router-link>
+        <router-link to="/"><div class="nav-item"><span>{{$t('nav-description')}}</span></div></router-link>
+        <router-link to="/place"><div class="nav-item"><span>{{$t('nav-place')}}</span></div></router-link>
       </nav>
       <div id="event-title">
         <h1>{{eventData['event_title']}}</h1>
-        <h2>{{beautifulDate}}, {{eventData['dates'][0]['place_name']}}</h2>
+        <h2>{{beautifulDate}}, {{eventData['dates'][$store.state.currentEventDate]['place_name']}}</h2>
       </div>
       <div id="app-body">
         <router-view/>
@@ -42,7 +42,7 @@ export default {
       return this.$store.state.eventData
     },
     beautifulDate () {
-      let dateObject = new Date(this.eventData['dates'][0]['date_start'])
+      let dateObject = new Date(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
       return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}`
     }
   },
@@ -53,8 +53,7 @@ export default {
       }
       this.timeoutId = setTimeout(() => {
         this.showCatchScreen = true
-        console.log('showCatchScreen')
-      }, 6000)
+      }, 60000)
     }
   },
   created () {
@@ -90,6 +89,12 @@ export default {
 
 #nav > a {
   text-decoration: none !important;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: white;
+  background: linear-gradient(270deg, #F2B135 0%, rgba(255, 255, 255, 0) 57.28%), #B62525;
 }
 
 .nav-item {
@@ -106,23 +111,23 @@ export default {
 
 .nav-item > span {
   padding-top: 6px;
-  margin-left: 17px;
+  margin-left: 40px;
   display: block;
 }
 
 nav > a.router-link-exact-active > .nav-item {
   color: white;
-  background: linear-gradient(180deg, #F2B135 0%, rgba(255, 255, 255, 0) 57.28%), #B62525;
+  background: linear-gradient(270deg, #F2B135 0%, rgba(255, 255, 255, 0) 57.28%), #B62525;
 }
 
 #app-body {
-  grid-column: 4/12;
+  grid-column: 5/13;
   grid-row: 2;
   font-family: 'renner_mediummedium', sans-serif;
 }
 
 #event-title {
-  grid-column: 4/12;
+  grid-column: 5/13;
   grid-row: 1;
   font-family: 'rennerbold', sans-serif;
 }
@@ -135,5 +140,9 @@ h1 {
 h2 {
   font-size: 15px;
   margin-top: 0.5em;
+}
+
+body {
+  background-color: #f7f7f7;
 }
 </style>

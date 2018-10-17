@@ -7,11 +7,15 @@ export default new Vuex.Store({
   state: {
     libraryApiUrl: 'https://www.bm-lyon.fr/json_explore.php?action=detail&id=',
     currentEventId: '4401',
+    currentEventDate: 0,
     eventData: null
   },
   mutations: {
     CHANGE_EVENT_ID: function (state, newId) {
       state.currentEventId = newId
+    },
+    CHANGE_EVENT_DATE: function (state, newDate) {
+      state.currentEventDate = newDate
     },
     CHANGE_EVENT_DATA: function (state, newData) {
       state.eventData = newData
@@ -20,12 +24,12 @@ export default new Vuex.Store({
   },
   actions: {
     changeEventId: function ({ commit }, newId) {
-      fetch(this.state.libraryApiUrl + this.state.currentEventId)
+      fetch(this.state.libraryApiUrl + newId)
         .then((resp) => {
           if (resp.ok) {
             resp.json().then((data) => {
-              commit('CHANGE_EVENT_DATA', data[0])
               commit('CHANGE_EVENT_ID', newId)
+              commit('CHANGE_EVENT_DATA', data[0])
             })
           }
         }).catch((e) => {

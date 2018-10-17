@@ -19,5 +19,11 @@
   "month-8": "september",
   "month-9": "october",
   "month-10": "november",
-  "month-11": "december"
+  "month-11": "december",
+  "nav-description": "Description",
+  "nav-place": "Place",
+  "address-label": "Address",
+  "contact-label": "Contact",
+  "date-label": "Date",
+  "website-label": "Website"
 }
