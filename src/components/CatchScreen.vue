@@ -114,7 +114,7 @@ export default {
           document.querySelector('#short-desc').style.height = 'auto'
           document.querySelector('#call-to-action').style.height = 'auto'
           let b = baffle(document.querySelector('#call-to-action')).start()
-          b.reveal(500)
+          b.reveal(1500)
           
           keepDetail = true
         }
@@ -185,17 +185,23 @@ export default {
 .text-band {
   color: white;
   background-color: black;
-  font-family: sans-serif;
+  font-family: 'rennerbold', sans-serif;
   z-index: 10;
-  font-size: xx-large;
+  font-size: 32px;
   font-weight: 800;
   width: auto;
   padding: 20px;
   position: fixed;
 }
 
+.text-band p {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 #short-desc {
-  font-size: small;
+  font-family: 'rennerbold', sans-serif;
+  font-size: 16px;
   font-weight: 600;
   height: 0;
   overflow: hidden;
@@ -209,6 +215,9 @@ export default {
   height: 0;
   overflow: hidden;
   transition: height 1s;
+  background: linear-gradient(to right, #F2B135 0%, #B62525 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 #text-band-1 {

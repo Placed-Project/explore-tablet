@@ -6,8 +6,8 @@
     </div>
     <div v-else id="app-content">
       <nav id="nav">
-        <router-link to="/">Home</router-link>
-        <router-link to="/about">About</router-link>
+        <router-link to="/"><div class="nav-item"><span>Home</span></div></router-link>
+        <router-link to="/about"><div class="nav-item"><span>About</span></div></router-link>
       </nav>
       <div id="event-title">
         <h1>{{eventData['event_title']}}</h1>
@@ -16,8 +16,8 @@
       <div id="app-body">
         <router-view/>
       </div>
+      <catch-screen v-if="showCatchScreen" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
     </div>
-    <catch-screen v-if="showCatchScreen" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
   </div>
 </template>
 
@@ -32,11 +32,9 @@ export default {
   },
   data: function () {
     return {
-      libraryApiUrl: 'https://www.bm-lyon.fr/json_explore.php?action=detail&id=',
-      eventId: '4401',
       timeoutId: -1,
       appObserver: null,
-      showCatchScreen: false
+      showCatchScreen: true
     }
   },
   computed: {
@@ -86,28 +84,56 @@ export default {
 }
 
 #nav {
-  grid-column: 1/3;
+  grid-column: 1/4;
   grid-row: 2;
-  padding: 30px;
 }
 
-#nav a {
+#nav > a {
+  text-decoration: none !important;
+}
+
+.nav-item {
   display: block;
-  font-weight: bold;
-  color: #2c3e50;
+  margin-bottom: 20px;
+  background: #FFFFFF;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  height: 40px;
+  color: black;
+  font-family: 'source_code_promedium', monospace;
+  font-size: 20px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.nav-item > span {
+  padding-top: 6px;
+  margin-left: 17px;
+  display: block;
+}
+
+nav > a.router-link-exact-active > .nav-item {
+  color: white;
+  background: linear-gradient(180deg, #F2B135 0%, rgba(255, 255, 255, 0) 57.28%), #B62525;
 }
 
 #app-body {
   grid-column: 4/12;
   grid-row: 2;
+  font-family: 'renner_mediummedium', sans-serif;
 }
 
 #event-title {
   grid-column: 4/12;
   grid-row: 1;
+  font-family: 'rennerbold', sans-serif;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 15px;
+  margin-top: 0.5em;
 }
 </style>

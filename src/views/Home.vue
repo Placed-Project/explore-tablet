@@ -21,6 +21,10 @@ export default {
   grid-template-columns: 5fr 4fr;
 }
 
+.home p {
+  margin-top: 0px;
+}
+
 .event-desc {
   grid-column: 1;
 }
