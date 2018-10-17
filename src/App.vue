@@ -8,11 +8,11 @@
       <nav id="nav">
         <router-link to="/"><div class="nav-item"><span>{{$t('nav-description')}}</span></div></router-link>
         <router-link to="/place"><div class="nav-item"><span>{{$t('nav-place')}}</span></div></router-link>
-        <router-link to="/"><div class="nav-item"><span>{{$t('nav-dates')}}</span></div></router-link>
-        <router-link to="/"><div class="nav-item"><span>{{$t('nav-biography')}}</span></div></router-link>
-        <router-link to="/"><div class="nav-item"><span>{{$t('nav-video')}}</span></div></router-link>
-        <router-link to="/"><div class="nav-item"><span>{{$t('nav-partner')}}</span></div></router-link>
-        <router-link to="/"><div class="nav-item"><span>{{$t('nav-documents')}}</span></div></router-link>
+        <router-link to="/dates"><div class="nav-item"><span>{{$t('nav-dates')}}</span></div></router-link>
+        <router-link to="/biography"><div class="nav-item"><span>{{$t('nav-biography')}}</span></div></router-link>
+        <router-link to="/videos"><div class="nav-item"><span>{{$t('nav-video')}}</span></div></router-link>
+        <router-link to="/partner"><div class="nav-item"><span>{{$t('nav-partner')}}</span></div></router-link>
+        <router-link to="/documents"><div class="nav-item"><span>{{$t('nav-documents')}}</span></div></router-link>
       </nav>
       <div id="event-title">
         <h1>{{eventData['event_title']}}</h1>
