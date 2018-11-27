@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     libraryApiUrl: 'https://www.bm-lyon.fr/json_explore.php?action=detail&id=',
+    libraryQueryUrl: 'https://www.bm-lyon.fr/json_explore.php?action=search&query=',
     currentEventId: '4401',
     currentEventDate: 0,
     eventData: null

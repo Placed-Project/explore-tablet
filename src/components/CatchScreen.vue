@@ -6,7 +6,7 @@
         <p id="short-desc" v-html="eventData['event_description_courte']"></p></div>
       <div class="text-band" id="text-band-2">
         <p>{{beautifulDate}}</p>
-        <p id="call-to-action">Cliquez pour en savoir plus</p>
+        <p id="call-to-action">{{$t("click-to-know-more")}}</p>
       </div>
       <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-1"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
       <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-2"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
@@ -44,72 +44,67 @@ export default {
     clearInterval(this.cameraInterval)
   },
   mounted: function () {
-    var streaming = false,
-          video        = document.querySelector('#video'),
-          canvas       = document.createElement('canvas'),
-          width = 320,
-          height = 0
+    let streaming = false
+    let video = document.querySelector('#video')
+    let canvas = document.createElement('canvas')
+    let width = 320
+    let height = 0
     let keepDetail = false
     let detailKeeperTimer = -1
-
 
     let bandOne = document.querySelector('#seethrough-band-1')
     let bandTwo = document.querySelector('#seethrough-band-2')
     let bandThree = document.querySelector('#seethrough-band-3')
 
-    //bandOne.style.backgroundImage = `url(${this.eventData['image_url']})`
-    //bandTwo.style.backgroundImage = `url(${this.eventData['image_url']})`
-    //bandThree.style.backgroundImage = `url(${this.eventData['image_url']})`
+    // bandOne.style.backgroundImage = `url(${this.eventData['image_url']})`
+    // bandTwo.style.backgroundImage = `url(${this.eventData['image_url']})`
+    // bandThree.style.backgroundImage = `url(${this.eventData['image_url']})`
 
-    navigator.mediaDevices.getUserMedia(
-      {
-        video: true,
-        audio: false
-      }).then(
-      function(stream) {
-        video.srcObject = stream
-        video.play();
-      }).catch(function(err) {
-        console.log("An error occured! " + err);
-      })
-    
+    navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false
+    }).then(function (stream) {
+      video.srcObject = stream
+      video.play()
+    }).catch(function (err) {
+      console.log('An error occured! ' + err)
+    })
 
-    video.addEventListener('canplay', function(ev){
+    video.addEventListener('canplay', function (ev) {
       if (!streaming) {
-        height = video.videoHeight / (video.videoWidth/width);
+        height = video.videoHeight / (video.videoWidth / width)
         video.setAttribute('width', width)
         video.setAttribute('height', height)
         canvas.setAttribute('width', width)
         canvas.setAttribute('height', height)
-        streaming = true;
+        streaming = true
       }
     }, false)
 
-    function takepicture() {
+    function takepicture () {
       canvas.width = width
       canvas.height = height
       canvas.getContext('2d').drawImage(video, 0, 0, width, height)
     }
 
-    this.cameraInterval = setInterval(function(ev){
-      takepicture();
-    }, 500);
+    this.cameraInterval = setInterval(function (ev) {
+      takepicture()
+    }, 500)
 
-
-    var video = document.getElementById('video');
-    var tracker = new tracking.ObjectTracker('face');
-    tracker.setInitialScale(4);
-    tracker.setStepSize(2);
-    tracker.setEdgesDensity(0.1);
-    this.trackingInterval = setInterval(() => {tracking.track(canvas, tracker)}, 1000)
-    tracker.on('track', function(event) {
-      let facefound = false;
-      event.data.forEach(function(face) {
+    video = document.getElementById('video')
+    var tracker = new tracking.ObjectTracker('face')
+    tracker.setInitialScale(4)
+    tracker.setStepSize(2)
+    tracker.setEdgesDensity(0.1)
+    this.trackingInterval = setInterval(() => { tracking.track(canvas, tracker) }, 1000)
+    tracker.on('track', function (event) {
+      let facefound = false
+      event.data.forEach(function (face) {
         facefound = true
       })
-      
-      if(facefound) {
-        if(!keepDetail) {
+
+      if (facefound) {
+        if (!keepDetail) {
           bandThree.style.width = bandTwo.style.width = bandOne.style.width = `50vw`
           bandThree.style.height = bandTwo.style.height = bandOne.style.height = `20vh`
           bandTwo.style.left = `25vw`
@@ -118,15 +113,15 @@ export default {
           document.querySelector('#call-to-action').style.height = 'auto'
           let b = baffle(document.querySelector('#call-to-action')).start()
           b.reveal(1500)
-          
+
           keepDetail = true
         }
-        
+
         clearTimeout(detailKeeperTimer)
         detailKeeperTimer = setTimeout(() => {
           keepDetail = false
         }, 3000)
-      } else if (!keepDetail){
+      } else if (!keepDetail) {
         bandThree.style.width = bandTwo.style.width = bandOne.style.width = `100vw`
         bandTwo.style.height = bandOne.style.height = `33vh`
         bandThree.style.height = `34vh`
@@ -219,9 +214,9 @@ export default {
   overflow: hidden;
   transition: height 1s;
   background: linear-gradient(to right, #F2B135 0%, #B62525 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #text-band-1 {
@@ -236,38 +231,37 @@ export default {
 }
 
 .halftone {
-    background: white;
-    filter: contrast(25000%) grayscale(50%);
-    overflow: hidden;
-    transform: translateZ(0); /* force a HW accelerated layer */
+  background: white;
+  filter: contrast(25000%) grayscale(50%);
+  overflow: hidden;
+  transform: translateZ(0); /* force a HW accelerated layer */
 }
 
 .halftone > * {
-    filter: brightness(0.5) blur(4px);
+  filter: brightness(0.5) blur(4px);
   background-image: url("https://www.bm-lyon.fr/agenda/documents/images/mediums/med_100718142748.jpg");
   background-attachment: fixed;
-    background-size: 100vw;
+  background-size: 100vw;
   /*width: 100vw;*/
   height: 100vh;
 }
 .halftone::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right:0;
-    bottom: 0;
-    background-blend-mode: multiply;
-    background:
-        radial-gradient(8px 8px, cyan, white),
-        radial-gradient(8px 8px, magenta, white),
-        radial-gradient(8px 8px, yellow, white);
-    background-size: 8px 8px;
-    background-position: 0 -3px, -2px 0, 2px 0;
-    mix-blend-mode: screen;
-    pointer-events: none;
-    z-index: 1;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+  background-blend-mode: multiply;
+  background:
+      radial-gradient(8px 8px, cyan, white),
+      radial-gradient(8px 8px, magenta, white),
+      radial-gradient(8px 8px, yellow, white);
+  background-size: 8px 8px;
+  background-position: 0 -3px, -2px 0, 2px 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
 }
 
 </style>
-
