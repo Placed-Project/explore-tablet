@@ -11,8 +11,16 @@
           :component-item='template' 
           @update-items="updateItems">
         </v-autocomplete>
-      </form>
-    </div>
+      </div>
+      <div>
+        <label for="picture">{{$t("label-add-pictures")}}</label>
+        <input type="file"
+          id="picture" name="picture"
+          accept="image/png, image/jpeg" multiple>
+        <div id="selected-pictures"></div>
+        <button>{{$t("button-upload-pictures")}}</button>
+      </div>
+    </form>
   </div>
 </template>
 

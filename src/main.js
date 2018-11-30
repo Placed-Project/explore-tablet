@@ -13,6 +13,6 @@ new Vue({
   i18n,
   render: h => h(App),
   created: function () {
-    this.$store.dispatch('changeEventId', '4401')
+    this.$store.dispatch('initStore')
   }
 }).$mount('#app')

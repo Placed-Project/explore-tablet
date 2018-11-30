@@ -32,5 +32,7 @@
   "nav-partner": "Partenaire",
   "nav-documents": "Documents",
   "click-to-know-more": "Cliquez pour en savoir plus",
-  "label-event-search": "Chercher un événement"
+  "label-event-search": "Chercher un événement",
+  "label-add-pictures": "Ajouter des images",
+  "button-upload-pictures": "Télécharger les images sélectionnées"
 }

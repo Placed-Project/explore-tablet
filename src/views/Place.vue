@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import parseDate from 'date-fns/parse'
+
 export default {
   name: 'place',
   computed: {
@@ -41,7 +43,8 @@ export default {
       return this.eventData.dates[this.$store.state.currentEventDate]
     },
     beautifulDate () {
-      let dateObject = new Date(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
+      let dateObject = parseDate(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
+      //let dateObject = new Date(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
       return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}`
     },
     beautifulHour () {

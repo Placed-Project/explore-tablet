@@ -20,6 +20,7 @@
 import {} from 'tracking/build/tracking-min.js'
 import {} from 'tracking/build/data/face-min.js'
 import baffle from 'baffle'
+import parseDate from 'date-fns/parse'
 
 export default {
   name: 'catchscreen',
@@ -28,7 +29,8 @@ export default {
       return this.$store.state.eventData
     },
     beautifulDate () {
-      let dateObject = new Date(this.eventData['dates'][0]['date_start'])
+      let dateObject = parseDate(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
+      // let dateObject = new Date(this.eventData['dates'][0]['date_start'])
       return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}`
     }
   },
