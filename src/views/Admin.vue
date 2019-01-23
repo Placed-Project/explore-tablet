@@ -1,5 +1,5 @@
 <template>
-  <div class="admin">
+  <div id="admin-view">
     <form>
       <div>
         <label for="event-autocomplete">{{$t("label-event-search")}}</label>
@@ -11,14 +11,6 @@
           :component-item='template' 
           @update-items="updateItems">
         </v-autocomplete>
-      </div>
-      <div>
-        <label for="picture">{{$t("label-add-pictures")}}</label>
-        <input type="file"
-          id="picture" name="picture"
-          accept="image/png, image/jpeg" multiple>
-        <div id="selected-pictures"></div>
-        <button>{{$t("button-upload-pictures")}}</button>
       </div>
     </form>
   </div>
@@ -66,4 +58,11 @@ export default {
 </script>
 
 <style>
+#admin-view {
+  background: white;
+  border-radius: 6px;
+  overflow: scroll;
+  padding: 10px;
+  margin: 10px;
+}
 </style>

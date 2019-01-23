@@ -24,7 +24,8 @@ export default new Vuex.Store({
     libraryQueryUrl: 'https://www.bm-lyon.fr/json_explore.php?action=search&query=',
     currentEventId: '4401',
     currentEventDate: 0,
-    eventData: null
+    eventData: null,
+    eventGallery: []
   },
   mutations: {
     CHANGE_EVENT_ID: function (state, newId) {

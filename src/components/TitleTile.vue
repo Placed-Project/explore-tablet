@@ -1,0 +1,38 @@
+<template>
+  <div id="title-tile" class="explore-tile">
+    <h1 id="event-title-h1-tile">{{eventData['event_title']}}</h1>
+    <h2 id="event-date-h2-tile">{{beautifulDate}}, {{eventData['dates'][$store.state.currentEventDate]['place_name']}}</h2>
+  </div>
+</template>
+
+<script>
+import HelperMixin from '../helpers/HelperMixin'
+
+export default {
+  mixins: [HelperMixin]
+}
+</script>
+
+<style>
+#title-tile {
+  grid-column: span 2;
+  grid-row: span 1;
+  /*background: #F2EFE8;
+  border-radius: 6px;*/
+}
+
+#event-title-h1-tile {
+  font-weight: 800;
+  font-size: 40px;
+  color: white;
+  font-family: 'rennerbold', sans-serif;
+}
+
+#event-date-h2-tile {
+  font-weight: 800;
+  font-size: 20px;
+  color: white;
+  font-family: 'rennerbold', sans-serif;
+}
+</style>
+
