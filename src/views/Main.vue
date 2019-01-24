@@ -6,6 +6,7 @@
       <TitleTile></TitleTile>
       <ContactTile></ContactTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
+      <QRTile v-if="$store.state.libraryDevice"></QRTile>
       <catch-screen v-if="showCatchScreen" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
   </div>
 </template>
@@ -19,6 +20,7 @@ import PlaceTile from '../components/PlaceTile'
 import ContactTile from '../components/ContactTile'
 import GalleryTile from '../components/GalleryTile'
 import CalendarTile from '../components/CalendarTile'
+import QRTile from '../components/QRTile'
 import HelperMixin from '../helpers/HelperMixin'
 
 export default {
@@ -31,7 +33,8 @@ export default {
     PlaceTile,
     GalleryTile,
     ContactTile,
-    CalendarTile
+    CalendarTile,
+    QRTile
   },
   data: function () {
     return {

@@ -22,6 +22,7 @@ export default new Vuex.Store({
   state: {
     libraryApiUrl: 'https://www.bm-lyon.fr/json_explore.php?action=detail&id=',
     libraryQueryUrl: 'https://www.bm-lyon.fr/json_explore.php?action=search&query=',
+    exploreURL: 'https://explore-tablet.firebaseapp.com/',
     currentEventId: '4401',
     currentEventDate: 0,
     eventData: null,
