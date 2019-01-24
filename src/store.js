@@ -25,9 +25,13 @@ export default new Vuex.Store({
     currentEventId: '4401',
     currentEventDate: 0,
     eventData: null,
-    eventGallery: []
+    eventGallery: [],
+    libraryDevice: false
   },
   mutations: {
+    CHANGE_LIBRARY_DEVICE: function (state, newVal) {
+      state.libraryDevice = newVal
+    },
     CHANGE_EVENT_ID: function (state, newId) {
       state.currentEventId = newId
     },
@@ -58,12 +62,20 @@ export default new Vuex.Store({
     initStore: function ({ commit }) {
       let eventId = localStorage.getItem('eventId')
       let eventData = localStorage.getItem('eventData')
+      let libraryDevice = localStorage.getItem('libraryDevice')
       if (eventId && eventData) {
         commit('CHANGE_EVENT_ID', eventId)
         commit('CHANGE_EVENT_DATA', JSON.parse(eventData))
       } else {
         this.dispatch('changeEventId', '4401')
       }
+      if (libraryDevice) {
+        commit('CHANGE_LIBRARY_DEVICE', libraryDevice === 'true')
+      }
+    },
+    toggleLibraryDevice: function ({ commit }) {
+      commit('CHANGE_LIBRARY_DEVICE', !this.state.libraryDevice)
+      localStorage.setItem('libraryDevice', this.state.libraryDevice)
     }
   }
 })

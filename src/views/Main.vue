@@ -5,6 +5,7 @@
       <GalleryTile></GalleryTile>
       <TitleTile></TitleTile>
       <ContactTile></ContactTile>
+      <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <catch-screen v-if="showCatchScreen" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
   </div>
 </template>
@@ -17,6 +18,7 @@ import TitleTile from '../components/TitleTile'
 import PlaceTile from '../components/PlaceTile'
 import ContactTile from '../components/ContactTile'
 import GalleryTile from '../components/GalleryTile'
+import CalendarTile from '../components/CalendarTile'
 import HelperMixin from '../helpers/HelperMixin'
 
 export default {
@@ -28,7 +30,8 @@ export default {
     DescTile,
     PlaceTile,
     GalleryTile,
-    ContactTile
+    ContactTile,
+    CalendarTile
   },
   data: function () {
     return {
@@ -39,7 +42,7 @@ export default {
   },
   methods: {
     resetCatchScreenTimeout (event) {
-      if (this.timeoutId != -1) {
+      if (this.timeoutId !== -1) {
         clearTimeout(this.timeoutId)
       }
       this.timeoutId = setTimeout(() => {
@@ -49,7 +52,7 @@ export default {
   },
   created () {
     window.addEventListener('scroll', this.resetCatchScreenTimeout)
-    if(this.$route.params.eventId) {
+    if (this.$route.params.eventId) {
       this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
     }
   },
@@ -90,10 +93,23 @@ export default {
     width: calc(100vw - 16px);
     margin: 8px;
   }
+
+  .focused-tile {
+    height: 98vh;
+    width: 98vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.43);
+    transition: all 1s;
+  }
+
 }
 
 .explore-tile {
   margin: 5px;
+  min-height: 150px;
 }
 
 .explore-tile::-webkit-scrollbar {

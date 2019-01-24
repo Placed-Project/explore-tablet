@@ -21,10 +21,10 @@ export default {
   border-radius: 6px;*/
 }
 
-
 @media (max-width: 640px) {
   #title-tile {
     grid-column: span 1;
+    min-height: fit-content;
   }
 }
 
@@ -42,4 +42,3 @@ export default {
   font-family: 'rennerbold', sans-serif;
 }
 </style>
-

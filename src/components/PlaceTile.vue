@@ -1,5 +1,5 @@
 <template>
-  <div id="place-tile" class="explore-tile">
+  <div id="place-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
     <iframe
       style="width: 100%; height: 100%; border: none; pointer-events: none"
       :src="`https://maps.google.com/maps?q=${placeQuery}&t=&z=14&ie=UTF8&iwloc=&output=embed`"
@@ -15,7 +15,7 @@ export default {
   computed: {
     placeQuery () {
       let date = this.eventData.dates[this.$store.state.currentEventDate]
-      return encodeURI(/*date['place_name']+*/date['place_address']+date['place_town'])
+      return encodeURI(/* date['place_name']+ */date['place_address'] + date['place_town'])
     },
     date () {
       return this.eventData.dates[this.$store.state.currentEventDate]

@@ -1,5 +1,5 @@
 <template>
-  <div id="desc-tile" class="explore-tile">
+  <div id="desc-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
     <div class="event-desc-tile" v-html="eventData['event_description_courte']"></div>
     <div class="event-desc-tile" v-html="eventData['event_description']"></div>
   </div>

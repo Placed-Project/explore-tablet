@@ -1,7 +1,7 @@
 <template>
   <div class="place">
     <!--<iframe
-      frameborder="0" 
+      frameborder="0"
       style="width: 100%; border: none"
       v-bind:src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyAmPKzbCSkWDG8Jk-jJ2Ag8SfE_CYOC1Ro
         &q=${placeQuery}`">
@@ -37,14 +37,14 @@ export default {
     },
     placeQuery () {
       let date = this.eventData.dates[this.$store.state.currentEventDate]
-      return encodeURI(/*date['place_name']+*/date['place_address']+date['place_town'])
+      return encodeURI(/* date['place_name']+ */date['place_address'] + date['place_town'])
     },
     date () {
       return this.eventData.dates[this.$store.state.currentEventDate]
     },
     beautifulDate () {
       let dateObject = parseDate(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
-      //let dateObject = new Date(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
+      // let dateObject = new Date(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
       return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}`
     },
     beautifulHour () {
@@ -77,4 +77,3 @@ img {
   height: auto;
 }
 </style>
-

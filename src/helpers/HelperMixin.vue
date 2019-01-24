@@ -1,6 +1,11 @@
 <script>
 import parseDate from 'date-fns/parse'
 export default {
+  data: function () {
+    return {
+      focused: false
+    }
+  },
   computed: {
     eventData () {
       return this.$store.state.eventData

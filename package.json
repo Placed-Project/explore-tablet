@@ -11,7 +11,9 @@
   "dependencies": {
     "baffle": "^0.3.6",
     "date-fns": "^1.29.0",
+    "file-saver": "^2.0.0",
     "firebase": "^5.8.0",
+    "ical-generator": "^1.4.4",
     "register-service-worker": "^1.0.0",
     "tracking": "^1.1.3",
     "v-autocomplete": "^1.8.2",

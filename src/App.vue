@@ -22,6 +22,7 @@ export default {
 <style>
 body {
   background: linear-gradient(305.2deg, #F2B135 -8%, #B62525 34.31%, #1A2A6C 106.3%);
+  background-attachment: fixed;
   font-family: 'renner_mediummedium', sans-serif;
   height: 100vh;
   width: 100vw;

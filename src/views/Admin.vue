@@ -3,14 +3,18 @@
     <form>
       <div>
         <label for="event-autocomplete">{{$t("label-event-search")}}</label>
-        <v-autocomplete 
+        <v-autocomplete
           id="event-autocomplete"
-          :items="items" 
-          v-model="item" 
-          :get-label="getLabel" 
-          :component-item='template' 
+          :items="items"
+          v-model="item"
+          :get-label="getLabel"
+          :component-item='template'
           @update-items="updateItems">
         </v-autocomplete>
+      </div>
+      <div>
+        <label for="library-device-check" >{{$t("label-toggle-library-device")}}</label>
+        <input id="library-device-check" type="checkbox" v-model="libraryDevice">
       </div>
     </form>
   </div>
@@ -20,16 +24,19 @@
 import Vue from 'vue'
 import Autocomplete from 'v-autocomplete'
 import ItemTemplate from '../components/AutocompleteItem.vue'
+import HelperMixin from '../helpers/HelperMixin'
 
 Vue.use(Autocomplete)
 
 export default {
   name: 'admin',
+  mixins: [HelperMixin],
   data () {
     return {
       item: null,
       items: [],
-      template: ItemTemplate
+      template: ItemTemplate,
+      libraryDevice: false
     }
   },
   methods: {
@@ -49,11 +56,17 @@ export default {
       })
     }
   },
+  mounted: function () {
+    this.libraryDevice = this.$store.state.libraryDevice
+  },
   watch: {
     item: function (newItem, oldItem) {
       this.$store.dispatch('changeEventId', `${newItem.event_id}`)
+    },
+    libraryDevice: function (newVal, oldVal) {
+      this.$store.dispatch('toggleLibraryDevice', newVal)
     }
-  }
+   }
 }
 </script>
 

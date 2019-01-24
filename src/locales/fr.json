@@ -35,5 +35,7 @@
   "click-to-know-more": "Cliquez pour en savoir plus",
   "label-event-search": "Chercher un événement",
   "label-add-pictures": "Ajouter des images",
-  "button-upload-pictures": "Télécharger les images sélectionnées"
+  "button-upload-pictures": "Télécharger les images sélectionnées",
+  "calendar-label" : "Ajouter à votre calendrier",
+  "label-toggle-library-device" : "Cet appareil est-il déployé dans la bibliothèque ?"
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="contact-tile" class="explore-tile">
+  <div id="contact-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
     <h2 id="contact-h2-tile">{{$t("address-label")}}</h2>
     <p>
       {{date['place_name']}}<br/>
@@ -11,13 +11,11 @@
     <p>
       {{date['place_phone']}}
     </p>
-    <h2>{{$t('date-label')}} :</h2>
-    <p>{{beautifulDate}}, </p>
   </div>
 </template>
 
 <script>
-import HelperMixinVue from '../helpers/HelperMixin.vue';
+import HelperMixinVue from '../helpers/HelperMixin.vue'
 
 export default {
   mixins: [HelperMixinVue],
@@ -31,7 +29,7 @@ export default {
 
 <style>
 #contact-tile {
-  grid-row: span 2;
+  grid-row: span 1;
   grid-column: span 1;
   background: white;
   border-radius: 6px;
