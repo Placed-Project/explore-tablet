@@ -9,13 +9,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'description',
+      name: 'main',
       component: Main
     },
     {
       path: '/admin',
       name: 'admin',
       component: Admin
+    },
+    {
+      path: '/:eventId',
+      name: 'event',
+      component: Main
     }
   ]
 })
