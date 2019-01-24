@@ -82,6 +82,16 @@ export default {
   margin: 8px;
 }
 
+@media (max-width: 640px) {
+  #main-view {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 16px);
+    width: calc(100vw - 16px);
+    margin: 8px;
+  }
+}
+
 .explore-tile {
   margin: 5px;
 }

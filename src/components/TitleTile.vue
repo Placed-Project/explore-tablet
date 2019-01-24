@@ -21,6 +21,13 @@ export default {
   border-radius: 6px;*/
 }
 
+
+@media (max-width: 640px) {
+  #title-tile {
+    grid-column: span 1;
+  }
+}
+
 #event-title-h1-tile {
   font-weight: 800;
   font-size: 40px;

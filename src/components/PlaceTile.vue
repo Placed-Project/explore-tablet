@@ -33,6 +33,12 @@ export default {
   overflow: hidden;
 }
 
+@media (max-width: 640px) {
+  #place-tile {
+    grid-column: span 1;
+  }
+}
+
 #place-name-h2-tile {
   margin-top: 10px;
   margin-left: 20px;
