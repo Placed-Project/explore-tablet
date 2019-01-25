@@ -13,10 +13,9 @@ export default {
   mixins: [HelperMixin],
   mounted: function () {
     var canvas = document.getElementById('qr-canvas')
- 
-    QRCode.toCanvas(canvas, `${this.$store.state.exploreURL}/#/${this.eventData["event_id"]}`, function (error) {
+
+    QRCode.toCanvas(canvas, `${this.$store.state.exploreURL}/#/${this.eventData['event_id']}`, function (error) {
       if (error) console.error(error)
-      console.log('success!');
     })
   }
 }

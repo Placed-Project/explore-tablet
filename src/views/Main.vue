@@ -1,13 +1,13 @@
 <template>
   <div id="main-view">
+      <TitleTile></TitleTile>
       <DescTile></DescTile>
       <PlaceTile></PlaceTile>
       <GalleryTile></GalleryTile>
-      <TitleTile></TitleTile>
       <ContactTile></ContactTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice"></QRTile>
-      <catch-screen v-if="showCatchScreen" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
+      <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
   </div>
 </template>
 

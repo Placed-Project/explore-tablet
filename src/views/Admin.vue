@@ -66,7 +66,7 @@ export default {
     libraryDevice: function (newVal, oldVal) {
       this.$store.dispatch('toggleLibraryDevice', newVal)
     }
-   }
+  }
 }
 </script>
 
