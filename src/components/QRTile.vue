@@ -1,5 +1,6 @@
 <template>
   <div id="qr-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
+      <h2>{{$t('qr-label')}}</h2>
       <canvas id="qr-canvas"></canvas>
       <p id="qr-url-p">{{$store.state.exploreURL}}/#/{{eventData["event_id"]}}</p>
   </div>
@@ -34,7 +35,14 @@ export default {
   min-height: fit-content;
 }
 
+#qr-tile h2 {
+  margin-top: 10px;
+  margin-left: 20px;
+  size: 20px;
+}
+
 #qr-url-p {
   font-size: 13px;
+  margin-top: 0;
 }
 </style>

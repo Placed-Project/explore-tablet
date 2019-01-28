@@ -41,6 +41,7 @@ export default {
 </script>
 
 <style>
+
 #calendar-tile {
   grid-row: span 1;
   grid-column: span 1;
@@ -59,5 +60,13 @@ export default {
   position: absolute;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
+  max-width: 20%;
+}
+
+
+@media (max-width: 640px) {
+  #calendar-h2-tile {
+    max-width: 80%;
+  }
 }
 </style>

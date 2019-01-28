@@ -33,6 +33,8 @@ export default {
   font-size: 40px;
   color: white;
   font-family: 'rennerbold', sans-serif;
+  line-height: 1.2;
+  margin-bottom: 0;
 }
 
 #event-date-h2-tile {
@@ -40,5 +42,6 @@ export default {
   font-size: 20px;
   color: white;
   font-family: 'rennerbold', sans-serif;
+  margin-top: 0;
 }
 </style>

@@ -37,5 +37,6 @@
   "label-add-pictures": "Add pictures",
   "button-upload-pictures" : "Upload selected pictures",
   "calendar-label" : "Add to your calendar",
-  "label-toggle-library-device" : "Is this device deployed in the library ?"
+  "label-toggle-library-device" : "Is this device deployed in the library ?",
+  "qr-label" : "Take me with you !"
 }
