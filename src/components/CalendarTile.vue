@@ -63,7 +63,6 @@ export default {
   max-width: 20%;
 }
 
-
 @media (max-width: 640px) {
   #calendar-h2-tile {
     max-width: 80%;

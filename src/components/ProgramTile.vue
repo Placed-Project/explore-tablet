@@ -17,25 +17,25 @@ export default {
   },
   created: function () {
     fetch(`${this.$store.state.libraryApiUrl}${this.eventData['event_mere']}`)
-    .then((resp) => {
-      if(resp.status !== 200) {
-        return
-      }
-      return resp.json()
-    })
-    .then((data) => {
-      this.eventMere = data[0]
-    })
+      .then((resp) => {
+        if (resp.status !== 200) {
+          return
+        }
+        return resp.json()
+      })
+      .then((data) => {
+        this.eventMere = data[0]
+      })
   },
   computed: {
     progName: function () {
-      if(this.eventMere) {
+      if (this.eventMere) {
         return this.eventMere['event_title']
       }
       return ''
     },
     progDesc: function () {
-      if(this.eventMere) {
+      if (this.eventMere) {
         return this.eventMere['event_description_courte'] + this.eventMere['event_description']
       }
     }
