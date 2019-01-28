@@ -38,5 +38,6 @@
   "button-upload-pictures": "Télécharger les images sélectionnées",
   "calendar-label" : "Ajouter à votre calendrier",
   "label-toggle-library-device" : "Cet appareil est-il déployé dans la bibliothèque ?",
-  "qr-label" : "Emportez-moi !"
+  "qr-label" : "Emportez-moi !",
+  "program-begin-label" : "Cette animation fait partie de"
 }

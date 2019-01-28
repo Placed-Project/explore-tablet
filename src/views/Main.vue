@@ -7,6 +7,7 @@
       <ContactTile></ContactTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice"></QRTile>
+      <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
   </div>
 </template>
@@ -22,6 +23,7 @@ import GalleryTile from '../components/GalleryTile'
 import CalendarTile from '../components/CalendarTile'
 import QRTile from '../components/QRTile'
 import HelperMixin from '../helpers/HelperMixin'
+import ProgramTile from '../components/ProgramTile'
 
 export default {
   name: 'main-view',
@@ -34,7 +36,8 @@ export default {
     GalleryTile,
     ContactTile,
     CalendarTile,
-    QRTile
+    QRTile,
+    ProgramTile
   },
   data: function () {
     return {
