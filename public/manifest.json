@@ -1,6 +1,6 @@
 {
-  "name": "explore-tablet",
-  "short_name": "explore-tablet",
+  "name": "Explore",
+  "short_name": "Explore",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#1A2A6C",
+  "theme_color": "#1A2A6C"
 }

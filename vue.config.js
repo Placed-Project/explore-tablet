@@ -6,5 +6,11 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: true
     }
+  },
+
+  pwa: {
+    name: 'Explore',
+    themeColor: '#1A2A6C',
+    msTileColor: '#1A2A6C'
   }
 }

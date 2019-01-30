@@ -46,6 +46,7 @@ export default {
     clearInterval(this.cameraInterval)
   },
   mounted: function () {
+    let self = this
     let streaming = false
     let video = document.querySelector('#video')
     let canvas = document.createElement('canvas')
@@ -62,76 +63,94 @@ export default {
     // bandTwo.style.backgroundImage = `url(${this.eventData['image_url']})`
     // bandThree.style.backgroundImage = `url(${this.eventData['image_url']})`
 
+
+// Without extracting this from the commented code below, it doesn't work on WKWebkit
+    bandThree.style.width = bandTwo.style.width = bandOne.style.width = `60vw`
+    bandThree.style.height = bandTwo.style.height = bandOne.style.height = `25vh`
+    bandTwo.style.left = `20vw`
+
+    document.querySelector('#short-desc').style.height = 'auto'
+    document.querySelector('#call-to-action').style.height = 'auto'
+    let b = baffle(document.querySelector('#call-to-action')).start()
+    b.reveal(1500)
+/*
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: false
     }).then(function (stream) {
       video.srcObject = stream
       video.play()
-    }).catch(function (err) {
-      console.log('An error occured! ' + err)
-    })
 
-    video.addEventListener('canplay', function (ev) {
-      if (!streaming) {
-        height = video.videoHeight / (video.videoWidth / width)
-        video.setAttribute('width', width)
-        video.setAttribute('height', height)
-        canvas.setAttribute('width', width)
-        canvas.setAttribute('height', height)
-        streaming = true
-      }
-    }, false)
-
-    function takepicture () {
-      canvas.width = width
-      canvas.height = height
-      canvas.getContext('2d').drawImage(video, 0, 0, width, height)
-    }
-
-    this.cameraInterval = setInterval(function (ev) {
-      takepicture()
-    }, 500)
-
-    video = document.getElementById('video')
-    var tracker = new tracking.ObjectTracker('face')
-    tracker.setInitialScale(4)
-    tracker.setStepSize(2)
-    tracker.setEdgesDensity(0.1)
-    this.trackingInterval = setInterval(() => { tracking.track(canvas, tracker) }, 1000)
-    tracker.on('track', function (event) {
-      let facefound = false
-      event.data.forEach(function (face) {
-        facefound = true
-      })
-
-      if (facefound) {
-        if (!keepDetail) {
-          bandThree.style.width = bandTwo.style.width = bandOne.style.width = `50vw`
-          bandThree.style.height = bandTwo.style.height = bandOne.style.height = `20vh`
-          bandTwo.style.left = `25vw`
-
-          document.querySelector('#short-desc').style.height = 'auto'
-          document.querySelector('#call-to-action').style.height = 'auto'
-          let b = baffle(document.querySelector('#call-to-action')).start()
-          b.reveal(1500)
-
-          keepDetail = true
+      video.addEventListener('canplay', function (ev) {
+        if (!streaming) {
+          height = video.videoHeight / (video.videoWidth / width)
+          video.setAttribute('width', width)
+          video.setAttribute('height', height)
+          canvas.setAttribute('width', width)
+          canvas.setAttribute('height', height)
+          streaming = true
         }
+      }, false)
 
-        clearTimeout(detailKeeperTimer)
-        detailKeeperTimer = setTimeout(() => {
-          keepDetail = false
-        }, 3000)
-      } else if (!keepDetail) {
-        bandThree.style.width = bandTwo.style.width = bandOne.style.width = `100vw`
-        bandTwo.style.height = bandOne.style.height = `33vh`
-        bandThree.style.height = `34vh`
-        bandTwo.style.left = `0vw`
-        document.querySelector('#short-desc').style.height = '0'
-        document.querySelector('#call-to-action').style.height = '0'
+      function takepicture () {
+        canvas.width = width
+        canvas.height = height
+        canvas.getContext('2d').drawImage(video, 0, 0, width, height)
       }
-    })
+
+      self.cameraInterval = setInterval(function (ev) {
+        takepicture()
+      }, 500)
+
+      var tracker = new tracking.ObjectTracker('face')
+      tracker.setInitialScale(4)
+      tracker.setStepSize(2)
+      tracker.setEdgesDensity(0.1)
+      self.trackingInterval = setInterval(() => { tracking.track(canvas, tracker) }, 1000)
+      tracker.on('track', function (event) {
+        let facefound = false
+        event.data.forEach(function (face) {
+          facefound = true
+        })
+
+        if (facefound) {
+          if (!keepDetail) {
+            bandThree.style.width = bandTwo.style.width = bandOne.style.width = `50vw`
+            bandThree.style.height = bandTwo.style.height = bandOne.style.height = `20vh`
+            bandTwo.style.left = `25vw`
+
+            document.querySelector('#short-desc').style.height = 'auto'
+            document.querySelector('#call-to-action').style.height = 'auto'
+            let b = baffle(document.querySelector('#call-to-action')).start()
+            b.reveal(1500)
+
+            keepDetail = true
+          }
+
+          clearTimeout(detailKeeperTimer)
+          detailKeeperTimer = setTimeout(() => {
+            keepDetail = false
+          }, 3000)
+        } else if (!keepDetail) {
+          bandThree.style.width = bandTwo.style.width = bandOne.style.width = `100vw`
+          bandTwo.style.height = bandOne.style.height = `33vh`
+          bandThree.style.height = `34vh`
+          bandTwo.style.left = `0vw`
+          document.querySelector('#short-desc').style.height = '0'
+          document.querySelector('#call-to-action').style.height = '0'
+        }
+      })
+    }).catch(function (err) {
+      console.log('Camera must be unavailable : ' + err)
+      bandThree.style.width = bandTwo.style.width = bandOne.style.width = `60vw`
+      bandThree.style.height = bandTwo.style.height = bandOne.style.height = `25vh`
+      bandTwo.style.left = `20vw`
+
+      document.querySelector('#short-desc').style.height = 'auto'
+      document.querySelector('#call-to-action').style.height = 'auto'
+      let b = baffle(document.querySelector('#call-to-action')).start()
+      b.reveal(1500)
+    })*/
   }
 }
 </script>
