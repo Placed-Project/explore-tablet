@@ -8,6 +8,7 @@
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice"></QRTile>
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
+      <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
   </div>
 </template>
@@ -24,6 +25,7 @@ import CalendarTile from '../components/CalendarTile'
 import QRTile from '../components/QRTile'
 import HelperMixin from '../helpers/HelperMixin'
 import ProgramTile from '../components/ProgramTile'
+import ProgramEventsTile from '../components/ProgramEventsTile'
 
 export default {
   name: 'main-view',
@@ -37,7 +39,8 @@ export default {
     ContactTile,
     CalendarTile,
     QRTile,
-    ProgramTile
+    ProgramTile,
+    ProgramEventsTile
   },
   data: function () {
     return {
@@ -82,11 +85,10 @@ export default {
 #main-view {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 28vh);
   /*gap: 10px;
   grid-gap: 10px;*/
   grid-auto-flow: dense;
-  height: calc(100vh - 16px);
   width: calc(100vw - 16px);
   margin: 8px;
 }
@@ -95,20 +97,24 @@ export default {
   #main-view {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 16px);
     width: calc(100vw - 16px);
-    margin: 8px;
+    margin: 2px;
+  }
+
+  .explore-tile {
+    max-height: 210px;
   }
 
   .focused-tile {
-    height: 98vh;
-    width: 98vw;
+    max-height: 98vh;
+    height: 96vh;
+    width: 95vw;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 5;
-    box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.43);
-    transition: all 1s;
+    box-shadow: 0px 0px 0px 30px rgba(0, 0, 0, 0.43);
+    transition: all 0.2s;
   }
 
 }

@@ -6,7 +6,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "cordova-build-android": "vue-cli-service cordova-build-android",
+    "cordova-build-browser": "vue-cli-service cordova-build-browser",
+    "cordova-build-ios": "vue-cli-service cordova-build-ios",
+    "cordova-serve-android": "vue-cli-service cordova-serve-android",
+    "cordova-serve-browser": "vue-cli-service cordova-serve-browser",
+    "cordova-serve-ios": "vue-cli-service cordova-serve-ios"
   },
   "dependencies": {
     "baffle": "^0.3.6",

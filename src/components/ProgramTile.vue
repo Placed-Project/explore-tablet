@@ -45,8 +45,8 @@ export default {
 
 <style>
 #prog-tile {
-  grid-row: span 1;
-  grid-column: span 2;
+  grid-row: span 2;
+  grid-column: span 1;
   background: white;
   border-radius: 6px;
   overflow: scroll;

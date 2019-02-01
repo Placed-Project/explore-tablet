@@ -39,5 +39,6 @@
   "calendar-label" : "Ajouter à votre calendrier",
   "label-toggle-library-device" : "Cet appareil est-il déployé dans la bibliothèque ?",
   "qr-label" : "Scannez-moi",
-  "program-begin-label" : "Cette animation fait partie de"
+  "program-begin-label" : "Cycle :",
+  "program-events-list-label" : "Animations du même cycle"
 }

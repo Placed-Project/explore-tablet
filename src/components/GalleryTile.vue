@@ -1,6 +1,6 @@
 <template>
   <div id="gallery-tile" class="explore-tile">
-    <h2 id="gallery-h2-tile">{{$t('gallery-label')}}</h2>
+    <!--<h2 id="gallery-h2-tile">{{$t('gallery-label')}}</h2>-->
     <img :src="eventData['image_url']"/>
   </div>
 </template>
