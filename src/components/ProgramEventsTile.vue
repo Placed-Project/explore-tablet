@@ -1,5 +1,5 @@
 <template>
-  <div id="program-events-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
+  <div id="program-events-tile" class="explore-tile">
     <h2>{{$t('program-events-list-label')}}</h2>
     <div id="program-events-list-wrapper">
       <EventMicrotile v-for="event in childEvents" :key="event['event_id']" :pevent-data-id="event"></EventMicrotile>

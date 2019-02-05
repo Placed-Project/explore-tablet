@@ -62,6 +62,7 @@ export default {
   watch: {
     item: function (newItem, oldItem) {
       this.$store.dispatch('changeEventId', `${newItem.event_id}`)
+      this.$store.dispatch('changeEventIdLibrary', `${newItem.event_id}`)
     },
     libraryDevice: function (newVal, oldVal) {
       this.$store.dispatch('toggleLibraryDevice', newVal)

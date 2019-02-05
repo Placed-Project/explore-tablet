@@ -1,9 +1,11 @@
 <template>
-  <div class="event-microtile">
-    <h3>{{eventTitle}}</h3>
-    <!--<h3>{{beautifulDate(peventData['dates'][0]['date_start'])}}</h3>-->
-    <img :src="eventImage"/>
-  </div>
+  <router-link :to="eventUrl">
+    <div class="event-microtile">
+      <h3>{{eventTitle}}</h3>
+      <!--<h3>{{beautifulDate(peventData['dates'][0]['date_start'])}}</h3>-->
+      <img :src="eventImage"/>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -25,6 +27,9 @@ export default {
     },
     eventImage: function () {
       return this.peventData ? this.peventData['image_url'] : ''
+    },
+    eventUrl: function () {
+      return this.peventData ? `/${this.peventData['event_id']}` : '/'
     }
   },
   created: function () {
@@ -51,6 +56,7 @@ export default {
   height: 140px;
   display: inline-block;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .event-microtile img {

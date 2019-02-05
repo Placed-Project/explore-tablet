@@ -24,6 +24,7 @@ export default new Vuex.Store({
     libraryQueryUrl: 'https://www.bm-lyon.fr/json_explore.php?action=search&query=',
     exploreURL: 'https://explore.placed.eu',
     currentEventId: '5006',
+    currentEventIdLibrary: '5006',
     currentEventDate: 0,
     eventData: null,
     eventGallery: [],
@@ -42,6 +43,10 @@ export default new Vuex.Store({
     CHANGE_EVENT_DATA: function (state, newData) {
       state.eventData = newData
       localStorage.setItem('eventData', JSON.stringify(newData))
+    },
+    CHANGE_EVENT_ID_LIBRARY: function (state, newId) {
+      state.currentEventIdLibrary = newId
+      localStorage.setItem('eventIdLibrary', newId)
     }
   },
   actions: {
@@ -60,10 +65,14 @@ export default new Vuex.Store({
           console.log(`Error : ${e}`)
         })
     },
+    changeEventIdLibrary: function ({ commit }, newId) {
+      commit('CHANGE_EVENT_ID_LIBRARY', newId)
+    },
     initStore: function ({ commit }) {
       let eventId = localStorage.getItem('eventId')
       let eventData = localStorage.getItem('eventData')
       let libraryDevice = localStorage.getItem('libraryDevice')
+      let eventIdLibrary = localStorage.getItem('eventIdLibrary')
       if (eventId && eventData) {
         commit('CHANGE_EVENT_ID', eventId)
         commit('CHANGE_EVENT_DATA', JSON.parse(eventData))
@@ -72,6 +81,9 @@ export default new Vuex.Store({
       }
       if (libraryDevice) {
         commit('CHANGE_LIBRARY_DEVICE', libraryDevice === 'true')
+      }
+      if (eventIdLibrary) {
+        commit('CHANGE_EVENT_ID_LIBRARY', eventIdLibrary)
       }
     },
     toggleLibraryDevice: function ({ commit }) {

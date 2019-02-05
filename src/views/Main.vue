@@ -56,7 +56,17 @@ export default {
       }
       this.timeoutId = setTimeout(() => {
         this.showCatchScreen = true
+        if (this.$store.state.libraryDevice) {
+          this.$store.dispatch('changeEventId', `${this.$store.state.currentEventIdLibrary}`)
+        }
       }, 60000)
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      if (this.$route.params.eventId) {
+        this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
+      }
     }
   },
   created () {
