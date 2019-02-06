@@ -2,6 +2,7 @@
   <div id="main-view">
       <TitleTile></TitleTile>
       <DescTile></DescTile>
+      <PlusOneTile></PlusOneTile>
       <PlaceTile></PlaceTile>
       <GalleryTile></GalleryTile>
       <ContactTile></ContactTile>
@@ -26,6 +27,7 @@ import QRTile from '../components/QRTile'
 import HelperMixin from '../helpers/HelperMixin'
 import ProgramTile from '../components/ProgramTile'
 import ProgramEventsTile from '../components/ProgramEventsTile'
+import PlusOneTile from '../components/PlusOneTile'
 
 export default {
   name: 'main-view',
@@ -40,7 +42,8 @@ export default {
     CalendarTile,
     QRTile,
     ProgramTile,
-    ProgramEventsTile
+    ProgramEventsTile,
+    PlusOneTile
   },
   data: function () {
     return {
