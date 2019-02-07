@@ -1,20 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import { EventEmitter } from 'events';
-// import firebase from 'firebase'
+import firebase from 'firebase'
 
-// var config = {
-//   apiKey: 'AIzaSyB8puei6DqfHvAwJ5cJCqy7ad35_mGajZw',
-//   authDomain: 'explore-tablet.firebaseapp.com',
-//   databaseURL: 'https://explore-tablet.firebaseio.com',
-//   storageBucket: 'explore-tablet.appspot.com'
-// }
+var config = {
+  apiKey: 'AIzaSyB8puei6DqfHvAwJ5cJCqy7ad35_mGajZw',
+  authDomain: 'explore-tablet.firebaseapp.com',
+  databaseURL: 'https://explore-tablet.firebaseio.com',
+  storageBucket: 'explore-tablet.appspot.com'
+}
 
-// let firebaseApp = firebase.initializeApp(config)
-
-// You can retrieve services via the defaultApp variable...
-// var defaultStorage = firebaseApp.storage()
-// var defaultDatabase = firebaseApp.database()
+let firebaseApp = firebase.initializeApp(config)
 
 Vue.use(Vuex)
 
@@ -28,7 +23,9 @@ export default new Vuex.Store({
     currentEventDate: 0,
     eventData: null,
     eventGallery: [],
-    libraryDevice: false
+    libraryDevice: false,
+    database: firebaseApp.database(),
+    storage: firebaseApp.storage()
   },
   mutations: {
     CHANGE_LIBRARY_DEVICE: function (state, newVal) {
@@ -59,6 +56,17 @@ export default new Vuex.Store({
               localStorage.setItem('eventData', JSON.stringify(data[0]))
               commit('CHANGE_EVENT_ID', newId)
               commit('CHANGE_EVENT_DATA', data[0])
+
+              // Create firebase entity
+              this.state.database.ref(`event/${newId}`).once('value')
+                .then((snap) => {
+                  if (snap.val() === null) {
+                    this.state.database.ref(`event/${newId}`).set({
+                      eventName: data[0].event_title,
+                      interestCount: 0
+                    })
+                  }
+                })
             })
           }
         }).catch((e) => {

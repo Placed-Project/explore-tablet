@@ -37,7 +37,9 @@
   "label-add-pictures": "Add pictures",
   "button-upload-pictures" : "Upload selected pictures",
   "calendar-label" : "Add to your calendar",
-  "label-toggle-library-device" : "Is this device deployed in the library ?",
-  "qr-label" : "Take me with you !",
-  "program-begin-label" : "This event is part of"
+  "label-toggle-library-device" : "Is this device deployed in the library?",
+  "qr-label" : "Take me with you!",
+  "program-begin-label" : "This event is part of",
+  "interesting-label" : "Interesting!",
+  "interested-label" : "I am interested!"
 }

@@ -40,5 +40,7 @@
   "label-toggle-library-device" : "Cet appareil est-il déployé dans la bibliothèque ?",
   "qr-label" : "Scannez-moi",
   "program-begin-label" : "Cycle :",
-  "program-events-list-label" : "Animations du même cycle"
+  "program-events-list-label" : "Animations du même cycle",
+  "interesting-label" : "Intéressant !",
+  "interested-label" : "Je suis intéressé !"
 }
