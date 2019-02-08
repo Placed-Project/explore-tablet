@@ -133,4 +133,11 @@ export default {
   margin-top: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+@media (max-width: 640px) {
+  #plus-one-button {
+    margin-top: 20%;
+  }
+}
 </style>

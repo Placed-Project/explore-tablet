@@ -19,17 +19,15 @@ export default {
       childEvents: []
     }
   },
+  watch: {
+    '$route' (to, from) {
+      if (this.$route.params.eventId) {
+        this.populateTile()
+      }
+    }
+  },
   created: function () {
-    fetch(`https://www.bm-lyon.fr/json_explore.php?action=listEvents&program=${this.eventData['event_mere']}`)
-      .then((resp) => {
-        if (resp.status !== 200) {
-          return
-        }
-        return resp.json()
-      })
-      .then((data) => {
-        this.childEvents = data
-      })
+    this.populateTile()
   },
   computed: {
     progName: function () {
@@ -42,6 +40,20 @@ export default {
       if (this.eventMere) {
         return this.eventMere['event_description_courte'] + this.eventMere['event_description']
       }
+    }
+  },
+  methods: {
+    populateTile: function () {
+      fetch(`https://www.bm-lyon.fr/json_explore.php?action=listEvents&program=${this.eventData['event_mere']}`)
+        .then((resp) => {
+          if (resp.status !== 200) {
+            return
+          }
+          return resp.json()
+        })
+        .then((data) => {
+          this.childEvents = data
+        })
     }
   }
 }

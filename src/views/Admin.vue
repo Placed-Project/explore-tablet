@@ -79,4 +79,17 @@ export default {
   padding: 10px;
   margin: 10px;
 }
+
+#admin-view input {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+
+#admin-view input:focus {
+  outline:none;
+}
 </style>
