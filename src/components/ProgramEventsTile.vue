@@ -9,7 +9,7 @@
 
 <script>
 import HelperMixin from '../helpers/HelperMixin'
-import EventMicrotile from './EventMicrotile'
+import EventMicrotile from './microcomponent/EventMicrotile'
 
 export default {
   mixins: [HelperMixin],

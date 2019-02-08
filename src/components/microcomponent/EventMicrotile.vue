@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HelperMixinVue from '../helpers/HelperMixin.vue'
+import HelperMixinVue from '../../helpers/HelperMixin.vue'
 
 export default {
   mixins: [HelperMixinVue],
