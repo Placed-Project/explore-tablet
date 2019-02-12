@@ -5,12 +5,13 @@
       <PlusOneTile></PlusOneTile>
       <PlaceTile></PlaceTile>
       <GalleryTile></GalleryTile>
-      <ContactTile></ContactTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice"></QRTile>
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
+      <ContactTile></ContactTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
+      <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import HelperMixin from '../helpers/HelperMixin'
 import ProgramTile from '../components/ProgramTile'
 import ProgramEventsTile from '../components/ProgramEventsTile'
 import PlusOneTile from '../components/PlusOneTile'
+import NightScreen from '../components/NightScreen'
 
 export default {
   name: 'main-view',
@@ -43,13 +45,15 @@ export default {
     QRTile,
     ProgramTile,
     ProgramEventsTile,
-    PlusOneTile
+    PlusOneTile,
+    NightScreen
   },
   data: function () {
     return {
       timeoutId: -1,
       appObserver: null,
-      showCatchScreen: true
+      showCatchScreen: true,
+      showNightScreen: false
     }
   },
   methods: {
@@ -73,6 +77,14 @@ export default {
     }
   },
   created () {
+    setInterval(() => {
+      let currentTime = new Date()
+      if (currentTime.getDay() < 2 || currentTime.getHours() >= 19 || currentTime.getHours() < 9) {
+        this.showNightScreen = true
+      } else {
+        this.showNightScreen = false
+      }
+    }, 60000)
     window.addEventListener('scroll', this.resetCatchScreenTimeout)
     if (this.$route.params.eventId) {
       this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
