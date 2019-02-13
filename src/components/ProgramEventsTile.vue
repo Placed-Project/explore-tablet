@@ -13,7 +13,7 @@ import EventMicrotile from './microcomponent/EventMicrotile'
 
 export default {
   mixins: [HelperMixin],
-  components: {EventMicrotile},
+  components: { EventMicrotile },
   data: function () {
     return {
       childEvents: []

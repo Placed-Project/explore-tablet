@@ -63,8 +63,7 @@ export default {
     // bandTwo.style.backgroundImage = `url(${this.eventData['image_url']})`
     // bandThree.style.backgroundImage = `url(${this.eventData['image_url']})`
 
-
-// Without extracting this from the commented code below, it doesn't work on WKWebkit
+    // Without extracting this from the commented code below, it doesn't work on WKWebkit
     bandThree.style.width = bandTwo.style.width = bandOne.style.width = `60vw`
     bandThree.style.height = bandTwo.style.height = bandOne.style.height = `25vh`
     bandTwo.style.left = `20vw`
@@ -73,7 +72,7 @@ export default {
     document.querySelector('#call-to-action').style.height = 'auto'
     let b = baffle(document.querySelector('#call-to-action')).start()
     b.reveal(1500)
-/*
+    /*
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: false
@@ -150,7 +149,7 @@ export default {
       document.querySelector('#call-to-action').style.height = 'auto'
       let b = baffle(document.querySelector('#call-to-action')).start()
       b.reveal(1500)
-    })*/
+    }) */
   }
 }
 </script>

@@ -94,9 +94,9 @@ export default new Vuex.Store({
         commit('CHANGE_EVENT_ID_LIBRARY', eventIdLibrary)
       }
     },
-    toggleLibraryDevice: function ({ commit }) {
-      commit('CHANGE_LIBRARY_DEVICE', !this.state.libraryDevice)
-      localStorage.setItem('libraryDevice', this.state.libraryDevice)
+    toggleLibraryDevice: function ({ commit }, newVal) {
+      commit('CHANGE_LIBRARY_DEVICE', newVal)
+      localStorage.setItem('libraryDevice', newVal)
     }
   }
 })

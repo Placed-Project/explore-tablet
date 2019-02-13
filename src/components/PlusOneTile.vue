@@ -62,8 +62,8 @@ export default {
       }, 4000)
     },
     incInterest: function () {
-      this.$store.state.database.ref(`event/${this.eventData.event_id}/interestCount`).transaction(function(count) {
-        return count + 1;
+      this.$store.state.database.ref(`event/${this.eventData.event_id}/interestCount`).transaction(function (count) {
+        return count + 1
       }, (err, committed, snap) => {
         if (err) {
           console.log(err)
@@ -133,7 +133,6 @@ export default {
   margin-top: 50%;
   transform: translate(-50%, -50%);
 }
-
 
 @media (max-width: 640px) {
   #plus-one-button {

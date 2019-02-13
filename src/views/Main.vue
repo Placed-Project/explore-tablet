@@ -1,12 +1,12 @@
 <template>
   <div id="main-view">
-      <TitleTile></TitleTile>
+      <TitleTile @click.native="titleTileClicked"></TitleTile>
       <DescTile></DescTile>
       <PlusOneTile></PlusOneTile>
       <PlaceTile></PlaceTile>
       <GalleryTile></GalleryTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
-      <QRTile v-if="$store.state.libraryDevice"></QRTile>
+      <QRTile v-if="$store.state.libraryDevice" @click.native="QRTileClicked"></QRTile>
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <ContactTile></ContactTile>
@@ -53,10 +53,30 @@ export default {
       timeoutId: -1,
       appObserver: null,
       showCatchScreen: true,
-      showNightScreen: false
+      showNightScreen: false,
+      titleClickCount: 0,
+      QRClickCount: 0
     }
   },
   methods: {
+    titleTileClicked () {
+      console.log('coucou')
+      if (this.titleClickCount < 5) {
+        this.titleClickCount += 1
+      } else {
+        this.titleClickCount = 0
+      }
+    },
+    QRTileClicked () {
+      if (this.titleClickCount == 5) {
+        this.QRClickCount += 1
+        if (this.titleClickCount == 5 && this.QRClickCount == 5) {
+          this.$router.push('admin')
+        }
+      } else {
+        this.QRClickCount = 0
+      }
+    },
     resetCatchScreenTimeout (event) {
       if (this.timeoutId !== -1) {
         clearTimeout(this.timeoutId)

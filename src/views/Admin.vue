@@ -2,6 +2,7 @@
   <div id="admin-view">
     <form>
       <div>
+        <p v-if="$store.state.currentEventIdLibrary">This tablet has a libraryEvent setup : {{$store.state.currentEventIdLibrary}}</p>
         <label for="event-autocomplete">{{$t("label-event-search")}}</label>
         <v-autocomplete
           id="event-autocomplete"
@@ -9,8 +10,7 @@
           v-model="item"
           :get-label="getLabel"
           :component-item='template'
-          @update-items="updateItems"
-          :value="eventData">
+          @update-items="updateItems">
         </v-autocomplete>
       </div>
       <div>
@@ -24,6 +24,7 @@
         <button @click="addLink">Ajouter le lien</button>
       </div>
     </form>
+    <router-link to="/">Return to Home screen</router-link>
   </div>
 </template>
 
@@ -45,7 +46,7 @@ export default {
       template: ItemTemplate,
       libraryDevice: false,
       links: [],
-      addedLink: ""
+      addedLink: ''
     }
   },
   methods: {
@@ -69,25 +70,27 @@ export default {
       pushRef.set(this.addedLink)
     }
   },
-  mounted: function () {
+  created: function () {
     this.libraryDevice = this.$store.state.libraryDevice
     // Refresh link list
     this.links = []
-    this.$store.state.database.ref(`event/${this.eventData.event_id}/links`).on('child_added', (data)=> {
+    this.$store.state.database.ref(`event/${this.eventData.event_id}/links`).on('child_added', (data) => {
       this.links.push(data.val())
     })
   },
   watch: {
     item: function (newItem, oldItem) {
-      this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_added')
-      this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_removed')
 
       this.$store.dispatch('changeEventId', `${newItem.event_id}`)
       this.$store.dispatch('changeEventIdLibrary', `${newItem.event_id}`)
 
       // Refresh link list
+      if (oldItem.event_id) {
+        this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_added')
+        this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_removed')
+      }
       this.links = []
-      this.$store.state.database.ref(`event/${newItem.event_id}/links`).on('child_added', (data)=> {
+      this.$store.state.database.ref(`event/${newItem.event_id}/links`).on('child_added', (data) => {
         this.links.push(data.val())
       })
     },

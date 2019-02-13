@@ -13,7 +13,7 @@ import HelperMixinVue from '../../helpers/HelperMixin.vue'
 
 export default {
   mixins: [HelperMixinVue],
-  props:[
+  props: [
     'peventDataId'
   ],
   data: function () {
