@@ -42,5 +42,10 @@
   "program-begin-label" : "Cycle :",
   "program-events-list-label" : "Animations du même cycle",
   "interesting-label" : "Intéressant !",
-  "interested-label" : "Je suis intéressé !"
+  "interested-label" : "Je suis intéressé !",
+  "label-link-list-label" : "Liens externes pour cet événement :",
+  "write-link-here-label" : "Ecrivez votre lien ici",
+  "write-link-label-here-label" : "Ecrivez la description de votre lien ici",
+  "no-utl-provided-alert" : "Vous devez au moins entrer une URL !",
+  "additional-links-label" : "En savoir plus"
 }

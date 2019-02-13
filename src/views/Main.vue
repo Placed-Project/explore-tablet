@@ -10,6 +10,7 @@
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <ContactTile></ContactTile>
+      <ClientLinksTile v-if="!$store.state.libraryDevice"></ClientLinksTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
@@ -29,6 +30,7 @@ import HelperMixin from '../helpers/HelperMixin'
 import ProgramTile from '../components/ProgramTile'
 import ProgramEventsTile from '../components/ProgramEventsTile'
 import PlusOneTile from '../components/PlusOneTile'
+import ClientLinksTile from '../components/ClientLinksTile'
 import NightScreen from '../components/NightScreen'
 
 export default {
@@ -46,6 +48,7 @@ export default {
     ProgramTile,
     ProgramEventsTile,
     PlusOneTile,
+    ClientLinksTile,
     NightScreen
   },
   data: function () {
@@ -68,9 +71,9 @@ export default {
       }
     },
     QRTileClicked () {
-      if (this.titleClickCount == 5) {
+      if (this.titleClickCount === 5) {
         this.QRClickCount += 1
-        if (this.titleClickCount == 5 && this.QRClickCount == 5) {
+        if (this.titleClickCount === 5 && this.QRClickCount === 5) {
           this.$router.push('admin')
         }
       } else {

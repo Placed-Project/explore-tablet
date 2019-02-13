@@ -19,8 +19,9 @@
       </div>
       <div>
         <label>{{$t("label-link-list-label")}}</label>
-        <div v-for="link in links" :key="eventData.event_id + link"><span @click="deleteLink(eventData.event_id)">X</span>{{link}}</div>
-        <input id="link-list" type="url" v-model="addedLink">
+        <div v-for="link in links" :key="link.key"><span @click="deleteLink(link.key)">X </span>{{link.val().label}} : {{link.val().url}}</div>
+        <input id="link-list" type="url" v-model="addedLink" :placeholder="$t('write-link-here-label')">
+        <input id="link-label-list" type="text" v-model="addedLinkLabel" :placeholder="$t('write-link-label-here-label')">
         <button @click="addLink">Ajouter le lien</button>
       </div>
     </form>
@@ -46,7 +47,8 @@ export default {
       template: ItemTemplate,
       libraryDevice: false,
       links: [],
-      addedLink: ''
+      addedLink: '',
+      addedLinkLabel: ''
     }
   },
   methods: {
@@ -66,33 +68,56 @@ export default {
       })
     },
     addLink: function () {
+      if (this.addedLink.length === 0) {
+        alert(this.$t('no-utl-provided-alert'))
+        return
+      }
+
+      if (!this.addedLink.match(/^http[s]?:\/\/.*/gm)) {
+        this.addedLink = `http://${this.addedLink}`
+      }
+
       let pushRef = this.$store.state.database.ref(`event/${this.eventData.event_id}/links`).push()
-      pushRef.set(this.addedLink)
-    }
-  },
-  created: function () {
-    this.libraryDevice = this.$store.state.libraryDevice
-    // Refresh link list
-    this.links = []
-    this.$store.state.database.ref(`event/${this.eventData.event_id}/links`).on('child_added', (data) => {
-      this.links.push(data.val())
-    })
-  },
-  watch: {
-    item: function (newItem, oldItem) {
-
-      this.$store.dispatch('changeEventId', `${newItem.event_id}`)
-      this.$store.dispatch('changeEventIdLibrary', `${newItem.event_id}`)
-
+      pushRef.set(
+        {
+          url: this.addedLink,
+          label: this.addedLinkLabel
+        })
+      this.addedLink = ''
+      this.addedLinkLabel = ''
+    },
+    deleteLink (eventid) {
+      this.$store.state.database.ref(`event/${this.eventData.event_id}/links/${eventid}`).remove()
+        .catch((err) => {
+          console.error(err)
+        })
+    },
+    loadLinkList: function (newItem, oldItem) {
       // Refresh link list
-      if (oldItem.event_id) {
+      if (oldItem && oldItem.event_id) {
         this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_added')
         this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_removed')
       }
       this.links = []
       this.$store.state.database.ref(`event/${newItem.event_id}/links`).on('child_added', (data) => {
-        this.links.push(data.val())
+        this.links.push(data)
       })
+      this.$store.state.database.ref(`event/${newItem.event_id}/links`).on('child_removed', (data) => {
+        this.links.splice(this.links.indexOf(data, 1))
+      })
+    }
+  },
+  created: function () {
+    this.libraryDevice = this.$store.state.libraryDevice
+    // Refresh link list
+    this.loadLinkList(this.eventData,null)
+  },
+  watch: {
+    item: function (newItem, oldItem) {
+      this.$store.dispatch('changeEventId', `${newItem.event_id}`)
+      this.$store.dispatch('changeEventIdLibrary', `${newItem.event_id}`)
+
+      this.loadLinkList(newItem, oldItem)
     },
     libraryDevice: function (newVal, oldVal) {
       this.$store.dispatch('toggleLibraryDevice', newVal)
