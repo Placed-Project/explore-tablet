@@ -10,7 +10,7 @@
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <ContactTile></ContactTile>
-      <ClientLinksTile v-if="!$store.state.libraryDevice"></ClientLinksTile>
+      <ClientLinksTile></ClientLinksTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     titleTileClicked () {
-      console.log('coucou')
       if (this.titleClickCount < 5) {
         this.titleClickCount += 1
       } else {

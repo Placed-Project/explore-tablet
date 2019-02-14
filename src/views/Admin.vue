@@ -68,11 +68,13 @@ export default {
       })
     },
     addLink: function () {
+      // Empty URL
       if (this.addedLink.length === 0) {
         alert(this.$t('no-utl-provided-alert'))
         return
       }
 
+      // Make the URL legal
       if (!this.addedLink.match(/^http[s]?:\/\/.*/gm)) {
         this.addedLink = `http://${this.addedLink}`
       }
