@@ -25,7 +25,8 @@ export default new Vuex.Store({
     eventGallery: [],
     libraryDevice: false,
     database: firebaseApp.database(),
-    storage: firebaseApp.storage()
+    storage: firebaseApp.storage(),
+    nbOfLinks: 0
   },
   mutations: {
     CHANGE_LIBRARY_DEVICE: function (state, newVal) {

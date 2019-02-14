@@ -10,7 +10,7 @@
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <ContactTile></ContactTile>
-      <ClientLinksTile></ClientLinksTile>
+      <ClientLinksTile v-if="$store.state.nbOfLinks > 0"></ClientLinksTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
