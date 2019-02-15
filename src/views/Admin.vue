@@ -123,7 +123,7 @@ export default {
   created: function () {
     this.libraryDevice = this.$store.state.libraryDevice
     // Refresh link list
-    this.loadLinkList(this.eventData,null)
+    this.loadLinkList(this.eventData, null)
   },
   watch: {
     item: function (newItem, oldItem) {
@@ -163,16 +163,16 @@ export default {
 
 .admin-button  {
   background-color:#B62525;
-	-moz-border-radius:28px;
-	-webkit-border-radius:28px;
-	border-radius:28px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	padding:16px 31px;
-	text-decoration:none;
+  -moz-border-radius:28px;
+  -webkit-border-radius:28px;
+  border-radius:28px;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:17px;
+  padding:16px 31px;
+  text-decoration:none;
   border-style: none;
   margin-top: 10px;
 }

@@ -3,21 +3,24 @@
     <h2 id="contact-h2-tile">{{$t("additional-links-label")}}</h2>
     <div v-for="link in links" :key="link.key" class="client-link">
       <a v-if="!$store.state.libraryDevice" target="_blank" rel="noopener noreferrer" :href="link.val().url">{{link.val().label}}</a>
-      <span v-else class="iframe-link" @click.stop="openIframe(link.val().url)">{{link.val().label}}</span>
+      <a v-else :href="link.val().url">{{link.val().label}}</a>
+      <!--<span v-else class="iframe-link" @click.stop="openIframe(link.val().url)">{{link.val().label}}</span>-->
     </div>
+    <!--
     <div id="link-opening-iframe" v-show="iframeVisible" @click="closeIframe">
       <img src="../assets/ripple-loading.gif"/>
       <div id="link-opening-iframe-wrapper">
-        <iframe></iframe>
+        <iframe scrolling="no"></iframe>
       </div>
       <div id="link-opening-iframe-close"><span>&times;</span></div>
     </div>
+    -->
   </div>
 </template>
 
 <script>
 import HelperMixinVue from '../helpers/HelperMixin.vue'
-import LinksListMixinVue from '../helpers/LinksListMixin.vue';
+import LinksListMixinVue from '../helpers/LinksListMixin.vue'
 
 export default {
   mixins: [HelperMixinVue, LinksListMixinVue],
@@ -44,7 +47,7 @@ export default {
         alert('Hélas, le site de l\'Influx n\'est disponible que si vous ouvrez cette page sur votre propre appareil 😥')
         return
       }
-      
+
       // www.bm-lyon.fr website does not accept to be in iframe
       if (url.match(/.*www\.bm-lyon\.fr.*/gm)) {
         alert('Hélas, le site de www.bm-lyon.fr n\'est disponible que si vous ouvrez cette page sur votre propre appareil 😥')
@@ -103,6 +106,8 @@ export default {
 }
 
 #link-opening-iframe-wrapper {
+  max-width: 90vw;
+  max-height: 90vh;
   width: 90vw;
   height: 90vh;
   margin-top: 5vh;
@@ -110,9 +115,17 @@ export default {
 }
 
 #link-opening-iframe-wrapper > iframe {
+  /*max-width: 100%;
+  max-height: 100%;
   width: 100%;
-  height: 100%;
+  height: 100%;*/
   border: 0;
+  width: 1px;
+  min-width: 100%;
+  *width: 100%;
+  height: 1px;
+  min-height: 100%;
+  *height: 100%;
 }
 
 #link-opening-iframe-close {

@@ -174,4 +174,21 @@ export default {
 .explore-tile::-webkit-scrollbar {
   display: none;
 }
+
+
+.focused-tile {
+  height: 84vh;
+  width: 69vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  -webkit-box-shadow: 0px 0px 0px 30px rgba(0, 0, 0, 0.43);
+  box-shadow: 0px 0px 0px 30px rgba(0, 0, 0, 0.43);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  padding-left: 15vw;
+  padding-right: 15vw;
+  padding-top: 15vh;
+}
 </style>
