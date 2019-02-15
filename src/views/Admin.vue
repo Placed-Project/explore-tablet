@@ -1,6 +1,10 @@
 <template>
   <div id="admin-view">
-    <form>
+    <form v-if="!libraryDevice && passwordString != '101093'">
+      <label for="password-input">Password :</label>
+      <input id="password-input" type="password" v-model="passwordString"/>
+    </form>
+    <form v-else>
       <div>
         <p v-if="$store.state.currentEventIdLibrary">Main event for this tablet : {{$store.state.currentEventIdLibrary}}</p>
         <label for="event-autocomplete">{{$t("label-event-search")}}</label>
@@ -53,7 +57,9 @@ export default {
       libraryDevice: false,
       links: [],
       addedLink: '',
-      addedLinkLabel: ''
+      addedLinkLabel: '',
+      authed: false,
+      passwordString: ''
     }
   },
   methods: {
