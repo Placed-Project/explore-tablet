@@ -89,6 +89,22 @@ export default {
       if (!this.addedLink.match(/^http[s]?:\/\/.*/gm)) {
         this.addedLink = `http://${this.addedLink}`
       }
+      
+      if (this.addedLink.match(/.*catalogue\.bm-lyon\.fr.*/gm)) { // If the url is from the catalogue
+        this.addedLinkLabel = `📚 ${this.addedLinkLabel}`
+      } else if (this.addedLink.match(/.*linflux\.com.*/gm)) { // If the url is from the Influx
+        this.addedLinkLabel = `📰 ${this.addedLinkLabel}`
+      } else if (this.addedLink.match(/.*www\.bm-lyon\.fr\/nos-blogs.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+        this.addedLinkLabel = `📖 ${this.addedLinkLabel}`
+      } else if (this.addedLink.match(/.*\.youtube\.com\/.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+        this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
+      } else if (this.addedLink.match(/.*www\.bm-lyon\.fr\/spip\.php\?page=video.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+        this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
+      } else if (this.addedLink.match(/.*\.soundcloud\.com\/.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+        this.addedLinkLabel = `🎙 ${this.addedLinkLabel}`
+      } else {
+        this.addedLinkLabel = `🌐 ${this.addedLinkLabel}`
+      }
 
       let pushRef = this.$store.state.database.ref(`event/${this.eventData.event_id}/links`).push()
       pushRef.set(
