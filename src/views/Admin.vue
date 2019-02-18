@@ -33,7 +33,9 @@
       <hr/>
       <label>{{$t("label-file-list-label")}}</label>
       <div v-for="file in files" :key="file.key"><span @click="deleteFile(file.key)">X </span>{{file.val().name}} : <a :href="file.val().link">{{file.val().link}}</a></div>
-      <input type="file" @change="handleFiles"/>
+      <input id="file-label-list" type="text" v-model="addedFileLabel" :placeholder="$t('write-file-label-here-label')">
+      <input type="file" id="file-input"/>
+      <button class="admin-button" @click="handleFiles" id="file-input-button">📎 Upload</button>
     </form>
     <hr/>
     <button class="admin-button" @click="refresh">🔄 Refresh</button>
@@ -63,23 +65,30 @@ export default {
       addedLink: '',
       addedLinkLabel: '',
       authed: false,
-      passwordString: ''
+      passwordString: '',
+      addedFileLabel: ''
     }
   },
   methods: {
-    handleFiles (event) {
-      let file = event.target.files[0]
-      let filename = file.name
+    handleFiles () {
+      let file = document.querySelector('#file-input').files[0]
+      let filename = this.addedFileLabel.length > 0 ? this.addedFileLabel :  file.name
+
+      this.addedFileLabel = ''
+      document.querySelector('#file-input-button').classList.add('disabled')
 
       let uploadref = this.$store.state.storage.ref(`${this.eventData.event_id}/${filename}`)
       uploadref.put(file).then((snapshot) => {
         snapshot.ref.getDownloadURL().then(dlURL => {
+          document.querySelector('#file-input-button').classList.remove('disabled')
           this.$store.state.database.ref(`event/${this.eventData.event_id}/files`).push({
             name: filename,
             link: dlURL
           })
         })
       })
+
+      document.querySelector('#file-input').value = ''
     },
     getLabel (item) {
       return item.event_title
@@ -206,5 +215,10 @@ export default {
   text-decoration:none;
   border-style: none;
   margin-top: 10px;
+}
+
+.disabled {
+  background-color:rgb(221, 221, 221);
+  cursor: progress;
 }
 </style>
