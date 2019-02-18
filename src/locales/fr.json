@@ -47,6 +47,7 @@
   "write-link-here-label" : "Ecrivez votre lien ici",
   "write-link-label-here-label" : "Ecrivez la description de votre lien ici",
   "no-utl-provided-alert" : "Vous devez au moins entrer une URL !",
-  "additional-links-label" : "En savoir plus",
-  "label-file-list-label" : "Fichiers disponibles pour cet événement :"
+  "additional-links-label" : "Liens pour l'événement",
+  "label-file-list-label" : "Fichiers disponibles pour cet événement :",
+  "additional-files-label" : "Documents pour l'événement"
 }

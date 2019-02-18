@@ -3,7 +3,7 @@
       <TitleTile @click.native="titleTileClicked"></TitleTile>
       <DescTile></DescTile>
       <PlusOneTile></PlusOneTile>
-      <PlaceTile></PlaceTile>
+      <!--<PlaceTile></PlaceTile>-->
       <GalleryTile></GalleryTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice" @click.native="QRTileClicked"></QRTile>
@@ -11,6 +11,7 @@
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <ContactTile></ContactTile>
       <ClientLinksTile v-if="$store.state.nbOfLinks > 0"></ClientLinksTile>
+      <FilesTile v-if="$store.state.nbOfFiles > 0"></FilesTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
@@ -31,6 +32,7 @@ import ProgramTile from '../components/ProgramTile'
 import ProgramEventsTile from '../components/ProgramEventsTile'
 import PlusOneTile from '../components/PlusOneTile'
 import ClientLinksTile from '../components/ClientLinksTile'
+import FilesTile from '../components/FilesTile'
 import NightScreen from '../components/NightScreen'
 
 export default {
@@ -49,6 +51,7 @@ export default {
     ProgramEventsTile,
     PlusOneTile,
     ClientLinksTile,
+    FilesTile,
     NightScreen
   },
   data: function () {
