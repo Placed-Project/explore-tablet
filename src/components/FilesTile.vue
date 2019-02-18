@@ -3,8 +3,8 @@
     <h2 id="contact-h2-tile">{{$t("additional-files-label")}}</h2>
     <div v-for="file in files" :key="file.key" class="client-file">
       <a v-if="!$store.state.libraryDevice" target="_blank" rel="noopener noreferrer" :href="file.val().link">{{file.val().name}}</a>
-      <a v-else :href="file.val().link">{{file.val().name}}</a>
     </div>
+    <p v-if="$store.state.libraryDevice">{{$t("qrcode-additional-files-label")}} : {{files.length}}</p>
   </div>
 </template>
 
@@ -38,6 +38,11 @@ export default {
 }
 
 #client-files-tile h2 {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+#client-files-tile p {
   margin-top: 10px;
   margin-left: 20px;
 }

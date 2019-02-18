@@ -48,5 +48,6 @@
   "no-utl-provided-alert" : "You have to add at least a URL !",
   "additional-links-label" : "Learn more",
   "label-file-list-label" : "Files for this event :",
-  "additional-files-label" : "Files :"
+  "additional-files-label" : "Files :",
+  "qrcode-additional-files-label" : "Scan the QRCode to access additional files about this event"
 }

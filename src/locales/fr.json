@@ -49,5 +49,6 @@
   "no-utl-provided-alert" : "Vous devez au moins entrer une URL !",
   "additional-links-label" : "Liens pour l'événement",
   "label-file-list-label" : "Fichiers disponibles pour cet événement :",
-  "additional-files-label" : "Documents pour l'événement"
+  "additional-files-label" : "Documents pour l'événement",
+  "qrcode-additional-files-label" : "Utilisez le QRCode pour accéder aux documents supplémentaires"
 }
