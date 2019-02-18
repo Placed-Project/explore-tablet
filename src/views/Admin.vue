@@ -30,6 +30,10 @@
         <input id="link-label-list" type="text" v-model="addedLinkLabel" :placeholder="$t('write-link-label-here-label')">
         <button class="admin-button" @click="addLink">➕ Add the link</button>
       </div>
+      <hr/>
+      <label>{{$t("label-file-list-label")}}</label>
+      <div v-for="file in files" :key="file.key"><span @click="deleteFile(file.key)">X </span>{{file.val().name}} : <a :href="file.val().link">{{file.val().link}}</a></div>
+      <input type="file" @change="handleFiles"/>
     </form>
     <hr/>
     <button class="admin-button" @click="refresh">🔄 Refresh</button>
@@ -43,19 +47,19 @@ import Vue from 'vue'
 import Autocomplete from 'v-autocomplete'
 import ItemTemplate from '../components/microcomponent/AutocompleteItem.vue'
 import HelperMixin from '../helpers/HelperMixin'
+import LinksListMixin from '../helpers/LinksListMixin'
 
 Vue.use(Autocomplete)
 
 export default {
   name: 'admin',
-  mixins: [HelperMixin],
+  mixins: [HelperMixin, LinksListMixin],
   data () {
     return {
       item: this.eventData,
       items: [],
       template: ItemTemplate,
       libraryDevice: false,
-      links: [],
       addedLink: '',
       addedLinkLabel: '',
       authed: false,
@@ -63,6 +67,20 @@ export default {
     }
   },
   methods: {
+    handleFiles (event) {
+      let file = event.target.files[0]
+      let filename = file.name
+
+      let uploadref = this.$store.state.storage.ref(`${this.eventData.event_id}/${filename}`)
+      uploadref.put(file).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then(dlURL => {
+          this.$store.state.database.ref(`event/${this.eventData.event_id}/files`).push({
+            name: filename,
+            link: dlURL
+          })
+        })
+      })
+    },
     getLabel (item) {
       return item.event_title
     },
@@ -115,28 +133,17 @@ export default {
       this.addedLink = ''
       this.addedLinkLabel = ''
     },
-    deleteLink (eventid) {
-      this.$store.state.database.ref(`event/${this.eventData.event_id}/links/${eventid}`).remove()
+    deleteLink (key) {
+      this.$store.state.database.ref(`event/${this.eventData.event_id}/links/${key}`).remove()
         .catch((err) => {
           console.error(err)
         })
     },
-    loadLinkList: function (newItem, oldItem) {
-      // Refresh link list
-      if (oldItem && oldItem.event_id) {
-        this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_added')
-        this.$store.state.database.ref(`event/${oldItem.event_id}/links`).off('child_removed')
-      }
-      this.links = []
-      this.$store.state.nbOfLinks = 0
-      this.$store.state.database.ref(`event/${newItem.event_id}/links`).on('child_added', (data) => {
-        this.$store.state.nbOfLinks += 1
-        this.links.push(data)
-      })
-      this.$store.state.database.ref(`event/${newItem.event_id}/links`).on('child_removed', (data) => {
-        this.$store.state.nbOfLinks -= 1
-        this.links.splice(this.links.indexOf(data, 1))
-      })
+    deleteFile (key) {
+      this.$store.state.database.ref(`event/${this.eventData.event_id}/files/${key}`).remove()
+        .catch((err) => {
+          console.error(err)
+        })
     },
     refresh: function () {
       document.location.reload(true)
@@ -146,6 +153,7 @@ export default {
     this.libraryDevice = this.$store.state.libraryDevice
     // Refresh link list
     this.loadLinkList(this.eventData, null)
+    this.loadFileList(this.eventData, null)
   },
   watch: {
     item: function (newItem, oldItem) {
@@ -153,6 +161,7 @@ export default {
       this.$store.dispatch('changeEventIdLibrary', `${newItem.event_id}`)
 
       this.loadLinkList(newItem, oldItem)
+      this.loadFileList(newItem, oldItem)
     },
     libraryDevice: function (newVal, oldVal) {
       this.$store.dispatch('toggleLibraryDevice', newVal)

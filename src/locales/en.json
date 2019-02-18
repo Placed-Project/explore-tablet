@@ -46,5 +46,6 @@
   "write-link-here-label" : "Write your link here",
   "write-link-label-here-label" : "Write the label for your link here",
   "no-utl-provided-alert" : "You have to add at least a URL !",
-  "additional-links-label" : "Learn more"
+  "additional-links-label" : "Learn more",
+  "label-file-list-label" : "Files for this event :"
 }
