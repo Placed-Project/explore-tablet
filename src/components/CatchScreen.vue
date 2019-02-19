@@ -46,14 +46,14 @@ export default {
     clearInterval(this.cameraInterval)
   },
   mounted: function () {
-    let self = this
-    let streaming = false
-    let video = document.querySelector('#video')
-    let canvas = document.createElement('canvas')
-    let width = 320
-    let height = 0
-    let keepDetail = false
-    let detailKeeperTimer = -1
+    // let self = this
+    // let streaming = false
+    // let video = document.querySelector('#video')
+    // let canvas = document.createElement('canvas')
+    // let width = 320
+    // let height = 0
+    // let keepDetail = false
+    // let detailKeeperTimer = -1
 
     let bandOne = document.querySelector('#seethrough-band-1')
     let bandTwo = document.querySelector('#seethrough-band-2')

@@ -181,7 +181,6 @@ export default {
   display: none;
 }
 
-
 .focused-tile {
   height: 84vh;
   width: 69vw;

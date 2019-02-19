@@ -72,7 +72,7 @@ export default {
   methods: {
     handleFiles () {
       let file = document.querySelector('#file-input').files[0]
-      let filename = this.addedFileLabel.length > 0 ? this.addedFileLabel :  file.name
+      let filename = this.addedFileLabel.length > 0 ? this.addedFileLabel : file.name
 
       this.addedFileLabel = ''
       document.querySelector('#file-input-button').classList.add('disabled')
@@ -116,7 +116,7 @@ export default {
       if (!this.addedLink.match(/^http[s]?:\/\/.*/gm)) {
         this.addedLink = `http://${this.addedLink}`
       }
-      
+
       if (this.addedLink.match(/.*catalogue\.bm-lyon\.fr.*/gm)) { // If the url is from the catalogue
         this.addedLinkLabel = `📚 ${this.addedLinkLabel}`
       } else if (this.addedLink.match(/.*linflux\.com.*/gm)) { // If the url is from the Influx
@@ -125,9 +125,9 @@ export default {
         this.addedLinkLabel = `📖 ${this.addedLinkLabel}`
       } else if (this.addedLink.match(/.*\.youtube\.com\/.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
         this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
-      } else if (this.addedLink.match(/.*www\.bm-lyon\.fr\/spip\.php\?page=video.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+      } else if (this.addedLink.match(/.*www\.bm-lyon\.fr\/spip\.php\?page=video.*/gm)) { // If the url is from the BML videos
         this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
-      } else if (this.addedLink.match(/.*\.soundcloud\.com\/.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+      } else if (this.addedLink.match(/.*\.soundcloud\.com\/.*/gm)) { // If the url is from soundcloud.com
         this.addedLinkLabel = `🎙 ${this.addedLinkLabel}`
       } else {
         this.addedLinkLabel = `🌐 ${this.addedLinkLabel}`
