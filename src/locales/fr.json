@@ -50,5 +50,6 @@
   "additional-links-label" : "Liens pour l'événement",
   "label-file-list-label" : "Fichiers disponibles pour cet événement :",
   "additional-files-label" : "Documents pour l'événement",
-  "qrcode-additional-files-label" : "Utilisez le QRCode pour accéder aux documents supplémentaires"
+  "qrcode-additional-files-label" : "Utilisez le QRCode pour accéder aux documents supplémentaires",
+  "dates-tile-label" : "Autres dates"
 }

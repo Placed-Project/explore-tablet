@@ -49,5 +49,6 @@
   "additional-links-label" : "Learn more",
   "label-file-list-label" : "Files for this event :",
   "additional-files-label" : "Files :",
-  "qrcode-additional-files-label" : "Scan the QRCode to access additional files about this event"
+  "qrcode-additional-files-label" : "Scan the QRCode to access additional files about this event",
+  "dates-tile-label" : "Other dates"
 }

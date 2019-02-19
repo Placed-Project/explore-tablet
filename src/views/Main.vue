@@ -4,6 +4,7 @@
       <DescTile></DescTile>
       <PlusOneTile></PlusOneTile>
       <!--<PlaceTile></PlaceTile>-->
+      <DatesTile v-if="eventData.dates.length > 1"></DatesTile>
       <GalleryTile></GalleryTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice" @click.native="QRTileClicked"></QRTile>
@@ -33,6 +34,7 @@ import ProgramEventsTile from '../components/ProgramEventsTile'
 import PlusOneTile from '../components/PlusOneTile'
 import ClientLinksTile from '../components/ClientLinksTile'
 import FilesTile from '../components/FilesTile'
+import DatesTile from '../components/DatesTile'
 import NightScreen from '../components/NightScreen'
 
 export default {
@@ -52,6 +54,7 @@ export default {
     PlusOneTile,
     ClientLinksTile,
     FilesTile,
+    DatesTile,
     NightScreen
   },
   data: function () {
