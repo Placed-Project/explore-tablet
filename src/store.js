@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
+import parseDate from 'date-fns/parse'
 
 var config = {
   apiKey: 'AIzaSyB8puei6DqfHvAwJ5cJCqy7ad35_mGajZw',
@@ -54,6 +55,20 @@ export default new Vuex.Store({
         .then((resp) => {
           if (resp.ok) {
             resp.json().then((data) => {
+              // Check data[0].dates to see wich is the closest one
+              let dateindex = 0
+              for (let i = 0; i < data[0].dates.length; i++) {
+                let date = parseDate(data[0].dates[i].date_start)
+                if ((new Date()) < date) {
+                  dateindex = i
+                  break
+                } else if (i === data[0].dates.length - 1) {
+                  dateindex = i
+                  break
+                }
+              }
+              commit('CHANGE_EVENT_DATE', dateindex)
+
               localStorage.setItem('eventId', newId)
               localStorage.setItem('eventData', JSON.stringify(data[0]))
               commit('CHANGE_EVENT_ID', newId)
