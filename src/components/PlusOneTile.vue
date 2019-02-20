@@ -76,7 +76,7 @@ export default {
 
 <style>
 #plus-one-tile {
-  grid-row: span 1;
+  grid-row: span 4;
   grid-column: span 1;
   overflow: hidden;
 }

@@ -137,11 +137,9 @@ export default {
 
 #main-view {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 28vh);
-  /*gap: 10px;
-  grid-gap: 10px;*/
-  grid-auto-flow: dense;
+  grid-template-columns: repeat(5, 22vw);
+  grid-template-rows: repeat(12, 8.2vh);
+  grid-auto-flow: column dense;
   width: calc(100vw - 16px);
   margin: 8px;
 }
@@ -174,7 +172,7 @@ export default {
 
 .explore-tile {
   margin: 5px;
-  min-height: 150px;
+  min-height: 8.2vh;
 }
 
 .explore-tile::-webkit-scrollbar {

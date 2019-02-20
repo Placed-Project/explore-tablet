@@ -24,7 +24,7 @@ export default {
 
 <style>
 #qr-tile {
-  grid-row: span 2;
+  grid-row: span 4;
   grid-column: span 1;
   background: white;
   border-radius: 6px;

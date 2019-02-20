@@ -15,7 +15,7 @@ export default {
 
 <style>
 #gallery-tile {
-  grid-row: span 1;
+  grid-row: span 4;
   grid-column: span 1;
   background: black;
   border-radius: 6px;

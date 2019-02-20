@@ -196,6 +196,7 @@ export default {
   left: 50%;
 }
 #seethrough-band-3 {
+  position: absolute;
   bottom:0;
   right: 0;
 }
@@ -245,6 +246,7 @@ export default {
 }
 
 #text-band-2 {
+  position: absolute;
   bottom: 20vh;
   right: 64px;
   text-align: right;

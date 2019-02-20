@@ -16,7 +16,7 @@ export default {
 <style>
 #title-tile {
   grid-column: span 2;
-  grid-row: span 1;
+  grid-row: span 4;
   /*background: #F2EFE8;
   border-radius: 6px;*/
 }

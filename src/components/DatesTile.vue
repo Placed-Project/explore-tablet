@@ -22,7 +22,7 @@ export default {
 
 <style>
 #dates-tile {
-  grid-row: span 1;
+  grid-row: span 4;
   grid-column: span 1;
   background: white;
   border-radius: 6px;

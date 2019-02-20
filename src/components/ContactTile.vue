@@ -1,12 +1,12 @@
 <template>
   <div id="contact-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
-    <h2 id="contact-h2-tile">{{$t("address-label")}}</h2>
+    <!--<h2 id="contact-h2-tile">{{$t("address-label")}}</h2>
     <p>
       {{date['place_name']}}<br/>
       {{date['place_address']}}<br/>
       {{date['place_zipcode']}}<br/>
       {{date['place_town']}}
-    </p>
+    </p>-->
     <h2>{{$t('contact-label')}} :</h2>
     <p>
       {{date['place_phone']}}
@@ -29,7 +29,7 @@ export default {
 
 <style>
 #contact-tile {
-  grid-row: span 1;
+  grid-row: span 2;
   grid-column: span 1;
   background: white;
   border-radius: 6px;
