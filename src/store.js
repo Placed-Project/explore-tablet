@@ -74,7 +74,10 @@ export default new Vuex.Store({
               commit('CHANGE_EVENT_ID', newId)
               commit('CHANGE_EVENT_DATA', data[0])
 
-              // Create firebase entity
+              this.state.nbOfFiles = 1
+              this.state.nbOfLinks = 1
+
+              // Create firebase entity if necessary
               this.state.database.ref(`event/${newId}`).once('value')
                 .then((snap) => {
                   if (snap.val() === null) {

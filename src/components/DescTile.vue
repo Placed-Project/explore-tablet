@@ -30,5 +30,6 @@ export default {
 .event-desc-tile {
   margin-top: 10px;
   margin-left: 20px;
+  margin-right: 20px;
 }
 </style>

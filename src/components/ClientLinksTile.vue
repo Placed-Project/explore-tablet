@@ -38,6 +38,9 @@ export default {
       let newItem = to.path.slice(1, to.path.length)
 
       this.loadLinkList(newItem, oldItem)
+    },
+    eventId (newId, oldId) {
+      this.loadLinkList(newId)
     }
   },
   methods: {

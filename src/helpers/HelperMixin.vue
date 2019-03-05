@@ -16,6 +16,9 @@ export default {
     eventData () {
       return this.$store.state.eventData
     },
+    eventId () {
+      return this.$store.state.currentEventId
+    },
     beautifulDate () {
       let dateObject = parseDate(this.eventData['dates'][this.$store.state.currentEventDate]['date_start'])
       return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}`

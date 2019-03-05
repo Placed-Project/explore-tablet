@@ -32,6 +32,9 @@ export default {
       if (this.$route.params.eventId) {
         this.getClickNb(this.$route.params.eventId)
       }
+    },
+    eventId (newId, oldId) {
+      this.getClickNb(newId)
     }
   },
   mounted: function () {
