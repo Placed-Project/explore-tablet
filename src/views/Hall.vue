@@ -47,6 +47,7 @@ export default {
   bottom: 0;
   background-color: #C2D1E1;
   z-index: -21;
+  width: 100vw;
 }
 
 #grid-wrapper {

@@ -56,4 +56,13 @@ export default {
   background-color: rgba(0, 0, 0, 0.6);
   width: calc(100% - 2* 25px);
 }
+
+@media (orientation: portrait) {
+.hall-event-tile-h3 {
+  font-size: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+}
 </style>
