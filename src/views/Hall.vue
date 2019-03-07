@@ -14,11 +14,13 @@
       </div>
       <div id="right-pan"></div>
     </div>
+    <EventPopUp></EventPopUp>
   </div>
 </template>
 
 <script>
 import EventTile from '../components/hall/EventTile'
+import EventPopUp from '../components/hall/EventPopUp'
 
 export default {
   data: function () {
@@ -27,7 +29,8 @@ export default {
     }
   },
   components: {
-    EventTile
+    EventTile,
+    EventPopUp
   },
   mounted: function () {
     this.$store.state.database.ref('highlight').on('child_added', (data) => {
