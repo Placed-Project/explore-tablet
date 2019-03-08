@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     isInPopup: function () {
-      return this.eventIdProp ? true : false
+      return !!this.eventIdProp
     }
   },
   mounted: function () {

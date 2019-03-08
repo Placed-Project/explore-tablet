@@ -55,7 +55,6 @@ export default {
   margin-left: 20px;
 }
 
-
 #contact-tile.in-popup {
   position: absolute;
   max-width: 250px;

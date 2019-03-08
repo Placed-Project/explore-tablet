@@ -1,7 +1,7 @@
 <template>
   <div id="title-tile" class="explore-tile">
     <h1 id="event-title-h1-tile">{{eventData['event_title']}}</h1>
-    <h2 id="event-date-h2-tile">{{beautifulDate}}, {{eventData['dates'][$store.state.currentEventDate]['place_name']}}</h2>
+    <h2 id="event-date-h2-tile">{{beautifulDate}}, {{eventData['dates'][$store.state.currentEventDate]['place_name']}}, {{eventData['dates'][$store.state.currentEventDate]['place_phone']}}</h2>
   </div>
 </template>
 

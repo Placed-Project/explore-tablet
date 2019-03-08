@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     showPopUp: function () {
-      console.log('WHAT ?')
       this.$emit('showPopUp', this.eventId)
     }
   }
@@ -56,7 +55,7 @@ export default {
   position: absolute;
   top: 15px;
   left: 25px;
-  font-size: 40px;
+  font-size: xx-large;
   margin-bottom: 0;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
