@@ -1,18 +1,36 @@
 <template>
   <div id="event-popup">
     <div id="event-popup-bg" @click="closePopUp"></div>
-    <div id="event-popup-body">
-      <img>
-      <h3>{{eventObj.event_title}}</h3>
+    <div id="event-popup-body" v-if="eventObj">
+      <img :src="eventObj.image_url">
+      <QRTile :event-id-prop="eventIdProp"></QRTile>
+      <ContactTile :event-obj-prop="eventObj"></ContactTile>
+      <div id="event-popup-text-wrapper">
+        <h3>{{eventObj.event_title}}</h3>
+        <h4>{{beautifulDateFromString(eventObj['dates'][0]['date_start'])}}</h4>
+        <div>{{eventObj['event_description_courte']}}</div>
+        <div v-html="eventObj['event_description']"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import HelperMixinVue from '../../helpers/HelperMixin'
+import QRTile from '../QRTile'
+import ContactTile from '../ContactTile'
+
 export default {
   props: [
-    'eventId'
+    'eventIdProp'
   ],
+  mixins: [
+    HelperMixinVue
+  ],
+  components: {
+    QRTile,
+    ContactTile
+  },
   data: function () {
     return {
       eventObj: null
@@ -22,7 +40,7 @@ export default {
     document.querySelector('#hall-view #grid-wrapper').classList.add('blurry')
     document.querySelector('#emph').classList.add('blurry')
 
-    fetch(`${this.$store.state.libraryApiUrl}${this.eventId}`)
+    fetch(`${this.$store.state.libraryApiUrl}${this.eventIdProp}`)
       .then((resp) => {
         if (resp.ok) {
           resp.json().then((data) => {
@@ -49,12 +67,41 @@ export default {
 <style>
 #event-popup-body {
   position: absolute;
-  top: 50px;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
-  width: 33vw;
+  width: 40vw;
   background-color: white;
   min-height: 66vh;
+  border-radius: 6px;
+  color: black;
+  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.25);
+  margin-bottom: 100px;
+}
+
+#event-popup-body > img {
+  position: fixed;
+  height: 200px;
+  top: 50px;
+  right: calc(40vw - 100px);
+  border-radius: 6px;
+}
+
+#event-popup-body h3 {
+  font-size: 30px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+#event-popup-body h4 {
+  font-size: 20px;
+  margin-block-start: 0;
+}
+
+#event-popup-text-wrapper {
+  margin-left: 110px;
+  margin-right: 60px;
+  margin-top: 50px;
 }
 
 #event-popup-bg {

@@ -1,12 +1,12 @@
 <template>
   <div id="contact-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
-    <!--<h2 id="contact-h2-tile">{{$t("address-label")}}</h2>
+    <h2 id="contact-h2-tile">{{$t("address-label")}}</h2>
     <p>
       {{date['place_name']}}<br/>
       {{date['place_address']}}<br/>
       {{date['place_zipcode']}}<br/>
       {{date['place_town']}}
-    </p>-->
+    </p>
     <h2>{{$t('contact-label')}} :</h2>
     <p>
       {{date['place_phone']}}
@@ -19,9 +19,18 @@ import HelperMixinVue from '../helpers/HelperMixin.vue'
 
 export default {
   mixins: [HelperMixinVue],
+  props: [
+    'eventObjProp'
+  ],
   computed: {
     date () {
-      return this.eventData.dates[this.$store.state.currentEventDate]
+      let event = this.eventObjProp ? this.eventObjProp : this.eventData
+      return event.dates[this.$store.state.currentEventDate]
+    }
+  },
+  mounted: function () {
+    if (this.eventObjProp) {
+      document.querySelector('#contact-tile').classList.add('in-popup')
     }
   }
 }
@@ -44,5 +53,21 @@ export default {
 #contact-tile p {
   margin-top: 10px;
   margin-left: 20px;
+}
+
+
+#contact-tile.in-popup {
+  position: absolute;
+  max-width: 250px;
+  min-width: 250px;
+  height: 250px;
+  top: 300px;
+  left: calc(40vw - 40px);
+  background-color: black;
+  color: white;
+}
+
+#contact-tile.in-popup > h2{
+  display: none;
 }
 </style>

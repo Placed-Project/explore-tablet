@@ -14,7 +14,7 @@
       </div>
       <div id="right-pan"></div>
     </div>
-    <EventPopUp :event-id="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
+    <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
 </template>
 
@@ -61,9 +61,11 @@ export default {
   bottom: 0;
   background-color: #C2D1E1;
   width: 100vw;
+  overflow: scroll;
 }
 
 #grid-wrapper {
+  position: fixed;
   margin: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -97,7 +99,7 @@ color: #215994;
 }
 
 #emph {
-  position: absolute;
+  position: fixed;
   width: 163px;
   height: 34px;
   left: -15px;

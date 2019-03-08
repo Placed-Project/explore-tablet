@@ -10,7 +10,7 @@
       <QRTile v-if="$store.state.libraryDevice" @click.native="QRTileClicked"></QRTile>
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
-      <ContactTile></ContactTile>
+      <!--<ContactTile></ContactTile>-->
       <ClientLinksTile v-if="$store.state.nbOfLinks > 0"></ClientLinksTile>
       <FilesTile v-if="$store.state.nbOfFiles > 0"></FilesTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>

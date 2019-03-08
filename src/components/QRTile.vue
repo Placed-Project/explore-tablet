@@ -1,8 +1,8 @@
 <template>
   <div id="qr-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
-      <h2>{{$t('qr-label')}}</h2>
+      <h2 v-if="!isInPopup">{{$t('qr-label')}}</h2>
       <canvas id="qr-canvas"></canvas>
-      <p id="qr-url-p">{{$store.state.exploreURL}}/#/{{eventData["event_id"]}}</p>
+      <p id="qr-url-p">{{$store.state.exploreURL}}/#/{{id}}</p>
   </div>
 </template>
 
@@ -12,10 +12,28 @@ import QRCode from 'qrcode'
 
 export default {
   mixins: [HelperMixin],
+  props: [
+    'eventIdProp'
+  ],
+  data: function () {
+    return {
+      id: ''
+    }
+  },
+  computed: {
+    isInPopup: function () {
+      return this.eventIdProp ? true : false
+    }
+  },
   mounted: function () {
     var canvas = document.getElementById('qr-canvas')
+    this.id = this.eventIdProp ? this.eventIdProp : this.eventData['event_id']
 
-    QRCode.toCanvas(canvas, `${this.$store.state.exploreURL}/#/${this.eventData['event_id']}`, function (error) {
+    if (this.eventIdProp) {
+      document.querySelector('#qr-tile').classList.add('in-popup')
+    }
+
+    QRCode.toCanvas(canvas, `${this.$store.state.exploreURL}/#/${this.id}`, function (error) {
       if (error) console.error(error)
     })
   }
@@ -44,5 +62,18 @@ export default {
 #qr-url-p {
   font-size: 13px;
   margin-top: 0;
+}
+
+#qr-tile.in-popup {
+  position: absolute;
+  max-width: 250px;
+  min-width: 250px;
+  height: 250px;
+  top: 400px;
+  right: calc(40vw - 100px);
+}
+
+#qr-tile.in-popup > h2{
+  display: none;
 }
 </style>
