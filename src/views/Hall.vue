@@ -12,7 +12,9 @@
           <EventTile v-for="hl in highlights" :key="hl" :eventId="hl" @showPopUp="popUp"></EventTile>
         </div>
       </div>
-      <div id="right-pan"></div>
+      <div id="right-pan">
+        <TimeLine></TimeLine>
+      </div>
     </div>
     <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
@@ -21,6 +23,7 @@
 <script>
 import EventTile from '../components/hall/EventTile'
 import EventPopUp from '../components/hall/EventPopUp'
+import TimeLine from '../components/hall/TimeLine'
 
 export default {
   data: function () {
@@ -32,7 +35,8 @@ export default {
   },
   components: {
     EventTile,
-    EventPopUp
+    EventPopUp,
+    TimeLine
   },
   mounted: function () {
     this.$store.state.database.ref('highlight').on('child_added', (data) => {

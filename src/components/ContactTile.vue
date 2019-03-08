@@ -25,7 +25,8 @@ export default {
   computed: {
     date () {
       let event = this.eventObjProp ? this.eventObjProp : this.eventData
-      return event.dates[this.$store.state.currentEventDate]
+      let index = this.eventObjProp ? 0 : this.$store.state.currentEventDate
+      return event.dates[index]
     }
   },
   mounted: function () {

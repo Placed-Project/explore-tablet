@@ -18,6 +18,7 @@ export default new Vuex.Store({
   state: {
     libraryApiUrl: 'https://www.bm-lyon.fr/json_explore.php?action=detail&id=',
     libraryQueryUrl: 'https://www.bm-lyon.fr/json_explore.php?action=search&query=',
+    libraryApiUpcoming: 'https://www.bm-lyon.fr/json_explore.php?action=listEvents&subset=upcoming&place=',
     exploreURL: 'https://explore.placed.eu',
     currentEventId: '5006',
     currentEventIdLibrary: '5006',
