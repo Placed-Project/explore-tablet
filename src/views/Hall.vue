@@ -1,20 +1,20 @@
 <template>
   <div id="hall-view">
+    <svg width="157" height="34" viewBox="0 0 157 34" fill="none" xmlns="http://www.w3.org/2000/svg" id="emph">
+      <rect width="147.876" height="8" transform="matrix(1 0 0 -1 -6 34)" fill="#215994"/>
+      <rect width="163" height="8" transform="matrix(1 0 0 -1 -6 21)" fill="#215994"/>
+      <rect width="126.031" height="8" transform="matrix(1 0 0 -1 -6 8)" fill="#215994"/>
+    </svg>
     <div id="grid-wrapper">
       <div id="left-pan">
         <h2>La BML vous invite à découvrir ses événements</h2>
-        <svg width="157" height="34" viewBox="0 0 157 34" fill="none" xmlns="http://www.w3.org/2000/svg" id="emph">
-          <rect width="147.876" height="8" transform="matrix(1 0 0 -1 -6 34)" fill="#215994"/>
-          <rect width="163" height="8" transform="matrix(1 0 0 -1 -6 21)" fill="#215994"/>
-          <rect width="126.031" height="8" transform="matrix(1 0 0 -1 -6 8)" fill="#215994"/>
-        </svg>
         <div id="event-grid-wrapper">
-          <EventTile v-for="hl in highlights" :key="hl" :eventId="hl"></EventTile>
+          <EventTile v-for="hl in highlights" :key="hl" :eventId="hl" @showPopUp="popUp"></EventTile>
         </div>
       </div>
       <div id="right-pan"></div>
     </div>
-    <EventPopUp></EventPopUp>
+    <EventPopUp :event-id="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
 </template>
 
@@ -25,7 +25,9 @@ import EventPopUp from '../components/hall/EventPopUp'
 export default {
   data: function () {
     return {
-      highlights: []
+      highlights: [],
+      showPopUp: false,
+      choosedEvent: ''
     }
   },
   components: {
@@ -36,6 +38,15 @@ export default {
     this.$store.state.database.ref('highlight').on('child_added', (data) => {
       this.highlights.push(data.key)
     })
+  },
+  methods: {
+    popUp: function (eventId) {
+      this.choosedEvent = eventId
+      this.showPopUp = true
+    },
+    closePopUp: function () {
+      this.showPopUp = false
+    }
   }
 }
 </script>
@@ -43,13 +54,12 @@ export default {
 <style>
 #hall-view {
   color: #215994;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: #C2D1E1;
-  z-index: -21;
   width: 100vw;
 }
 
@@ -80,7 +90,7 @@ export default {
   line-height: 69px;
   width: 1082px;
   height: 79px;
-  margin-left: 131px;
+  margin-left: 115px;
   margin-top: 8px;
 
 color: #215994;

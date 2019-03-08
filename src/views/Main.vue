@@ -137,7 +137,7 @@ export default {
 
 #main-view {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 22vw);
+  grid-auto-columns: 22vw;
   grid-template-rows: repeat(12, 8.2vh);
   grid-auto-flow: column dense;
   width: calc(100vw - 16px);

@@ -1,21 +1,50 @@
 <template>
   <div id="event-popup">
-    <div id="event-popup-bg"></div>
-    <div id="event-popup-body"></div>
+    <div id="event-popup-bg" @click="closePopUp"></div>
+    <div id="event-popup-body">
+      <img>
+      <h3>{{eventObj.event_title}}</h3>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  mounted: function () {
+  props: [
+    'eventId'
+  ],
+  data: function () {
+    return {
+      eventObj: null
+    }
+  },
+  created: function () {
     document.querySelector('#hall-view #grid-wrapper').classList.add('blurry')
+    document.querySelector('#emph').classList.add('blurry')
+
+    fetch(`${this.$store.state.libraryApiUrl}${this.eventId}`)
+      .then((resp) => {
+        if (resp.ok) {
+          resp.json().then((data) => {
+            this.eventObj = data[0]
+          })
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   },
   beforeDestroy: function () {
     document.querySelector('#hall-view #grid-wrapper').classList.remove('blurry')
+    document.querySelector('#emph').classList.remove('blurry')
+  },
+  methods: {
+    closePopUp: function () {
+      this.$emit('close-popup')
+    }
   }
 }
 </script>
-
 
 <style>
 #event-popup-body {
@@ -24,6 +53,8 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   width: 33vw;
+  background-color: white;
+  min-height: 66vh;
 }
 
 #event-popup-bg {
@@ -38,6 +69,10 @@ export default {
 
 #hall-view #grid-wrapper.blurry {
   filter: blur(4px);
+  overflow: hidden;
+}
+
+#emph.blurry {
+  filter: blur(4px);
 }
 </style>
-

@@ -1,5 +1,5 @@
 <template>
-  <div class="hall-event-tile">
+  <div class="hall-event-tile" v-on:click="showPopUp()">
     <img :src="eventImage"/>
     <h3 class="hall-event-tile-h3">{{eventTitle}}</h3>
   </div>
@@ -29,6 +29,12 @@ export default {
       .catch((err) => {
         console.error(err)
       })
+  },
+  methods: {
+    showPopUp: function () {
+      console.log('WHAT ?')
+      this.$emit('showPopUp', this.eventId)
+    }
   }
 }
 </script>
@@ -48,7 +54,7 @@ export default {
 
 .hall-event-tile-h3 {
   position: absolute;
-  bottom: 25px;
+  top: 15px;
   left: 25px;
   font-size: 40px;
   margin-bottom: 0;
