@@ -7,13 +7,13 @@
     </svg>
     <div id="grid-wrapper">
       <div id="left-pan">
-        <h2>La BML vous invite à découvrir ses événements</h2>
+        <h2>La BML vous invite à découvrir</h2>
         <div id="event-grid-wrapper">
           <EventTile v-for="hl in highlights" :key="hl" :eventId="hl" @showPopUp="popUp"></EventTile>
         </div>
       </div>
       <div id="right-pan">
-        <TimeLine></TimeLine>
+        <TimeLine @showPopUp="popUp"></TimeLine>
       </div>
     </div>
     <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
@@ -70,7 +70,6 @@ export default {
 
 #grid-wrapper {
   position: fixed;
-  margin: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 40px;
@@ -79,6 +78,7 @@ export default {
 #event-grid-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  margin-left: 40px;
   grid-gap: 40px;
 }
 
@@ -96,8 +96,8 @@ export default {
   line-height: 69px;
   width: 1082px;
   height: 79px;
-  margin-left: 115px;
-  margin-top: 8px;
+  margin-left: 155px;
+  margin-top: 48px;
 
 color: #215994;
 }

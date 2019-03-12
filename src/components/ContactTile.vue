@@ -43,7 +43,7 @@ export default {
   grid-column: span 1;
   background: white;
   border-radius: 6px;
-  overflow: scroll;
+  /*overflow: scroll;*/
 }
 
 #contact-tile h2 {

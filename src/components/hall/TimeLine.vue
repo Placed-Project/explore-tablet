@@ -1,20 +1,35 @@
 <template>
   <div id="timeline">
-    <div v-for="ev in datedEvents" :key="ev.event_id">{{ev.event_title}}</div>
+    <div id="line"></div>
+    <div v-for="(val, key, index) in sortedEvents" :key="index" class="day-wrapper">
+      <span class="day-label">{{beautifulDateFromString(key)}}</span> {{index}}
+      <div>
+        <EventMiniTile v-for="ev in val" :key="ev.event_id" :eventObj="ev" @showPopUp="relayPopUp"></EventMiniTile>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import parseDate from 'date-fns/parse'
+import HelperMixin from '../../helpers/HelperMixin.vue'
+import EventMiniTile from './EventMiniTile'
 
 export default {
   data: function () {
     return {
       placeId: 16,
       events: [],
-      datedEvents: []
+      datedEvents: [],
+      sortedEvents: {}
     }
   },
+  components: {
+    EventMiniTile
+  },
+  mixins: [
+    HelperMixin
+  ],
   mounted: function () {
     fetch(`${this.$store.state.libraryApiUpcoming}${this.placeId}`)
       .then((resp => {
@@ -32,6 +47,9 @@ export default {
       })
   },
   methods: {
+    relayPopUp: function (id) {
+      this.$emit('showPopUp', id)
+    },
     populateDates: async function () {
       let self = this
       let gatherDate = async function (eventId, index) {
@@ -55,6 +73,16 @@ export default {
             tmpEv.date = data[0].dates[dateindex]
             tmpEv.image_url = data[0].image_url
             self.datedEvents.push(tmpEv)
+            // Add key to sortedEvents if necessary
+            let date = parseDate(tmpEv.date.date_start)
+            if (date < new Date()) {
+              date = new Date()
+            }
+            let dayString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+            if (!self.sortedEvents[dayString]) {
+              self.sortedEvents[dayString] = {}
+            }
+            self.sortedEvents[dayString][tmpEv.event_id] = tmpEv
           }))
       }
 
@@ -66,4 +94,34 @@ export default {
   }
 }
 </script>
+
+<style>
+#timeline {
+  overflow: scroll;
+  position: relative;
+  height: 100vh;
+  width: 38vw;
+  background-color: #fffdf4;
+}
+
+#line {
+  position: fixed;
+  top: 0px;
+  right: calc(38vw - 10px);
+  bottom: 0;
+  width: 4px;
+  height: 100%;
+  background-color: black;
+}
+
+.day-wrapper {
+  margin: 10px;
+  margin-left: 30px;
+}
+
+.day-label {
+  font-size: 20px;
+  color: black;
+}
+</style>
 
