@@ -9,7 +9,7 @@
         <h3>{{eventObj.event_title}}</h3>
         <h4>{{beautifulDateFromString(nextDate)}}</h4>
         <div>{{eventObj['event_description_courte']}}</div>
-        <div v-html="eventObj['event_description']"></div>
+        <div v-html="cleanedDescription"></div>
       </div>
     </div>
   </div>
@@ -63,24 +63,27 @@ export default {
     }
   },
   computed: {
+    cleanedDescription: function () {
+      return this.eventObj.event_description.replace(/<a.*>(.*)<\/a>/gm, '$1')
+    },
     nextDate: function () {
       if (this.eventObj) {
         let dateindex = 0
-          for (let i = 0; i < this.eventObj.dates.length; i++) {
-            let date = parseDate(this.eventObj.dates[i].date_start)
-            if ((new Date()) < date) {
-              dateindex = i
-              break
-            } else if (i === this.eventObj.dates.length - 1) {
-              dateindex = i
-              break
-            }
+        for (let i = 0; i < this.eventObj.dates.length; i++) {
+          let date = parseDate(this.eventObj.dates[i].date_start)
+          if ((new Date()) < date) {
+            dateindex = i
+            break
+          } else if (i === this.eventObj.dates.length - 1) {
+            dateindex = i
+            break
           }
+        }
         let d = parseDate(this.eventObj.dates[dateindex].date_start)
         if (d < new Date()) {
           return (new Date()).toISOString()
         } else {
-          return this.eventObj.dates[dateindex].date_start 
+          return this.eventObj.dates[dateindex].date_start
         }
       } else {
         return (new Date()).toISOString()

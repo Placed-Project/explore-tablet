@@ -59,9 +59,9 @@ export default {
 .hall-event-tile-h3 {
   position: absolute;
   padding-left: 10px;
-  top: 15px;
+  top: 0;
   left: 25px;
-  font-size: xx-large;
+  font-size: x-large;
   margin-bottom: 0;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);

@@ -46,7 +46,9 @@ export default {
   top:0;
   left: 5px;
   right: 5px;
-  font-size: 10px;
+  margin-block-start: 1em;
+  max-height: calc(100% - 1em);
+  font-size: 14px;
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
 }

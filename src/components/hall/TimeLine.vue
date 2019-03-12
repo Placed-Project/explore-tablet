@@ -32,9 +32,9 @@ export default {
   ],
   mounted: function () {
     fetch(`${this.$store.state.libraryApiUpcoming}${this.placeId}`)
-      .then((resp => {
+      .then(resp => {
         return resp.json()
-      }))
+      })
       .catch((err) => {
         console.error(err)
         return Promise()
@@ -57,18 +57,18 @@ export default {
           .then((resp) => {
             return resp.json()
           })
-          .then((data => {
+          .then(data => {
             let dateindex = 0
-              for (let i = 0; i < data[0].dates.length; i++) {
-                let date = parseDate(data[0].dates[i].date_start)
-                if ((new Date()) < date) {
-                  dateindex = i
-                  break
-                } else if (i === data[0].dates.length - 1) {
-                  dateindex = i
-                  break
-                }
+            for (let i = 0; i < data[0].dates.length; i++) {
+              let date = parseDate(data[0].dates[i].date_start)
+              if ((new Date()) < date) {
+                dateindex = i
+                break
+              } else if (i === data[0].dates.length - 1) {
+                dateindex = i
+                break
               }
+            }
             let tmpEv = self.events[index]
             tmpEv.date = data[0].dates[dateindex]
             tmpEv.image_url = data[0].image_url
@@ -78,18 +78,18 @@ export default {
             if (date < new Date()) {
               date = new Date()
             }
-            let dayString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+            let dayString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
             if (!self.sortedEvents[dayString]) {
-              //self.sortedEvents[dayString] = {}
+              // self.sortedEvents[dayString] = {}
               self.$set(self.sortedEvents, dayString, {})
             }
-            //self.sortedEvents[dayString][tmpEv.event_id] = tmpEv
+            // self.sortedEvents[dayString][tmpEv.event_id] = tmpEv
             self.$set(self.sortedEvents[dayString], tmpEv.event_id, tmpEv)
-          }))
+          })
       }
 
       for (let index = 0; index < self.events.length; index++) {
-        const event = self.events[index];
+        const event = self.events[index]
         await gatherDate(event.event_id, index)
       }
     }
@@ -132,4 +132,3 @@ export default {
   background-color: #fffdf4;
 }
 </style>
-
