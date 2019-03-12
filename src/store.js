@@ -69,6 +69,7 @@ export default new Vuex.Store({
                 }
               }
               commit('CHANGE_EVENT_DATE', dateindex)
+              localStorage.setItem('eventDate', dateindex)
 
               localStorage.setItem('eventId', newId)
               localStorage.setItem('eventData', JSON.stringify(data[0]))
@@ -102,7 +103,9 @@ export default new Vuex.Store({
       let eventData = localStorage.getItem('eventData')
       let libraryDevice = localStorage.getItem('libraryDevice')
       let eventIdLibrary = localStorage.getItem('eventIdLibrary')
-      if (eventId && eventData) {
+      let eventDate = localStorage.getItem('eventDate')
+      if (eventId && eventData && eventDate) {
+        commit('CHANGE_EVENT_DATE', eventDate)
         commit('CHANGE_EVENT_ID', eventId)
         commit('CHANGE_EVENT_DATA', JSON.parse(eventData))
       } else {
