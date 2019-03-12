@@ -1,7 +1,7 @@
 <template>
   <div class="hall-event-tile" v-on:click="showPopUp()">
     <img :src="eventImage"/>
-    <h3 class="hall-event-tile-h3">{{eventTitle}}</h3>
+    <h3 class="hall-event-tile-h3"> {{eventTitle}}</h3>
   </div>
 </template>
 
@@ -42,17 +42,23 @@ export default {
 .hall-event-tile {
   position: relative;
   width: 100%;
+  height: 30vh;
   grid-column: span 1;
 }
 
 .hall-event-tile img {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
   border-radius: 6px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .hall-event-tile-h3 {
   position: absolute;
+  padding-left: 10px;
   top: 15px;
   left: 25px;
   font-size: xx-large;

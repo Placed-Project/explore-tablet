@@ -2,7 +2,7 @@
   <div id="timeline">
     <div id="line"></div>
     <div v-for="(val, key, index) in sortedEvents" :key="index" class="day-wrapper">
-      <span class="day-label">{{beautifulDateFromString(key)}}</span> {{index}}
+      <span class="day-label" :uselessAtt="index">{{beautifulDateFromString(key)}}</span>
       <div>
         <EventMiniTile v-for="ev in val" :key="ev.event_id" :eventObj="ev" @showPopUp="relayPopUp"></EventMiniTile>
       </div>
@@ -80,9 +80,11 @@ export default {
             }
             let dayString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
             if (!self.sortedEvents[dayString]) {
-              self.sortedEvents[dayString] = {}
+              //self.sortedEvents[dayString] = {}
+              self.$set(self.sortedEvents, dayString, {})
             }
-            self.sortedEvents[dayString][tmpEv.event_id] = tmpEv
+            //self.sortedEvents[dayString][tmpEv.event_id] = tmpEv
+            self.$set(self.sortedEvents[dayString], tmpEv.event_id, tmpEv)
           }))
       }
 
@@ -100,14 +102,14 @@ export default {
   overflow: scroll;
   position: relative;
   height: 100vh;
-  width: 38vw;
+  width: 36vw;
   background-color: #fffdf4;
 }
 
 #line {
   position: fixed;
   top: 0px;
-  right: calc(38vw - 10px);
+  right: calc(36vw - 15px);
   bottom: 0;
   width: 4px;
   height: 100%;
@@ -117,11 +119,17 @@ export default {
 .day-wrapper {
   margin: 10px;
   margin-left: 30px;
+  margin-top: 30px;
 }
 
 .day-label {
   font-size: 20px;
+  font-weight: bold;
   color: black;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: #fffdf4;
 }
 </style>
 

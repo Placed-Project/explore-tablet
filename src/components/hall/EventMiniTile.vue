@@ -26,6 +26,8 @@ export default {
   height: 75px;
   margin-right: 10px;
   margin-bottom: 10px;
+  background-color: black;
+  border-radius: 6px;
 }
 
 .hall-event-mini-tile img {
@@ -40,7 +42,10 @@ export default {
 
 .hall-event-mini-tile-h3 {
   position: absolute;
+  padding-left: 10px;
   top:0;
+  left: 5px;
+  right: 5px;
   font-size: 10px;
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
