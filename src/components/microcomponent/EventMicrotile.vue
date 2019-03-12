@@ -53,7 +53,7 @@ export default {
   border-radius: 6px;
   overflow: hidden;
   width: 350px;
-  height: 175px;
+  height: 300px;
   display: inline-block;
   margin-left: 5px;
   cursor: pointer;

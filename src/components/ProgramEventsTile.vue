@@ -61,8 +61,8 @@ export default {
 
 <style>
 #program-events-tile {
-  grid-row: span 4;
-  grid-column: span 2;
+  grid-row: span 6;
+  grid-column: span 3;
   background: white;
   border-radius: 6px;
   overflow: scroll;
