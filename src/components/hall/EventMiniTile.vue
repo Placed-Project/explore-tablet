@@ -22,12 +22,13 @@ export default {
 .hall-event-mini-tile {
   display: inline-block;
   position: relative;
-  width: 150px;
-  height: 75px;
+  width: 220px;
+  height: 90px;
   margin-right: 10px;
-  margin-bottom: 10px;
-  background-color: black;
-  border-radius: 6px;
+  margin-bottom: 50px;
+  background-color: rgb(253, 254, 255);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 .hall-event-mini-tile img {
@@ -36,21 +37,25 @@ export default {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-  border-radius: 6px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .hall-event-mini-tile-h3 {
   position: absolute;
   padding-left: 10px;
-  top:0;
-  left: 5px;
-  right: 5px;
-  margin-block-start: 1em;
-  max-height: calc(100% - 1em);
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  top: 75px;
+  height: 2.8em;
   font-size: 14px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.8);
+  color: #221d23;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: rgb(253, 254, 255);
+
 }
 
 @media (orientation: portrait) {

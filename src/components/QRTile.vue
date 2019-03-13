@@ -1,5 +1,5 @@
 <template>
-  <div id="qr-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
+  <div id="qr-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focus">
       <h2 v-if="!isInPopup">{{$t('qr-label')}}</h2>
       <canvas id="qr-canvas"></canvas>
       <p id="qr-url-p">{{$store.state.exploreURL}}/#/{{id}}</p>
@@ -23,6 +23,13 @@ export default {
   computed: {
     isInPopup: function () {
       return !!this.eventIdProp
+    }
+  },
+  methods: {
+    focus: function () {
+      if (!this.eventIdProp) {
+        this.focused = !this.focused
+      }
     }
   },
   mounted: function () {

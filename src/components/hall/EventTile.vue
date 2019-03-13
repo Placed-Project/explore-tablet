@@ -57,15 +57,17 @@ export default {
 }
 
 .hall-event-tile-h3 {
-  position: absolute;
-  padding-left: 10px;
-  top: 0;
-  left: 25px;
+  position: relative;
+  top: -300px;
+  left: -8px;
   font-size: x-large;
-  margin-bottom: 0;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
-  width: calc(100% - 2* 25px);
+  -webkit-box-shadow: 0px 0px 0px 5px black;
+  box-shadow: 0px 0px 0px 5px white;
+  /*box-shadow: 0px 0px 0px 5px white;*/
+  display: inline;
+  background-color: white;
+  /*background-color: white;*/
+  color: #221d23;
 }
 
 @media (orientation: portrait) {

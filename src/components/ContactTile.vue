@@ -1,11 +1,11 @@
 <template>
-  <div id="contact-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
+  <div id="contact-tile" class="explore-tile">
     <h2 id="contact-h2-tile">{{$t("address-label")}}</h2>
     <p>
       {{date['place_name']}}<br/>
       {{date['place_address']}}<br/>
-      {{date['place_zipcode']}}<br/>
-      {{date['place_town']}}
+      <!--{{date['place_zipcode']}}<br/>
+      {{date['place_town']}}-->
     </p>
     <h2>{{$t('contact-label')}} :</h2>
     <p>
@@ -60,13 +60,16 @@ export default {
   position: absolute;
   max-width: 250px;
   min-width: 250px;
-  height: 250px;
+  /*height: 250px;*/
   top: 300px;
   left: calc(40vw - 40px);
-  background-color: black;
+  background-color: #221d23;
   color: white;
 }
 
+#contact-tile.in-popup p {
+  margin: 25px;
+}
 #contact-tile.in-popup > h2{
   display: none;
 }

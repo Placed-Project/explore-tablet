@@ -7,7 +7,7 @@
       <ContactTile :event-obj-prop="eventObj"></ContactTile>
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
-        <h4>{{beautifulDateFromString(nextDate)}}</h4>
+        <span class="event-popup-date">{{beautifulDateFromString(nextDate)}}</span>
         <div>{{eventObj['event_description_courte']}}</div>
         <div v-html="cleanedDescription"></div>
       </div>
@@ -39,7 +39,6 @@ export default {
   },
   created: function () {
     document.querySelector('#hall-view #grid-wrapper').classList.add('blurry')
-    document.querySelector('#emph').classList.add('blurry')
 
     fetch(`${this.$store.state.libraryApiUrl}${this.eventIdProp}`)
       .then((resp) => {
@@ -55,7 +54,6 @@ export default {
   },
   beforeDestroy: function () {
     document.querySelector('#hall-view #grid-wrapper').classList.remove('blurry')
-    document.querySelector('#emph').classList.remove('blurry')
   },
   methods: {
     closePopUp: function () {
@@ -103,7 +101,7 @@ export default {
   background-color: white;
   min-height: 66vh;
   border-radius: 6px;
-  color: black;
+  color: #221d23;
   box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.25);
   margin-bottom: 100px;
 }
@@ -119,17 +117,18 @@ export default {
 #event-popup-body h3 {
   font-size: 30px;
   margin-block-start: 0;
-  margin-block-end: 0;
+  margin-block-end: 0.5em;
 }
 
-#event-popup-body h4 {
-  font-size: 20px;
+.event-popup-date {
+  font-weight: 700;
   margin-block-start: 0;
+  text-transform: capitalize;
 }
 
 #event-popup-text-wrapper {
-  margin-left: 110px;
-  margin-right: 60px;
+  margin-left: 140px;
+  margin-right: 70px;
   margin-top: 50px;
   margin-bottom: 50px;
 }
