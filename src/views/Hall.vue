@@ -11,6 +11,7 @@
         <TimeLine @showPopUp="popUp"></TimeLine>
       </div>
     </div>
+    <div id="research-banner" v-if="showResearchBanner">Ce dispositif est un prototype développé<br/>dans le cadre du projet de<br/>recherche européen<br/>PLACED<br/>placedproject.eu</div>
     <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
 </template>
@@ -25,7 +26,8 @@ export default {
     return {
       highlights: [],
       showPopUp: false,
-      choosedEvent: ''
+      choosedEvent: '',
+      showResearchBanner: true
     }
   },
   components: {
@@ -98,12 +100,15 @@ export default {
 color: #215994;
 }
 
-#emph {
+#research-banner {
   position: fixed;
-  width: 163px;
-  height: 34px;
-  left: -15px;
-  top: 62px;
+  bottom: 43px;
+  left: -60px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  text-align: center;
+  line-height: 1em;
+  opacity: 0.5;
 }
 
 </style>

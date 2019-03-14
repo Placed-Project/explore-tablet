@@ -38,7 +38,7 @@ export default {
   mounted: function () {
     document.querySelector('#timeline').addEventListener('scroll', ev => {
       this.position = document.querySelector('#timeline').scrollTop / (document.querySelector('#timeline').scrollHeight - document.querySelector('#timeline').offsetHeight) * 100
-      this.arrowOpac = 1 - document.querySelector('#timeline').scrollTop/200
+      this.arrowOpac = 1 - document.querySelector('#timeline').scrollTop / 200
     })
     fetch(`${this.$store.state.libraryApiUpcoming}${this.placeId}`)
       .then(resp => {
@@ -87,7 +87,7 @@ export default {
             if (date < new Date()) {
               date = new Date()
             }
-            let dayTime = date.getTime() - date.getHours()*60*60*1000 - date.getMinutes()*60*1000 - date.getSeconds()*1000 - date.getMilliseconds()
+            let dayTime = date.getTime() - date.getHours() * 60 * 60 * 1000 - date.getMinutes() * 60 * 1000 - date.getSeconds() * 1000 - date.getMilliseconds()
             let dayString = `${dayTime}`
             if (!self.sortedEvents[dayString]) {
               // self.sortedEvents[dayString] = {}
