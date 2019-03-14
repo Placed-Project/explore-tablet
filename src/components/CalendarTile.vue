@@ -48,6 +48,7 @@ export default {
   background: white;
   border-radius: 6px;
   overflow: hidden;
+  position: relative;
 }
 
 #calendar-tile img {
@@ -60,7 +61,7 @@ export default {
   position: absolute;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
-  max-width: 20%;
+  max-width: 80%;
 }
 
 @media (max-width: 640px) {

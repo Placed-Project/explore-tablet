@@ -1,5 +1,5 @@
 <template>
-  <div id="main-view">
+  <div id="main-view" :style="{'background-color': colors[bgColorIndex]}">
       <TitleTile @click.native="titleTileClicked"></TitleTile>
       <DescTile></DescTile>
       <PlusOneTile></PlusOneTile>
@@ -64,11 +64,18 @@ export default {
       showCatchScreen: true,
       showNightScreen: false,
       titleClickCount: 0,
-      QRClickCount: 0
+      QRClickCount: 0,
+      bgColorIndex: 0,
+      colors : [
+        '#2c2c2a',
+        '#0f2944',
+        '#111e51',
+        '#221d23',
+        '#0d0630'
+      ]
     }
   },
-  methods: {
-    titleTileClicked () {
+  methods: {titleTileClicked () {
       if (this.titleClickCount < 5) {
         this.titleClickCount += 1
       } else {
@@ -101,6 +108,7 @@ export default {
     '$route' (to, from) {
       if (this.$route.params.eventId) {
         this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
+        this.bgColorIndex = (this.bgColorIndex + 1)%this.colors.length
       }
     }
   },
@@ -140,8 +148,10 @@ export default {
   grid-auto-columns: 22vw;
   grid-template-rows: repeat(12, 8.2vh);
   grid-auto-flow: column dense;
-  width: calc(100vw - 16px);
-  margin: 8px;
+  width: 100vw;
+  height: 100vh;
+  background-attachment: fixed;
+  overflow-y: hidden;
 }
 
 @media (max-width: 640px) {
