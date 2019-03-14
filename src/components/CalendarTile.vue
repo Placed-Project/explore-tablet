@@ -43,8 +43,8 @@ export default {
 <style>
 
 #calendar-tile {
-  grid-row: span 4;
-  grid-column: span 1;
+  grid-row: span 2;
+  grid-column: span 2;
   background: white;
   border-radius: 6px;
   overflow: hidden;
