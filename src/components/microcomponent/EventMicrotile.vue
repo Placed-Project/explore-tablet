@@ -57,6 +57,7 @@ export default {
   display: inline-block;
   margin-left: 5px;
   cursor: pointer;
+  vertical-align: top;
 }
 
 .event-microtile img {

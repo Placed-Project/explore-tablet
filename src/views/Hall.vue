@@ -5,13 +5,16 @@
         <h2>La BML vous invite à découvrir</h2>
         <div id="event-grid-wrapper">
           <EventTile v-for="hl in highlights" :key="hl" :eventId="hl" @showPopUp="popUp"></EventTile>
+          <div id="logos">
+            <img src="../assets/CNRS-logo.png">
+            <img src="../assets/Enssib-logo.svg">
+          </div>
         </div>
       </div>
       <div id="right-pan">
         <TimeLine @showPopUp="popUp"></TimeLine>
       </div>
     </div>
-    <div id="research-banner" v-if="showResearchBanner">Ce dispositif est un prototype développé<br/>dans le cadre du projet de<br/>recherche européen<br/>PLACED<br/>placedproject.eu</div>
     <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
 </template>
@@ -26,8 +29,7 @@ export default {
     return {
       highlights: [],
       showPopUp: false,
-      choosedEvent: '',
-      showResearchBanner: true
+      choosedEvent: ''
     }
   },
   components: {
@@ -100,15 +102,16 @@ export default {
 color: #215994;
 }
 
-#research-banner {
-  position: fixed;
-  bottom: 43px;
-  left: -60px;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  text-align: center;
-  line-height: 1em;
-  opacity: 0.5;
+#logos {
+  position: absolute;
+  bottom: 10px;
+  left: 80px;
+  height: 50px;
 }
 
+#logos img {
+  height: 100%;
+  margin-right: 20px;
+  opacity: 0.8;
+}
 </style>

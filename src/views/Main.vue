@@ -13,6 +13,8 @@
       <!--<ContactTile></ContactTile>-->
       <ClientLinksTile v-if="$store.state.nbOfLinks > 0"></ClientLinksTile>
       <FilesTile v-if="$store.state.nbOfFiles > 0"></FilesTile>
+      <YoutubeTile v-for="link in youtubeLinks" :key="link.url" :link="link"></YoutubeTile>
+      <MixCloudTile v-for="link in mixcloudLinks" :key="link.url" :link="link"></MixCloudTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
@@ -36,10 +38,13 @@ import ClientLinksTile from '../components/ClientLinksTile'
 import FilesTile from '../components/FilesTile'
 import DatesTile from '../components/DatesTile'
 import NightScreen from '../components/NightScreen'
+import YoutubeTile from '../components/YoutubeTile';
+import MixCloudTile from '../components/MixCloudTile'
+import LinksListMixinVue from '../helpers/LinksListMixin.vue';
 
 export default {
   name: 'main-view',
-  mixins: [HelperMixin],
+  mixins: [HelperMixin, LinksListMixinVue],
   components: {
     CatchScreen,
     TitleTile,
@@ -55,7 +60,9 @@ export default {
     ClientLinksTile,
     FilesTile,
     DatesTile,
-    NightScreen
+    NightScreen,
+    YoutubeTile,
+    MixCloudTile
   },
   data: function () {
     return {
@@ -75,7 +82,32 @@ export default {
       ]
     }
   },
-  methods: {titleTileClicked () {
+  computed: {
+    youtubeLinks () {
+      let ytLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().url.match(/.*\.youtube\.com\/.*/gm)) {
+            ytLinks.push(lk.val())
+          }
+        }
+      }
+      return ytLinks
+    },
+    mixcloudLinks () {
+      let mcLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().url.match(/.*\.mixcloud\.com\/.*/gm)) {
+            mcLinks.push(lk.val())
+          }
+        }
+      }
+      return mcLinks
+    }
+  },
+  methods: {
+    titleTileClicked () {
       if (this.titleClickCount < 5) {
         this.titleClickCount += 1
       } else {
@@ -107,6 +139,7 @@ export default {
   watch: {
     '$route' (to, from) {
       if (this.$route.params.eventId) {
+        this.loadLinkListFromId(this.$route.params.eventId, this.eventId)
         this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
         this.bgColorIndex = (this.bgColorIndex + 1)%this.colors.length
       }
@@ -133,6 +166,7 @@ export default {
       this.resetCatchScreenTimeout()
     })
     this.appObserver.observe(targetNode, config)
+    this.loadLinkListFromId(this.eventId)
   },
   destroyed () {
     window.removeEventListener('scroll', this.resetCatchScreenTimeout)
@@ -152,6 +186,7 @@ export default {
   height: 100vh;
   background-attachment: fixed;
   overflow-y: hidden;
+  transition: background-color 0.5s;
 }
 
 @media (max-width: 640px) {
