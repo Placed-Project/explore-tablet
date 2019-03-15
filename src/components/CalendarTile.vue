@@ -44,7 +44,7 @@ export default {
 
 #calendar-tile {
   grid-row: span 2;
-  grid-column: span 2;
+  grid-column: span 1;
   background: white;
   border-radius: 6px;
   overflow: hidden;
@@ -52,6 +52,9 @@ export default {
 }
 
 #calendar-tile img {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100%;
   object-fit: contain;
 }
 

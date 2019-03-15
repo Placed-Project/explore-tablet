@@ -82,4 +82,11 @@ export default {
   overflow-x: scroll;
   white-space: nowrap;
 }
+
+@media (max-width: 640px) {
+  #program-events-tile {
+    min-height: 32vh;
+    overflow-y: hidden;
+  }
+}
 </style>

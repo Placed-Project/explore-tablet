@@ -11,10 +11,17 @@
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
       <program-events-tile v-if="eventData.event_mere != 0"></program-events-tile>
       <!--<ContactTile></ContactTile>-->
-      <ClientLinksTile v-if="$store.state.nbOfLinks > 0"></ClientLinksTile>
+      <!--<ClientLinksTile v-if="$store.state.nbOfLinks > 0"></ClientLinksTile>-->
       <FilesTile v-if="$store.state.nbOfFiles > 0"></FilesTile>
       <YoutubeTile v-for="link in youtubeLinks" :key="link.url" :link="link"></YoutubeTile>
       <MixCloudTile v-for="link in mixcloudLinks" :key="link.url" :link="link"></MixCloudTile>
+      <OtherTile v-for="link in otherLinks" :key="link.url" :link="link"></OtherTile>
+      <InfluxTile v-for="link in influxLinks" :key="link.url" :link="link"></InfluxTile>
+      <CatalogueTile v-for="link in catalogueLinks" :key="link.url" :link="link"></CatalogueTile>
+      <BMBlogTile v-for="link in bmlBlogLinks" :key="link.url" :link="link"></BMBlogTile>
+      <SoundCloudTile v-for="link in soundcloudLinks" :key="link.url" :link="link"></SoundCloudTile>
+      <BMVideoTile v-for="link in bmlVideoLinks" :key="link.url" :link="link"></BMVideoTile>
+      <WikipediaTile v-for="link in wikiLinks" :key="link.url" :link="link"></WikipediaTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
@@ -38,9 +45,16 @@ import ClientLinksTile from '../components/ClientLinksTile'
 import FilesTile from '../components/FilesTile'
 import DatesTile from '../components/DatesTile'
 import NightScreen from '../components/NightScreen'
-import YoutubeTile from '../components/YoutubeTile';
+import YoutubeTile from '../components/YoutubeTile'
 import MixCloudTile from '../components/MixCloudTile'
-import LinksListMixinVue from '../helpers/LinksListMixin.vue';
+import LinksListMixinVue from '../helpers/LinksListMixin.vue'
+import OtherTile from '../components/OtherTile'
+import InfluxTile from '../components/InfluxTile'
+import CatalogueTile from '../components/CatalogueTile'
+import BMLBlogTile from '../components/BMBlogTile'
+import SoundCloudTile from '../components/SoundCloudTile'
+import BMVideoTile from '../components/BMVideoTile'
+import WikipediaTile from '../components/WikipediaTile'
 
 export default {
   name: 'main-view',
@@ -62,7 +76,14 @@ export default {
     DatesTile,
     NightScreen,
     YoutubeTile,
-    MixCloudTile
+    MixCloudTile,
+    OtherTile,
+    InfluxTile,
+    CatalogueTile,
+    BMLBlogTile,
+    SoundCloudTile,
+    BMVideoTile,
+    WikipediaTile
   },
   data: function () {
     return {
@@ -87,7 +108,7 @@ export default {
       let ytLinks = []
       if(this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
-          if (lk.val().url.match(/.*\.youtube\.com\/.*/gm)) {
+          if (lk.val().type === 'yt') {
             ytLinks.push(lk.val())
           }
         }
@@ -98,12 +119,89 @@ export default {
       let mcLinks = []
       if(this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
-          if (lk.val().url.match(/.*\.mixcloud\.com\/.*/gm)) {
+          if (lk.val().type === 'mixcloud') {
             mcLinks.push(lk.val())
           }
         }
       }
       return mcLinks
+    },
+    wikiLinks () {
+      let wikiLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'wikipedia') {
+            wikiLinks.push(lk.val())
+          }
+        }
+      }
+      return wikiLinks
+    },
+    catalogueLinks () {
+      let ctLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'catalogue') {
+            ctLinks.push(lk.val())
+          }
+        }
+      }
+      return ctLinks
+    },
+    influxLinks () {
+      let infLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'influx') {
+            infLinks.push(lk.val())
+          }
+        }
+      }
+      return infLinks
+    },
+    bmlBlogLinks () {
+      let bmblLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'bml-blog') {
+            bmblLinks.push(lk.val())
+          }
+        }
+      }
+      return bmblLinks
+    },
+    soundcloudLinks () {
+      let scLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'soundcloud') {
+            scLinks.push(lk.val())
+          }
+        }
+      }
+      return scLinks
+    },
+    bmlVideoLinks () {
+      let bmvidLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'bml-video') {
+            bmvidLinks.push(lk.val())
+          }
+        }
+      }
+      return bmvidLinks
+    },
+    otherLinks () {
+      let otLinks = []
+      if(this.$store.state.nbOfLinks > 0) {
+        for (const lk of this.links) {
+          if (lk.val().type === 'other') {
+            otLinks.push(lk.val())
+          }
+        }
+      }
+      return otLinks
     }
   },
   methods: {
@@ -189,31 +287,6 @@ export default {
   transition: background-color 0.5s;
 }
 
-@media (max-width: 640px) {
-  #main-view {
-    display: flex;
-    flex-direction: column;
-    width: calc(100vw - 16px);
-    margin: 2px;
-  }
-
-  .explore-tile {
-    max-height: 210px;
-  }
-
-  .focused-tile {
-    max-height: 98vh;
-    height: 96vh;
-    width: 95vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 5;
-    box-shadow: 0px 0px 0px 30px rgba(0, 0, 0, 0.43);
-    transition: all 0.2s;
-  }
-
-}
 
 .explore-tile {
   margin: 5px;
@@ -240,5 +313,34 @@ export default {
   padding-right: 15vw;
   padding-top: 15vh;
   font-size: 18px;
+}
+
+
+@media (max-width: 640px) {
+  #main-view {
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    overflow-y: scroll;
+  }
+
+  .explore-tile {
+    max-height: 210px;
+    min-height: 20vh;
+  }
+
+  .focused-tile {
+    max-height: 98vh;
+    height: 98vh;
+    width: 98vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    box-shadow: 0px 0px 0px 30px rgba(0, 0, 0, 0.43);
+    transition: all 0.2s;
+    padding: 0;
+  }
+
 }
 </style>

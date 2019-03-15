@@ -106,6 +106,7 @@ export default {
       })
     },
     addLink: function () {
+      let linkType = ''
       // Empty URL
       if (this.addedLink.length === 0) {
         alert(this.$t('no-utl-provided-alert'))
@@ -119,25 +120,39 @@ export default {
 
       if (this.addedLink.match(/.*catalogue\.bm-lyon\.fr.*/gm)) { // If the url is from the catalogue
         this.addedLinkLabel = `📚 ${this.addedLinkLabel}`
+        linkType = 'catalogue'
       } else if (this.addedLink.match(/.*linflux\.com.*/gm)) { // If the url is from the Influx
         this.addedLinkLabel = `📰 ${this.addedLinkLabel}`
-      } else if (this.addedLink.match(/.*www\.bm-lyon\.fr\/nos-blogs.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+        linkType = 'influx'
+      } else if (this.addedLink.match(/.*bm-lyon\.fr\/nos-blogs.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
         this.addedLinkLabel = `📖 ${this.addedLinkLabel}`
-      } else if (this.addedLink.match(/.*\.youtube\.com\/.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+        linkType = 'bml-blog'
+      } else if (this.addedLink.match(/^.*(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|\&vi?=)([^#\&\?]*).*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
         this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
-      } else if (this.addedLink.match(/.*www\.bm-lyon\.fr\/spip\.php\?page=video.*/gm)) { // If the url is from the BML videos
+        linkType = 'yt'
+      } else if (this.addedLink.match(/.*bm-lyon\.fr\/spip\.php\?page=video.*/gm)) { // If the url is from the BML videos
         this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
-      } else if (this.addedLink.match(/.*\.soundcloud\.com\/.*/gm)) { // If the url is from soundcloud.com
+        linkType = 'bml-video'
+      } else if (this.addedLink.match(/.*soundcloud\.com.*/gm)) { // If the url is from soundcloud.com
         this.addedLinkLabel = `🎙 ${this.addedLinkLabel}`
+        linkType = 'soundcloud'
+      } else if (this.addedLink.match(/.*mixcloud\.com(.*)/gm)) { // If the url is from soundcloud.com
+        this.addedLinkLabel = `🎙 ${this.addedLinkLabel}`
+        linkType = 'mixcloud'
+      } else if (this.addedLink.match(/.*wikipedia\.org.*/gm)) { // If the url is from soundcloud.com
+        this.addedLinkLabel = `🦉 ${this.addedLinkLabel}`
+        linkType = 'wikipedia'
       } else {
         this.addedLinkLabel = `🌐 ${this.addedLinkLabel}`
+        linkType = 'other'
       }
 
       let pushRef = this.$store.state.database.ref(`event/${this.eventData.event_id}/links`).push()
       pushRef.set(
         {
           url: this.addedLink,
-          label: this.addedLinkLabel
+          label: this.addedLinkLabel,
+          type: linkType
         })
       this.addedLink = ''
       this.addedLinkLabel = ''
