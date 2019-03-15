@@ -1,5 +1,5 @@
 <template>
-  <div class="explore-tile other-tile">     
+  <div class="explore-tile other-tile">
     <a v-if="!$store.state.libraryDevice" target="_blank" rel="noopener noreferrer" :href="href">
       <h2 class="other-h2-tile">{{link.label.slice(2)}}</h2>
       <img src="https://images.unsplash.com/photo-1525011268546-bf3f9b007f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=550&q=80"/>

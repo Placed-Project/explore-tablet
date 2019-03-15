@@ -127,7 +127,7 @@ export default {
       } else if (this.addedLink.match(/.*bm-lyon\.fr\/nos-blogs.*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
         this.addedLinkLabel = `📖 ${this.addedLinkLabel}`
         linkType = 'bml-blog'
-      } else if (this.addedLink.match(/^.*(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|\&vi?=)([^#\&\?]*).*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
+      } else if (this.addedLink.match(/^.*(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|&vi?=)([^#&?]*).*/gm)) { // If the url is from the BML blogs www.bm-lyon.fr/nos-blogs
         this.addedLinkLabel = `🎞 ${this.addedLinkLabel}`
         linkType = 'yt'
       } else if (this.addedLink.match(/.*bm-lyon\.fr\/spip\.php\?page=video.*/gm)) { // If the url is from the BML videos

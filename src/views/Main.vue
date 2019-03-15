@@ -94,7 +94,7 @@ export default {
       titleClickCount: 0,
       QRClickCount: 0,
       bgColorIndex: 0,
-      colors : [
+      colors: [
         '#2c2c2a',
         '#0f2944',
         '#111e51',
@@ -106,7 +106,7 @@ export default {
   computed: {
     youtubeLinks () {
       let ytLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'yt') {
             ytLinks.push(lk.val())
@@ -117,7 +117,7 @@ export default {
     },
     mixcloudLinks () {
       let mcLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'mixcloud') {
             mcLinks.push(lk.val())
@@ -128,7 +128,7 @@ export default {
     },
     wikiLinks () {
       let wikiLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'wikipedia') {
             wikiLinks.push(lk.val())
@@ -139,7 +139,7 @@ export default {
     },
     catalogueLinks () {
       let ctLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'catalogue') {
             ctLinks.push(lk.val())
@@ -150,7 +150,7 @@ export default {
     },
     influxLinks () {
       let infLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'influx') {
             infLinks.push(lk.val())
@@ -161,7 +161,7 @@ export default {
     },
     bmlBlogLinks () {
       let bmblLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'bml-blog') {
             bmblLinks.push(lk.val())
@@ -172,7 +172,7 @@ export default {
     },
     soundcloudLinks () {
       let scLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'soundcloud') {
             scLinks.push(lk.val())
@@ -183,7 +183,7 @@ export default {
     },
     bmlVideoLinks () {
       let bmvidLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'bml-video') {
             bmvidLinks.push(lk.val())
@@ -194,7 +194,7 @@ export default {
     },
     otherLinks () {
       let otLinks = []
-      if(this.$store.state.nbOfLinks > 0) {
+      if (this.$store.state.nbOfLinks > 0) {
         for (const lk of this.links) {
           if (lk.val().type === 'other') {
             otLinks.push(lk.val())
@@ -239,7 +239,7 @@ export default {
       if (this.$route.params.eventId) {
         this.loadLinkListFromId(this.$route.params.eventId, this.eventId)
         this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
-        this.bgColorIndex = (this.bgColorIndex + 1)%this.colors.length
+        this.bgColorIndex = (this.bgColorIndex + 1) % this.colors.length
       }
     }
   },
@@ -287,7 +287,6 @@ export default {
   transition: background-color 0.5s;
 }
 
-
 .explore-tile {
   margin: 5px;
   min-height: 8.2vh;
@@ -314,7 +313,6 @@ export default {
   padding-top: 15vh;
   font-size: 18px;
 }
-
 
 @media (max-width: 640px) {
   #main-view {

@@ -20,7 +20,7 @@ export default {
   ],
   computed: {
     id () {
-      return this.link.url.match(/^.*(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|\&vi?=)([^#\&\?]*).*/)[2]
+      return this.link.url.match(/^.*(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|&vi?=)([^#&?]*).*/)[2]
     }
   }
 }

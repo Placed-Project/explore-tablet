@@ -26,12 +26,12 @@ export default {
   },
   mounted: function () {
     fetch(this.link.url)
-    .then(t => {
-      return t.text()
-    })
-    .then(text => {
-      this.videoURL = text.match(/.*<a class='download_video' .* href="(.*)" .*>.*<\/a>.*/)[1]
-    })
+      .then(t => {
+        return t.text()
+      })
+      .then(text => {
+        this.videoURL = text.match(/.*<a class='download_video' .* href="(.*)" .*>.*<\/a>.*/)[1]
+      })
   },
   computed: {
     feed () {
