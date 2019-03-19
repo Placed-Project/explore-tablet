@@ -18,7 +18,7 @@
       <OtherTile v-for="link in otherLinks" :key="link.url" :link="link"></OtherTile>
       <InfluxTile v-for="link in influxLinks" :key="link.url" :link="link"></InfluxTile>
       <CatalogueTile v-for="link in catalogueLinks" :key="link.url" :link="link"></CatalogueTile>
-      <BMBlogTile v-for="link in bmlBlogLinks" :key="link.url" :link="link"></BMBlogTile>
+      <BMLBlogTile v-for="link in bmlBlogLinks" :key="link.url" :link="link"></BMLBlogTile>
       <SoundCloudTile v-for="link in soundcloudLinks" :key="link.url" :link="link"></SoundCloudTile>
       <BMVideoTile v-for="link in bmlVideoLinks" :key="link.url" :link="link"></BMVideoTile>
       <WikipediaTile v-for="link in wikiLinks" :key="link.url" :link="link"></WikipediaTile>
@@ -284,7 +284,6 @@ export default {
   height: 100vh;
   background-attachment: fixed;
   overflow-y: hidden;
-  transition: background-color 0.5s;
 }
 
 .explore-tile {
