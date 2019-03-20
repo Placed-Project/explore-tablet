@@ -34,7 +34,8 @@ export default {
   },
   data: function () {
     return {
-      eventObj: null
+      eventObj: null,
+      popuptimer: -1
     }
   },
   created: function () {
@@ -51,8 +52,13 @@ export default {
       .catch((err) => {
         console.error(err)
       })
+
+    this.popuptimer = setTimeout(() => {
+      this.$emit('close-popup')
+    }, 120000)
   },
   beforeDestroy: function () {
+    clearTimeout(this.popuptimer)
     document.querySelector('#hall-view #grid-wrapper').classList.remove('blurry')
   },
   methods: {
