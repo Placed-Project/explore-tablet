@@ -20,6 +20,9 @@ import HelperMixin from '../../helpers/HelperMixin.vue'
 import EventMiniTile from './EventMiniTile'
 
 export default {
+  props: [
+    'bibId'
+  ],
   data: function () {
     return {
       placeId: 16,
@@ -37,6 +40,11 @@ export default {
   mixins: [
     HelperMixin
   ],
+  created: function () {
+    if(this.bibId != '') {
+      this.placeId = this.bibId
+    }
+  },
   mounted: function () {
     document.querySelector('#timeline').addEventListener('scroll', ev => {
       this.position = document.querySelector('#timeline').scrollTop / (document.querySelector('#timeline').scrollHeight - document.querySelector('#timeline').offsetHeight) * 100

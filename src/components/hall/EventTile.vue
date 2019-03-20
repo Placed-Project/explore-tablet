@@ -2,27 +2,53 @@
   <div class="hall-event-tile" v-on:click="showPopUp()">
     <img :src="eventImage"/>
     <h3 class="hall-event-tile-h3"> {{eventTitle}}</h3>
+    <h3 class="hall-event-tile-h3-date">{{beautifulDateFromString(eventDate)}}</h3>
   </div>
 </template>
 
 <script>
+import parseDate from 'date-fns/parse'
+import HelperMixinVue from '../../helpers/HelperMixin.vue';
+
 export default {
+  mixins: [
+    HelperMixinVue
+  ],
   props: [
-    'eventId'
+    'hEventId'
   ],
   data: function () {
     return {
       eventImage: '',
-      eventTitle: ''
+      eventTitle: '',
+      eventDate: ''
     }
   },
   mounted: function () {
-    fetch(`${this.$store.state.libraryApiUrl}${this.eventId}`)
+    fetch(`${this.$store.state.libraryApiUrl}${this.hEventId}`)
       .then((resp) => {
         if (resp.ok) {
           resp.json().then((data) => {
             this.eventImage = data[0].image_url
             this.eventTitle = data[0].event_title
+
+            let dateindex = 0
+            for (let i = 0; i < data[0].dates.length; i++) {
+              let date = parseDate(data[0].dates[i].date_start)
+              if ((new Date()) < date) {
+                dateindex = i
+                break
+              } else if (i === data[0].dates.length - 1) {
+                dateindex = i
+                break
+              }
+            }
+            let d = parseDate(data[0].dates[dateindex].date_start)
+            if (d < new Date()) {
+              this.eventDate = (new Date()).toISOString()
+            } else {
+              this.eventDate = data[0].dates[dateindex].date_start
+            }
           })
         }
       })
@@ -32,7 +58,7 @@ export default {
   },
   methods: {
     showPopUp: function () {
-      this.$emit('showPopUp', this.eventId)
+      this.$emit('showPopUp', this.hEventId)
     }
   }
 }
@@ -68,6 +94,17 @@ export default {
   background-color: white;
   /*background-color: white;*/
   color: #221d23;
+}
+
+.hall-event-tile-h3-date {
+  position: absolute;
+  font-size: x-large;
+  -webkit-box-shadow: 0px 0px 0px 5px black;
+  box-shadow: 0px 0px 0px 5px white;
+  background-color: white;
+  color: #221d23;
+  right: -8px;
+  bottom: 25px;
 }
 
 @media (orientation: portrait) {

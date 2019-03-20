@@ -4,15 +4,15 @@
       <div id="left-pan">
         <h2>La BML vous invite à découvrir</h2>
         <div id="event-grid-wrapper">
-          <EventTile v-for="hl in highlights" :key="hl" :eventId="hl" @showPopUp="popUp"></EventTile>
-          <div id="logos">
+          <EventTile v-for="hl in highlights" :key="hl" :hEventId="hl" @showPopUp="popUp"></EventTile>
+          <div id="logos" @click="reloadPage">
             <img src="../assets/CNRS-logo.png">
             <img src="../assets/Enssib-logo.svg">
           </div>
         </div>
       </div>
       <div id="right-pan">
-        <TimeLine @showPopUp="popUp"></TimeLine>
+        <TimeLine @showPopUp="popUp" :bibId="bibId"></TimeLine>
       </div>
     </div>
     <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
@@ -29,7 +29,8 @@ export default {
     return {
       highlights: [],
       showPopUp: false,
-      choosedEvent: ''
+      choosedEvent: '',
+      bibId: ''
     }
   },
   components: {
@@ -37,9 +38,18 @@ export default {
     EventPopUp,
     TimeLine
   },
+  created: function () {
+    if (this.$route.params.bibId) {
+      this.bibId = this.$route.params.bibId
+    }
+  },
   mounted: function () {
-    this.$store.state.database.ref('highlight').on('child_added', (data) => {
+    this.$store.state.database.ref('highlight'+this.bibId).on('child_added', (data) => {
       this.highlights.push(data.key)
+    })
+    
+    this.$store.state.database.ref(`highlight`+this.bibId).on('child_removed', (data) => {
+      this.highlights.splice(this.highlights.indexOf(data.key, 1))
     })
   },
   methods: {
@@ -49,6 +59,9 @@ export default {
     },
     closePopUp: function () {
       this.showPopUp = false
+    },
+    reloadPage: function () {
+      location.reload(true)
     }
   }
 }

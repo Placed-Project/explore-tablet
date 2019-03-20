@@ -24,6 +24,11 @@ export default new Router({
       component: Hall
     },
     {
+      path: '/hall/:bibId',
+      name: 'hall',
+      component: Hall
+    },
+    {
       path: '/:eventId',
       name: 'event',
       component: Main
