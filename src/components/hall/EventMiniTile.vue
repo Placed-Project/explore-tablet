@@ -1,15 +1,22 @@
 <template>
   <div class="hall-event-mini-tile" v-on:click="showPopUp()">
-    <img :src="eventObj.image_url"/>
+    <img :src="imageSrc"/>
     <h3 class="hall-event-mini-tile-h3">{{eventObj.event_title}}</h3>
   </div>
 </template>
 
 <script>
+import bmlLogo from '../../assets/bml-logo.png'
+
 export default {
   props: [
     'eventObj'
   ],
+  computed: {
+    imageSrc: function () {
+      return this.eventObj.image_url ? this.eventObj.image_url : bmlLogo
+    }
+  },
   methods: {
     showPopUp: function () {
       this.$emit('showPopUp', this.eventObj.event_id)

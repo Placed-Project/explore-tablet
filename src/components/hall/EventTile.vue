@@ -8,7 +8,8 @@
 
 <script>
 import parseDate from 'date-fns/parse'
-import HelperMixinVue from '../../helpers/HelperMixin.vue';
+import HelperMixinVue from '../../helpers/HelperMixin.vue'
+import bmlLogo from '../../assets/bml-logo.png'
 
 export default {
   mixins: [
@@ -29,7 +30,8 @@ export default {
       .then((resp) => {
         if (resp.ok) {
           resp.json().then((data) => {
-            this.eventImage = data[0].image_url
+            this.eventImage = data[0].image_url ? data[0].image_url : bmlLogo
+
             this.eventTitle = data[0].event_title
 
             let dateindex = 0

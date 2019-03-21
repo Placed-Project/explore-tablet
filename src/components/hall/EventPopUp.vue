@@ -2,7 +2,7 @@
   <div id="event-popup">
     <div id="event-popup-bg" @click="closePopUp"></div>
     <div id="event-popup-body" v-if="eventObj">
-      <img :src="eventObj.image_url">
+      <img :src="imageSrc">
       <QRTile :event-id-prop="eventIdProp"></QRTile>
       <ContactTile :event-obj-prop="eventObj"></ContactTile>
       <div id="event-popup-text-wrapper">
@@ -20,6 +20,7 @@ import HelperMixinVue from '../../helpers/HelperMixin'
 import QRTile from '../QRTile'
 import ContactTile from '../ContactTile'
 import parseDate from 'date-fns/parse'
+import bmlLogo from '../../assets/bml-logo.png'
 
 export default {
   props: [
@@ -67,6 +68,9 @@ export default {
     }
   },
   computed: {
+    imageSrc: function () {
+      return this.eventObj.image_url ? this.eventObj.image_url : bmlLogo
+    },
     cleanedDescription: function () {
       return this.eventObj.event_description.replace(/<a.*>(.*)<\/a>/gm, '$1')
     },
