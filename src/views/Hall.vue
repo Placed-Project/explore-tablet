@@ -5,7 +5,7 @@
         <h2>La BML vous invite à découvrir</h2>
         <div id="event-grid-wrapper">
           <EventTile v-for="hl in highlights" :key="hl" :hEventId="hl" @showPopUp="popUp"></EventTile>
-          <div id="logos" @click="reloadPage">
+          <div id="logos" @dblclick="reloadPage">
             <img src="../assets/CNRS-logo.png">
             <img src="../assets/Enssib-logo.svg">
           </div>

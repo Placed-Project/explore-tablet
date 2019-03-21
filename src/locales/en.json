@@ -50,5 +50,9 @@
   "label-file-list-label" : "Files for this event :",
   "additional-files-label" : "Files :",
   "qrcode-additional-files-label" : "Scan the QRCode to access additional files about this event",
-  "dates-tile-label" : "Other dates"
+  "dates-tile-label" : "Other dates",
+  "partner-learnmore-label": "Learn more",
+  "partner-website-label": "Website",
+  "visit-partnerwebsite-label": "You can visit their website here :",
+  "partner-label": "Partner"
 }

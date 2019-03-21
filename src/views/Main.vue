@@ -22,6 +22,7 @@
       <SoundCloudTile v-for="link in soundcloudLinks" :key="link.url" :link="link"></SoundCloudTile>
       <BMVideoTile v-for="link in bmlVideoLinks" :key="link.url" :link="link"></BMVideoTile>
       <WikipediaTile v-for="link in wikiLinks" :key="link.url" :link="link"></WikipediaTile>
+      <PartnerTile v-for="partner in eventData.partenaire" :key="partner.partenaire_id" :partnerObj="partner"></PartnerTile>
       <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
@@ -55,6 +56,7 @@ import BMLBlogTile from '../components/BMBlogTile'
 import SoundCloudTile from '../components/SoundCloudTile'
 import BMVideoTile from '../components/BMVideoTile'
 import WikipediaTile from '../components/WikipediaTile'
+import PartnerTile from '../components/PartnerTile'
 
 export default {
   name: 'main-view',
@@ -83,7 +85,8 @@ export default {
     BMLBlogTile,
     SoundCloudTile,
     BMVideoTile,
-    WikipediaTile
+    WikipediaTile,
+    PartnerTile
   },
   data: function () {
     return {
