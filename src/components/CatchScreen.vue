@@ -83,10 +83,10 @@ export default {
     }, 15000)
 
     setInterval(() => {
-      this.band1Left = (this.band1Left + 50) > 100 ? -50 : this.band1Left + 50
-      this.band2Left = (this.band2Left + 33) > 100 ? -33 : this.band2Left + 33
-      this.band3Left = (this.band3Left + 20) > 100 ? -20 : this.band3Left + 20
-    }, 30000)
+      this.band1Left = (this.band1Left + 20) > 100 ? -20 : this.band1Left + 20
+      this.band2Left = (this.band2Left + 10) > 100 ? -10 : this.band2Left + 10
+      this.band3Left = (this.band3Left + 5) > 100 ? -5 : this.band3Left + 5
+    }, 60000)
 
     /*
     navigator.mediaDevices.getUserMedia({
@@ -209,19 +209,19 @@ export default {
 #seethrough-band-1 {
   top:0;
   left: 0;
-  transition: left 30s;
+  transition: left 10s;
 }
 
 #seethrough-band-2 {
   top:33vh;
   /*left: 50%;*/
-  transition: right 30s;
+  transition: right 10s;
 }
 #seethrough-band-3 {
   position: absolute;
   bottom:0;
   right: 0;
-  transition: left 30s;
+  transition: left 10s;
 }
 
 .text-band {
