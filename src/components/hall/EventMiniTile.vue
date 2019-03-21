@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     showPopUp: function () {
-      this.$emit('showPopUp', this.eventObj.event_id)
+      this.$emit('showPopUp', this.eventObj.obj)
     }
   }
 }

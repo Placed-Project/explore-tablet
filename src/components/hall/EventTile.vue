@@ -22,7 +22,8 @@ export default {
     return {
       eventImage: '',
       eventTitle: '',
-      eventDate: ''
+      eventDate: '',
+      eventObj: null
     }
   },
   mounted: function () {
@@ -30,6 +31,7 @@ export default {
       .then((resp) => {
         if (resp.ok) {
           resp.json().then((data) => {
+            this.eventObj = data[0]
             this.eventImage = data[0].image_url ? data[0].image_url : bmlLogo
 
             this.eventTitle = data[0].event_title
@@ -60,7 +62,7 @@ export default {
   },
   methods: {
     showPopUp: function () {
-      this.$emit('showPopUp', this.hEventId)
+      this.$emit('showPopUp', this.eventObj)
     }
   }
 }

@@ -66,8 +66,8 @@ export default {
       })
   },
   methods: {
-    relayPopUp: function (id) {
-      this.$emit('showPopUp', id)
+    relayPopUp: function (obj) {
+      this.$emit('showPopUp', obj)
     },
     populateDates: async function () {
       let self = this
@@ -90,6 +90,7 @@ export default {
               }
             }
             let tmpEv = self.events[index]
+            tmpEv.obj = data[0]
             tmpEv.date = data[0].dates[dateindex]
             tmpEv.image_url = data[0].image_url
             self.datedEvents.push(tmpEv)

@@ -3,7 +3,7 @@
     <div id="event-popup-bg" @click="closePopUp"></div>
     <div id="event-popup-body" v-if="eventObj">
       <img :src="imageSrc">
-      <QRTile :event-id-prop="eventIdProp"></QRTile>
+      <QRTile :event-id-prop="eventProp.event_id"></QRTile>
       <ContactTile :event-obj-prop="eventObj"></ContactTile>
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
@@ -24,7 +24,7 @@ import bmlLogo from '../../assets/bml-logo.png'
 
 export default {
   props: [
-    'eventIdProp'
+    'eventProp'
   ],
   mixins: [
     HelperMixinVue
@@ -39,10 +39,12 @@ export default {
       popuptimer: -1
     }
   },
-  created: function () {
+  mounted: function () {
     document.querySelector('#hall-view #grid-wrapper').classList.add('blurry')
 
-    fetch(`${this.$store.state.libraryApiUrl}${this.eventIdProp}`)
+    this.eventObj = this.eventProp
+
+    fetch(`${this.$store.state.libraryApiUrl}${this.eventProp.event_id}`)
       .then((resp) => {
         if (resp.ok) {
           resp.json().then((data) => {

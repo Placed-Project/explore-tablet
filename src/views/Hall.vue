@@ -15,7 +15,7 @@
         <TimeLine @showPopUp="popUp" :bibId="bibId"></TimeLine>
       </div>
     </div>
-    <EventPopUp :event-id-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
+    <EventPopUp :event-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     return {
       highlights: [],
       showPopUp: false,
-      choosedEvent: '',
+      choosedEvent: null,
       bibId: ''
     }
   },
@@ -53,8 +53,8 @@ export default {
     })
   },
   methods: {
-    popUp: function (eventId) {
-      this.choosedEvent = eventId
+    popUp: function (obj) {
+      this.choosedEvent = obj
       this.showPopUp = true
     },
     closePopUp: function () {
