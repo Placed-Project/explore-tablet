@@ -44,11 +44,11 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.state.database.ref('highlight'+this.bibId).on('child_added', (data) => {
+    this.$store.state.database.ref('highlight' + this.bibId).on('child_added', (data) => {
       this.highlights.push(data.key)
     })
-    
-    this.$store.state.database.ref(`highlight`+this.bibId).on('child_removed', (data) => {
+
+    this.$store.state.database.ref(`highlight` + this.bibId).on('child_removed', (data) => {
       this.highlights.splice(this.highlights.indexOf(data.key, 1))
     })
   },

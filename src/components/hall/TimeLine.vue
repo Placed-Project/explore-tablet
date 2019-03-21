@@ -41,7 +41,7 @@ export default {
     HelperMixin
   ],
   created: function () {
-    if(this.bibId != '') {
+    if (this.bibId !== '') {
       this.placeId = this.bibId
     }
   },

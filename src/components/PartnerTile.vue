@@ -27,7 +27,7 @@ export default {
     }
   },
   created: function () {
-    if (this.partnerObj.partenaire_url.match(/http[s]?\:\/\/.+\..+/)) {
+    if (this.partnerObj.partenaire_url.match(/http[s]?:\/\/.+\..+/)) {
       this.hasLink = true
     }
   },
