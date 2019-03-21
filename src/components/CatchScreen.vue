@@ -73,7 +73,7 @@ export default {
 
     document.querySelector('#short-desc').style.height = 'auto'
     document.querySelector('#call-to-action').style.height = 'auto'
-    
+
     let b = baffle(document.querySelector('#call-to-action')).start()
     b.reveal(1500)
 
@@ -83,10 +83,10 @@ export default {
     }, 15000)
 
     setInterval(() => {
-      this.band1Left = (this.band1Left + 0.5) > 100 ? -40 : this.band1Left + 0.5
-      this.band2Left = (this.band2Left + 0.4) > 100 ? -40 : this.band2Left + 0.4
-      this.band3Left = (this.band3Left + 0.2) > 100 ? -40 : this.band3Left + 0.2
-    }, 200)
+      this.band1Left = (this.band1Left + 50) > 100 ? -50 : this.band1Left + 50
+      this.band2Left = (this.band2Left + 33) > 100 ? -33 : this.band2Left + 33
+      this.band3Left = (this.band3Left + 20) > 100 ? -20 : this.band3Left + 20
+    }, 30000)
 
     /*
     navigator.mediaDevices.getUserMedia({
@@ -203,22 +203,25 @@ export default {
   height: 11vh;
   position: fixed;
   z-index: -1;
-  transition: width 0.5s, height 0.5s, left 0.3s, right 0.3s ;
+  transition: width 0.5s, height 0.5s, left 0.6s, right 0.6s ;
 }
 
 #seethrough-band-1 {
   top:0;
   left: 0;
+  transition: left 30s;
 }
 
 #seethrough-band-2 {
   top:33vh;
   /*left: 50%;*/
+  transition: right 30s;
 }
 #seethrough-band-3 {
   position: absolute;
   bottom:0;
   right: 0;
+  transition: left 30s;
 }
 
 .text-band {
@@ -280,7 +283,7 @@ export default {
 }
 
 .halftone > * {
-  filter: brightness(0.5) blur(4px);
+  filter: brightness(0.5) blur(3px);
   background-image: url("https://www.bm-lyon.fr/agenda/documents/images/mediums/med_100718142748.jpg");
   background-attachment: fixed;
   background-size: 100vw;
