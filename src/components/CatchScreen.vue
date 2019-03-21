@@ -8,9 +8,9 @@
         <p>{{beautifulDate}}</p>
         <p id="call-to-action">{{$t("click-to-know-more")}}</p>
       </div>
-      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-1"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
-      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-2"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
-      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" id="seethrough-band-3"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
+      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`, left: `${band1Left}vw`}" id="seethrough-band-1"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
+      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`, right: `${band2Left}vw`}" id="seethrough-band-2"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
+      <div class="seethrough-band" v-bind:class="{ halftone: halfTone }" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`, left: `${band3Left}vw`}" id="seethrough-band-3"><div class="halftone-child" v-bind:style="{ backgroundImage: `url(${this.eventData['image_url']})`}" v-if="halfTone"></div></div>
     </div>
     <video id="video" width="320" height="240" preload autoplay loop muted></video>
   </div>
@@ -38,7 +38,10 @@ export default {
     return {
       trackingInterval: -1,
       cameraInterval: -1,
-      halfTone: true
+      halfTone: true,
+      band1Left: 0,
+      band2Left: 0,
+      band3Left: 0
     }
   },
   beforeDestroy: function () {
@@ -66,12 +69,25 @@ export default {
     // Without extracting this from the commented code below, it doesn't work on WKWebkit
     bandThree.style.width = bandTwo.style.width = bandOne.style.width = `60vw`
     bandThree.style.height = bandTwo.style.height = bandOne.style.height = `25vh`
-    bandTwo.style.left = `20vw`
+    // bandTwo.style.left = `20vw`
 
     document.querySelector('#short-desc').style.height = 'auto'
     document.querySelector('#call-to-action').style.height = 'auto'
+    
     let b = baffle(document.querySelector('#call-to-action')).start()
     b.reveal(1500)
+
+    setInterval(() => {
+      let b = baffle(document.querySelector('#call-to-action')).start()
+      b.reveal(1500)
+    }, 15000)
+
+    setInterval(() => {
+      this.band1Left = (this.band1Left + 0.5) > 100 ? -40 : this.band1Left + 0.5
+      this.band2Left = (this.band2Left + 0.4) > 100 ? -40 : this.band2Left + 0.4
+      this.band3Left = (this.band3Left + 0.2) > 100 ? -40 : this.band3Left + 0.2
+    }, 200)
+
     /*
     navigator.mediaDevices.getUserMedia({
       video: true,
@@ -187,7 +203,7 @@ export default {
   height: 11vh;
   position: fixed;
   z-index: -1;
-  transition: width 0.5s, height 0.5s, left 0.5s ;
+  transition: width 0.5s, height 0.5s, left 0.3s, right 0.3s ;
 }
 
 #seethrough-band-1 {
@@ -197,7 +213,7 @@ export default {
 
 #seethrough-band-2 {
   top:33vh;
-  left: 50%;
+  /*left: 50%;*/
 }
 #seethrough-band-3 {
   position: absolute;
