@@ -192,18 +192,16 @@ export default {
 }
 
 #research-banner {
-  position: sticky;
+  position: fixed;
   font-size: 17px;
   top: 0px;
   right: 150px;
-  left: 80px;
   text-align: left;
   line-height: 1.3em;
   color: rgba(253, 254, 255, 0.5);
   margin-left: 80px;
-  margin-right: 150px;
-  margin-top: 10px;
   z-index: 25;
   background-color: #221d23;
+  width: 470px;
 }
 </style>

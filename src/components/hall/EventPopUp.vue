@@ -7,7 +7,8 @@
       <ContactTile :event-obj-prop="eventObj"></ContactTile>
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
-        <span class="event-popup-date">{{beautifulDateTimeFromString(nextDate)}} - {{beautifulDateTimeFromString(currentDateEndtime(eventObj.dates))}}</span>
+        <p v-if="currentDateObject(eventObj.dates).lex_date_statut_id == '1'" class="cancel-warning">{{$t('event-canceled')}}</p>
+        <span class="event-popup-date">{{beautifulDateTimeFromString(nextDate)}} - {{displayedEndTime}}</span>
         <div>{{eventObj['event_description_courte']}}</div>
         <div v-html="cleanedDescription"></div>
       </div>
@@ -98,6 +99,19 @@ export default {
       } else {
         return (new Date()).toISOString()
       }
+    },
+    displayedEndTime: function () {
+      // if start and end are the same day
+      let d1 = new Date(this.nextDate)
+      let d2 = this.currentDateEndtime(this.eventObj.dates)
+      if (d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate()) {
+        return this.beautifulTimeFromString(this.currentDateEndtime(this.eventObj.dates))
+      } else {
+        return this.beautifulDateTimeFromString(this.currentDateEndtime(this.eventObj.dates))
+      }
+      
     }
   }
 }
@@ -162,5 +176,10 @@ export default {
 
 #emph.blurry {
   filter: blur(4px);
+}
+
+.cancel-warning {
+  font-size: 30px;
+  color: red;
 }
 </style>
