@@ -7,7 +7,7 @@
       <ContactTile :event-obj-prop="eventObj"></ContactTile>
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
-        <span class="event-popup-date">{{beautifulDateFromString(nextDate)}}</span>
+        <span class="event-popup-date">{{beautifulDateTimeFromString(nextDate)}} - {{beautifulDateTimeFromString(currentDateEndtime(eventObj.dates))}}</span>
         <div>{{eventObj['event_description_courte']}}</div>
         <div v-html="cleanedDescription"></div>
       </div>
