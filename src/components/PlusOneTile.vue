@@ -79,7 +79,7 @@ export default {
 
 <style>
 #plus-one-tile {
-  grid-row: span 4;
+  grid-row: span 3;
   grid-column: span 1;
   overflow: hidden;
 }
@@ -89,7 +89,7 @@ export default {
   background: #FFC83D;
   padding: 4px;
   vertical-align: middle;
-  margin-top: 50%;
+  margin-top: 40%;
   margin-left: 50%;
   height: 70px;
   transform: translate(-50%, -50%);

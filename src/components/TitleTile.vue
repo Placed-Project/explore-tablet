@@ -15,8 +15,8 @@ export default {
 
 <style>
 #title-tile {
-  grid-column: span 2;
-  grid-row: span 4;
+  grid-column: span 3;
+  grid-row: span 3;
   /*background: #F2EFE8;
   border-radius: 6px;*/
 }
@@ -35,7 +35,7 @@ export default {
   font-family: 'rennerbold', sans-serif;
   line-height: 1.2;
   margin-bottom: 0;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 #event-date-h2-tile {
@@ -44,6 +44,6 @@ export default {
   color: white;
   font-family: 'rennerbold', sans-serif;
   margin-top: 0;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 </style>

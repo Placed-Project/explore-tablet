@@ -41,12 +41,16 @@ export default {
       halfTone: true,
       band1Left: 0,
       band2Left: 0,
-      band3Left: 0
+      band3Left: 0,
+      baffleInterval: -1,
+      animInterval: -1
     }
   },
   beforeDestroy: function () {
     clearInterval(this.trackingInterval)
     clearInterval(this.cameraInterval)
+    clearInterval(this.baffleInterval)
+    clearInterval(this.animInterval)
   },
   mounted: function () {
     // let self = this
@@ -77,12 +81,12 @@ export default {
     let b = baffle(document.querySelector('#call-to-action')).start()
     b.reveal(1500)
 
-    setInterval(() => {
+    this. baffleInterval = setInterval(() => {
       let b = baffle(document.querySelector('#call-to-action')).start()
       b.reveal(1500)
     }, 15000)
 
-    setInterval(() => {
+    this.animInterval = setInterval(() => {
       this.band1Left = (this.band1Left + 20) > 100 ? -20 : this.band1Left + 20
       this.band2Left = (this.band2Left + 10) > 100 ? -10 : this.band2Left + 10
       this.band3Left = (this.band3Left + 5) > 100 ? -5 : this.band3Left + 5

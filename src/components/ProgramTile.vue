@@ -1,7 +1,8 @@
 <template>
   <div id="prog-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
     <h2>{{$t('program-begin-label')}} {{progName}}</h2>
-    <div class="event-prog-tile" v-html="progDesc"></div>
+    <p class="desc-learnmore" v-if="!focused">En savoir plus</p>
+    <div v-if="focused" class="event-prog-tile" v-html="progDesc"></div>
   </div>
 </template>
 
@@ -45,16 +46,22 @@ export default {
 
 <style>
 #prog-tile {
-  grid-row: span 4;
-  grid-column: span 2;
+  grid-row: span 3;
+  grid-column: span 1;
   background: white;
   border-radius: 6px;
   overflow: scroll;
+  position: relative;
+}
+
+#prog-tile.focused-tile {
+  position: fixed;
 }
 
 #prog-tile h2 {
   margin-left: 20px;
   margin-right: 20px;
+  font-size: 16px;
 }
 
 .event-prog-tile{

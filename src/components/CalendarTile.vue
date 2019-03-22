@@ -59,12 +59,14 @@ export default {
 }
 
 #calendar-h2-tile {
-  margin-top: 10px;
-  margin-left: 20px;
-  position: absolute;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
-  max-width: 80%;
+      position: absolute;
+    background-color: #221d2388;
+    color: white;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    z-index: 3;
 }
 
 @media (max-width: 640px) {
