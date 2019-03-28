@@ -48,7 +48,6 @@ export default {
 
     this.eventObj = this.eventProp
 
-    
     this.$store.state.database.ref('highlight' + this.bibId + '/' + this.eventObj.event_id).once('value', (data) => {
       this.moveInvite = data.val()
     })
@@ -119,7 +118,6 @@ export default {
       } else {
         return this.beautifulDateTimeFromString(this.currentDateEndtime(this.eventObj.dates))
       }
-      
     }
   }
 }

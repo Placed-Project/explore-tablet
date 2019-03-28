@@ -81,7 +81,7 @@ export default {
     let b = baffle(document.querySelector('#call-to-action')).start()
     b.reveal(1500)
 
-    this. baffleInterval = setInterval(() => {
+    this.baffleInterval = setInterval(() => {
       let b = baffle(document.querySelector('#call-to-action')).start()
       b.reveal(1500)
     }, 15000)

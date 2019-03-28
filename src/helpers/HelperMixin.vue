@@ -13,11 +13,11 @@ export default {
     },
     beautifulDateTimeFromString: function (dateString) {
       let dateObject = parseDate(dateString)
-      return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}, ${dateObject.getHours()}:${("0" + dateObject.getMinutes()).slice(-2)}`
+      return `${this.$t('week-day-' + dateObject.getDay())} ${dateObject.getDate()} ${this.$t('month-' + dateObject.getMonth())} ${dateObject.getFullYear()}, ${dateObject.getHours()}:${('0' + dateObject.getMinutes()).slice(-2)}`
     },
     beautifulTimeFromString: function (dateString) {
       let dateObject = parseDate(dateString)
-      return `${dateObject.getHours()}:${("0" + dateObject.getMinutes()).slice(-2)}`
+      return `${dateObject.getHours()}:${('0' + dateObject.getMinutes()).slice(-2)}`
     },
     currentDateEndtime: function (datesArray) {
       let dateindex = 0
