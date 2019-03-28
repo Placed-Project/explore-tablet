@@ -15,7 +15,7 @@
         <TimeLine @showPopUp="popUp" :bibId="bibId"></TimeLine>
       </div>
     </div>
-    <EventPopUp :event-prop="choosedEvent" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
+    <EventPopUp :event-prop="choosedEvent" :bibId="bibId" v-if="showPopUp" @close-popup="closePopUp"></EventPopUp>
   </div>
 </template>
 

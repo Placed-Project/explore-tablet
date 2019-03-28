@@ -5,6 +5,7 @@
       <img :src="imageSrc">
       <QRTile :event-id-prop="eventProp.event_id"></QRTile>
       <ContactTile :event-obj-prop="eventObj"></ContactTile>
+      <div id="event-popup-move-invite" v-if="moveInvite.length > 0">{{moveInvite}}</div>
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
         <p v-if="currentDateObject(eventObj.dates).lex_date_statut_id == '1'" class="cancel-warning">{{$t('event-canceled')}}</p>
@@ -25,7 +26,8 @@ import bmlLogo from '../../assets/bml-logo.jpg'
 
 export default {
   props: [
-    'eventProp'
+    'eventProp',
+    'bibId'
   ],
   mixins: [
     HelperMixinVue
@@ -37,13 +39,19 @@ export default {
   data: function () {
     return {
       eventObj: null,
-      popuptimer: -1
+      popuptimer: -1,
+      moveInvite: ''
     }
   },
   mounted: function () {
     document.querySelector('#hall-view #grid-wrapper').classList.add('blurry')
 
     this.eventObj = this.eventProp
+
+    
+    this.$store.state.database.ref('highlight' + this.bibId + '/' + this.eventObj.event_id).once('value', (data) => {
+      this.moveInvite = data.val()
+    })
 
     fetch(`${this.$store.state.libraryApiUrl}${this.eventProp.event_id}`)
       .then((resp) => {
@@ -181,5 +189,19 @@ export default {
 .cancel-warning {
   font-size: 30px;
   color: red;
+}
+
+#event-popup-move-invite {
+  position: absolute;
+  max-width: 230px;
+  min-width: 230px;
+  top: 140px;
+  left: calc(40vw - 35px);
+  background-color: #dd6e42;
+  color: white;
+  border-radius: 6px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
 }
 </style>
