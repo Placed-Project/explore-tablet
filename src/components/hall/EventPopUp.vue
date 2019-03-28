@@ -21,7 +21,7 @@ import HelperMixinVue from '../../helpers/HelperMixin'
 import QRTile from '../QRTile'
 import ContactTile from '../ContactTile'
 import parseDate from 'date-fns/parse'
-import bmlLogo from '../../assets/bml-logo.png'
+import bmlLogo from '../../assets/bml-logo.jpg'
 
 export default {
   props: [

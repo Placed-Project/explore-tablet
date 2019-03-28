@@ -52,4 +52,10 @@ export default {
   overflow: hidden;
 }
 
+@media (max-width: 640px) {
+.event-short-desc {
+  max-height: calc(3 * 1.5em);
+}
+}
+
 </style>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import bmlLogo from '../../assets/bml-logo.png'
+import bmlLogo from '../../assets/bml-logo.jpg'
 
 export default {
   props: [

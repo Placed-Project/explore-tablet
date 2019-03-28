@@ -9,7 +9,7 @@
 <script>
 import parseDate from 'date-fns/parse'
 import HelperMixinVue from '../../helpers/HelperMixin.vue'
-import bmlLogo from '../../assets/bml-logo.png'
+import bmlLogo from '../../assets/bml-logo.jpg'
 
 export default {
   mixins: [
