@@ -4,7 +4,7 @@
     <div id="event-popup-body" v-if="eventObj">
       <img :src="imageSrc">
       <QRTile :event-id-prop="eventProp.event_id"></QRTile>
-      <ContactTile :event-obj-prop="eventObj"></ContactTile>
+      <ContactTile :event-obj-prop="eventObj" :dateIndex="dateIndex"></ContactTile>
       <div id="event-popup-move-invite" v-if="moveInvite.length > 0">{{moveInvite}}</div>
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
@@ -40,7 +40,8 @@ export default {
     return {
       eventObj: null,
       popuptimer: -1,
-      moveInvite: ''
+      moveInvite: '',
+      dateIndex: 0
     }
   },
   mounted: function () {
@@ -49,7 +50,7 @@ export default {
     this.eventObj = this.eventProp
 
     this.$store.state.database.ref('highlight' + this.bibId + '/' + this.eventObj.event_id).once('value', (data) => {
-      this.moveInvite = data.val()
+      this.moveInvite = data.val() ? data.val() : ''
     })
 
     fetch(`${this.$store.state.libraryApiUrl}${this.eventProp.event_id}`)
@@ -87,16 +88,26 @@ export default {
     nextDate: function () {
       if (this.eventObj) {
         let dateindex = 0
+        let thereisavaliddateinthisplace = false
         for (let i = 0; i < this.eventObj.dates.length; i++) {
           let date = parseDate(this.eventObj.dates[i].date_start)
+          if (this.eventObj.dates[i].place_id != this.bibId) {
+            continue
+          }
           if ((new Date()) < date) {
+            thereisavaliddateinthisplace = true
             dateindex = i
             break
           } else if (i === this.eventObj.dates.length - 1) {
+            thereisavaliddateinthisplace = true
             dateindex = i
             break
           }
         }
+        if (!thereisavaliddateinthisplace) {
+          return
+        }
+        this.dateIndex = dateindex
         let d = parseDate(this.eventObj.dates[dateindex].date_start)
         if (d < new Date()) {
           return (new Date()).toISOString()

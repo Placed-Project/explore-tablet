@@ -20,12 +20,13 @@ import HelperMixinVue from '../helpers/HelperMixin.vue'
 export default {
   mixins: [HelperMixinVue],
   props: [
-    'eventObjProp'
+    'eventObjProp',
+    'dateIndex'
   ],
   computed: {
     date () {
       let event = this.eventObjProp ? this.eventObjProp : this.eventData
-      let index = this.eventObjProp ? 0 : this.$store.state.currentEventDate
+      let index = this.eventObjProp ? this.dateIndex : this.$store.state.currentEventDate
       return event.dates[index]
     }
   },

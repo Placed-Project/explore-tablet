@@ -5,7 +5,7 @@
       <PlusOneTile></PlusOneTile>
       <!--<PlaceTile></PlaceTile>-->
       <DatesTile v-if="eventData.dates.length > 1"></DatesTile>
-      <GalleryTile></GalleryTile>
+      <GalleryTile @click.native="QRTileClicked"></GalleryTile>
       <CalendarTile v-if="!$store.state.libraryDevice"></CalendarTile>
       <QRTile v-if="$store.state.libraryDevice" @click.native="QRTileClicked"></QRTile>
       <ProgramTile v-if="eventData.event_mere != 0"></ProgramTile>
@@ -209,16 +209,16 @@ export default {
   },
   methods: {
     titleTileClicked () {
-      if (this.titleClickCount < 5) {
+      if (this.titleClickCount < 2) {
         this.titleClickCount += 1
       } else {
         this.titleClickCount = 0
       }
     },
     QRTileClicked () {
-      if (this.titleClickCount === 5) {
+      if (this.titleClickCount === 2) {
         this.QRClickCount += 1
-        if (this.titleClickCount === 5 && this.QRClickCount === 5) {
+        if (this.titleClickCount === 2 && this.QRClickCount === 2) {
           this.$router.push('admin')
         }
       } else {
