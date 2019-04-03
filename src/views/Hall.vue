@@ -30,7 +30,7 @@ export default {
       highlights: [],
       showPopUp: false,
       choosedEvent: null,
-      bibId: ''
+      bibId: '16'
     }
   },
   components: {
@@ -44,11 +44,12 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.state.database.ref('highlight' + this.bibId).on('child_added', (data) => {
+    let edgeCaseBibId = this.bibId === '16' ? '' : this.bibId
+    this.$store.state.database.ref('highlight' + edgeCaseBibId).on('child_added', (data) => {
       this.highlights.push(data.key)
     })
 
-    this.$store.state.database.ref(`highlight` + this.bibId).on('child_removed', (data) => {
+    this.$store.state.database.ref(`highlight` + edgeCaseBibId).on('child_removed', (data) => {
       this.highlights.splice(this.highlights.indexOf(data.key, 1))
     })
   },
