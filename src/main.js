@@ -16,3 +16,16 @@ new Vue({
     this.$store.dispatch('initStore')
   }
 }).$mount('#app')
+
+let userLocale = navigator.language || navigator.userLanguage
+let vuelocale = 'fr'
+
+if (userLocale.match(/^fr.*$/)) {
+  vuelocale = 'fr'
+} else {
+  vuelocale = 'en'
+}
+
+i18n.locale = vuelocale
+
+console.log(vuelocale)

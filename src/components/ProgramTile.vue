@@ -1,7 +1,7 @@
 <template>
   <div id="prog-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
     <h2>{{$t('program-begin-label')}} {{progName}}</h2>
-    <p class="desc-learnmore" v-if="!focused">En savoir plus</p>
+    <p class="desc-learnmore" v-if="!focused">{{$t('learn-more-label')}}</p>
     <div v-if="focused" class="event-prog-tile" v-html="progDesc"></div>
   </div>
 </template>

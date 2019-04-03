@@ -39,6 +39,7 @@
   "calendar-label" : "Add to your calendar",
   "label-toggle-library-device" : "Is this device deployed in the library?",
   "qr-label" : "Take me with you!",
+  "program-events-list-label" : "Other events of this program",
   "program-begin-label" : "This event is part of",
   "interesting-label" : "Interesting!",
   "interested-label" : "I am interested!",
@@ -55,5 +56,6 @@
   "partner-website-label": "Website",
   "visit-partnerwebsite-label": "You can visit their website here :",
   "partner-label": "Partner",
-  "event-canceled": "Event Canceled"
+  "event-canceled": "Event Canceled",
+  "learn-more-label": "Learn more"
 }

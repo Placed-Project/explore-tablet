@@ -23,7 +23,7 @@
       <BMVideoTile v-for="link in bmlVideoLinks" :key="link.url" :link="link"></BMVideoTile>
       <WikipediaTile v-for="link in wikiLinks" :key="link.url" :link="link"></WikipediaTile>
       <PartnerTile v-for="partner in eventData.partenaire" :key="partner.partenaire_id" :partnerObj="partner"></PartnerTile>
-      <catch-screen v-if="showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
+      <catch-screen v-if="false && showCatchScreen && $store.state.libraryDevice" v-on:hide-catch-screen="showCatchScreen = false"></catch-screen>
       <night-screen v-if="showNightScreen && $store.state.libraryDevice"></night-screen>
   </div>
 </template>
@@ -249,7 +249,7 @@ export default {
   created () {
     setInterval(() => {
       let currentTime = new Date()
-      if (currentTime.getDay() < 2 || currentTime.getHours() >= 19 || currentTime.getHours() < 9) {
+      if (currentTime.getDay() < 1 || currentTime.getHours() >= 21 || currentTime.getHours() < 8) {
         this.showNightScreen = true
       } else {
         this.showNightScreen = false

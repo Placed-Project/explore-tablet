@@ -1,7 +1,7 @@
 <template>
   <div id="desc-tile" class="explore-tile" :class="{ 'focused-tile' : focused }" @click="focused = !focused">
     <div class="event-desc-tile event-short-desc" v-html="eventData['event_description_courte']"></div>
-    <p class="desc-learnmore" v-if="!focused">En savoir plus</p>
+    <p class="desc-learnmore" v-if="!focused">{{$t('learn-more-label')}}</p>
     <div v-if="focused" class="event-desc-tile" v-html="eventData['event_description']"></div>
   </div>
 </template>
