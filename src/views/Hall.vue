@@ -50,7 +50,7 @@ export default {
     })
 
     this.$store.state.database.ref(`highlight` + edgeCaseBibId).on('child_removed', (data) => {
-      this.highlights.splice(this.highlights.indexOf(data.key, 1))
+      this.highlights.splice(this.highlights.indexOf(data.key), 1)
     })
   },
   methods: {

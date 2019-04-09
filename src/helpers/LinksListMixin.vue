@@ -27,7 +27,7 @@ export default {
       })
       this.$store.state.database.ref(`event/${newItem}/links`).on('child_removed', (data) => {
         this.$store.state.nbOfLinks -= 1
-        this.links.splice(this.links.indexOf(data, 1))
+        this.links.splice(this.links.indexOf(data), 1)
       })
     },
     loadFileList: function (newItem, oldItem) {
@@ -44,7 +44,7 @@ export default {
       })
       this.$store.state.database.ref(`event/${newItem.event_id}/files`).on('child_removed', (data) => {
         this.$store.state.nbOfFiles -= 1
-        this.files.splice(this.files.indexOf(data, 1))
+        this.files.splice(this.files.indexOf(data), 1)
       })
     }
   }
