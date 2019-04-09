@@ -9,7 +9,7 @@
       <div id="event-popup-text-wrapper">
         <h3>{{eventObj.event_title}}</h3>
         <p v-if="currentDateObject(eventObj.dates).lex_date_statut_id == '1'" class="cancel-warning">{{$t('event-canceled')}}</p>
-        <span class="event-popup-date">{{beautifulDateTimeFromString(nextDate)}} - {{displayedEndTime}}</span>
+        <span class="event-popup-date">{{beautifulDateTimeFromString(nextDate())}} - {{displayedEndTime}}</span>
         <div>{{eventObj['event_description_courte']}}</div>
         <div v-html="cleanedDescription"></div>
       </div>
@@ -76,14 +76,6 @@ export default {
   methods: {
     closePopUp: function () {
       this.$emit('close-popup')
-    }
-  },
-  computed: {
-    imageSrc: function () {
-      return this.eventObj.image_url ? this.eventObj.image_url : bmlLogo
-    },
-    cleanedDescription: function () {
-      return this.eventObj.event_description.replace(/<a.*>(.*)<\/a>/gm, '$1')
     },
     nextDate: function () {
       if (this.eventObj) {
@@ -91,7 +83,7 @@ export default {
         let thereisavaliddateinthisplace = false
         for (let i = 0; i < this.eventObj.dates.length; i++) {
           let date = parseDate(this.eventObj.dates[i].date_start)
-          if (this.eventObj.dates[i].place_id != this.bibId) {
+          if (this.eventObj.dates[i].place_id !== this.bibId) {
             continue
           }
           if ((new Date()) < date) {
@@ -117,10 +109,18 @@ export default {
       } else {
         return (new Date()).toISOString()
       }
+    }
+  },
+  computed: {
+    imageSrc: function () {
+      return this.eventObj.image_url ? this.eventObj.image_url : bmlLogo
+    },
+    cleanedDescription: function () {
+      return this.eventObj.event_description.replace(/<a.*>(.*)<\/a>/gm, '$1')
     },
     displayedEndTime: function () {
       // if start and end are the same day
-      let d1 = new Date(this.nextDate)
+      let d1 = new Date(this.nextDate())
       let d2 = this.currentDateEndtime(this.eventObj.dates)
       if (d1.getFullYear() === d2.getFullYear() &&
         d1.getMonth() === d2.getMonth() &&

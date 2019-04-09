@@ -82,7 +82,7 @@ export default {
             let thereisavaliddateinthisplace = false
             for (let i = 0; i < data[0].dates.length; i++) {
               let date = parseDate(data[0].dates[i].date_start)
-              if (data[0].dates[i].place_id != self.placeId) {
+              if (data[0].dates[i].place_id !== self.placeId) {
                 continue
               }
               if ((new Date()) < date) {
