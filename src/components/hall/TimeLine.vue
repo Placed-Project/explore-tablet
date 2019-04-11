@@ -31,7 +31,8 @@ export default {
       sortedEvents: {},
       eventDays: [],
       position: 0,
-      arrowOpac: 1
+      arrowOpac: 1,
+      autoGoUpTimer: -1
     }
   },
   components: {
@@ -49,6 +50,12 @@ export default {
     document.querySelector('#timeline').addEventListener('scroll', ev => {
       this.position = document.querySelector('#timeline').scrollTop / (document.querySelector('#timeline').scrollHeight - document.querySelector('#timeline').offsetHeight) * 100
       this.arrowOpac = 1 - document.querySelector('#timeline').scrollTop / 200
+      if (this.autoGoUpTimer > 0) {
+        clearTimeout(this.autoGoUpTimer)
+      }
+      this.autoGoUpTimer = setTimeout(() => {
+        document.querySelector('#timeline').scrollTo(0,0)
+      }, 60000)
     })
     fetch(`${this.$store.state.libraryApiUpcoming}${this.placeId}`)
       .then(resp => {
