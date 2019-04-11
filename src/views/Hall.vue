@@ -50,10 +50,19 @@ export default {
     })
 
     this.$store.state.database.ref(`highlight` + edgeCaseBibId).on('child_removed', (data) => {
-      this.highlights.splice(this.highlights.indexOf(data.key), 1)
+      this.highlights.splice(this.findIndexFromArray(data, this.highlights), 1)
     })
   },
   methods: {
+    findIndexFromArray(firebaseitem, array) {
+      console.log('wat')
+      for (let i = 0 ; i < array.length ; i++) {
+        if (array[i] === firebaseitem.key) {
+          return i
+        }
+      }
+      return -1
+    },
     popUp: function (obj) {
       this.choosedEvent = obj
       this.showPopUp = true
