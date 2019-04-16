@@ -2,6 +2,9 @@
   <div id="event-popup">
     <div id="event-popup-bg" @click="closePopUp"></div>
     <div id="event-popup-body" v-if="eventObj">
+      <div id="event-popup-close" @click="closePopUp">
+        <img src="../../assets/close.svg"/>
+      </div>
       <img :src="imageSrc">
       <QRTile :event-id-prop="eventProp.event_id"></QRTile>
       <ContactTile :event-obj-prop="eventObj" :dateIndex="dateIndex"></ContactTile>
@@ -147,6 +150,24 @@ export default {
   color: #221d23;
   box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.25);
   margin-bottom: 100px;
+}
+
+#event-popup-close {
+  background-color: #215994;
+  border-radius: 40px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+}
+
+#event-popup-close > img {
+  width: 20px;
+  height: auto;
+  margin-top: 50%;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #event-popup-body > img {
