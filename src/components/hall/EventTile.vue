@@ -1,5 +1,8 @@
 <template>
   <div class="hall-event-tile" v-on:click="showPopUp()">
+    <div id="touch-signifier" :style="{'opacity': touchOpacity}">
+      <img src="../../assets/click-touch.svg">
+    </div>
     <img :src="eventImage"/>
     <h3 class="hall-event-tile-h3"> {{eventTitle}}</h3>
     <h3 class="hall-event-tile-h3-date">{{beautifulDateFromString(eventDate)}}</h3>
@@ -23,10 +26,14 @@ export default {
       eventImage: '',
       eventTitle: '',
       eventDate: '',
-      eventObj: null
+      eventObj: null,
+      touchOpacity: 1
     }
   },
   mounted: function () {
+    setInterval(() => {
+      this.touchOpacity === 1 ? this.touchOpacity = 0.5 : this.touchOpacity = 1
+    }, 2000)
     fetch(`${this.$store.state.libraryApiUrl}${this.hEventId}`)
       .then((resp) => {
         if (resp.ok) {
@@ -76,7 +83,26 @@ export default {
   grid-column: span 1;
 }
 
-.hall-event-tile img {
+#touch-signifier {
+  margin: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 60px;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  transition: opacity 2s;
+}
+
+#touch-signifier > img {
+  width: 60px;
+  height: auto;
+  margin-top: 50%;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hall-event-tile > img {
   max-width: 100%;
   max-height: 100%;
   min-width: 100%;
@@ -90,7 +116,7 @@ export default {
   position: relative;
   top: -300px;
   left: -8px;
-  font-size: x-large;
+  font-size: xx-large;
   -webkit-box-shadow: 0px 0px 0px 5px black;
   box-shadow: 0px 0px 0px 5px white;
   /*box-shadow: 0px 0px 0px 5px white;*/
