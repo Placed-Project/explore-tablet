@@ -1,5 +1,5 @@
 <template>
-  <div id="main-view" :style="{'background-color': colors[bgColorIndex]}">
+  <div id="main-view" :style="{'background-color': colors[bgColorIndex]}" :class="{glossy: isGlossy}">
       <TitleTile @click.native="titleTileClicked"></TitleTile>
       <DescTile></DescTile>
       <PlusOneTile></PlusOneTile>
@@ -103,7 +103,8 @@ export default {
         '#111e51',
         '#221d23',
         '#0d0630'
-      ]
+      ],
+      isGlossy: true
     }
   },
   computed: {
@@ -268,6 +269,10 @@ export default {
     })
     this.appObserver.observe(targetNode, config)
     this.loadLinkListFromId(this.eventId)
+
+    setInterval(() => {
+        this.isGlossy = !this.isGlossy
+    }, 15000)
   },
   destroyed () {
     window.removeEventListener('scroll', this.resetCatchScreenTimeout)
@@ -287,6 +292,25 @@ export default {
   height: 100vh;
   background-attachment: fixed;
   overflow-y: hidden;
+}
+
+#main-view.glossy:after {
+  content:'';
+  top:0;
+	transform:translateX(100%);
+	width:100%;
+	height:100vh;
+	position: absolute;
+	z-index:1;
+	animation: slide 1s 1 0s ;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* W3C */
+}
+
+/* animation */
+
+@keyframes slide {
+	0% {transform:translateX(-100%);}
+	100% {transform:translateX(100vw);width: 0;}
 }
 
 .explore-tile {
@@ -314,6 +338,18 @@ export default {
   padding-right: 15vw;
   padding-top: 15vh;
   font-size: 18px;
+}
+
+#glossy-div {
+  background-color: white;
+  width: 70px;
+  height: 150vh;
+  transform: skew(-15deg, -15deg);
+  box-shadow: 0px 0px 60px white;
+  position: absolute;
+  z-index: 25;
+  top: -30px;
+  transition: left(1s);
 }
 
 @media (max-width: 640px) {
