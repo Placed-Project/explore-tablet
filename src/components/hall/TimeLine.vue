@@ -105,6 +105,7 @@ export default {
             if (!thereisavaliddateinthisplace) {
               return
             }
+            // Ici englober ce qui suit avec une boucle itérant sur toutes les dates valides pour les ajouter à la timeline
             let tmpEv = self.events[index]
             tmpEv.obj = data[0]
             tmpEv.date = data[0].dates[dateindex]

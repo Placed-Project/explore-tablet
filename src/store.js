@@ -10,16 +10,34 @@ var config = {
   storageBucket: 'explore-tablet.appspot.com'
 }
 
+let apiUrl = ''
+let queryUrl = ''
+let apiUpcoming = ''
+
+if (window.location.hostname === 'aa.placed.eu') {
+  apiUrl = 'https://noble-stoplight.glitch.me/event/'
+  queryUrl = 'https://noble-stoplight.glitch.me/query/'
+  apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
+} else if (window.location.hostname === 'explore.placed.eu') {
+  apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
+  queryUrl = 'https://www.bm-lyon.fr/json_explore.php?action=search&query='
+  apiUpcoming = 'https://www.bm-lyon.fr/json_explore.php?action=listEvents&subset=upcoming&place='
+} else {
+  apiUrl = 'https://noble-stoplight.glitch.me/event/'
+  queryUrl = 'https://noble-stoplight.glitch.me/query/'
+  apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
+}
+
 let firebaseApp = firebase.initializeApp(config)
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    libraryApiUrl: 'https://www.bm-lyon.fr/json_explore.php?action=detail&id=',
-    libraryQueryUrl: 'https://www.bm-lyon.fr/json_explore.php?action=search&query=',
-    libraryApiUpcoming: 'https://www.bm-lyon.fr/json_explore.php?action=listEvents&subset=upcoming&place=',
-    exploreURL: 'https://explore.placed.eu',
+    libraryApiUrl: apiUrl,
+    libraryQueryUrl: queryUrl,
+    libraryApiUpcoming: apiUpcoming,
+    exploreURL: 'https://' + window.location.hostname,
     currentEventId: '5006',
     currentEventIdLibrary: '5006',
     currentEventDate: 0,
