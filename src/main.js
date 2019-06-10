@@ -22,6 +22,8 @@ let vuelocale = 'fr'
 
 if (userLocale.match(/^fr.*$/)) {
   vuelocale = 'fr'
+} else if (userLocale.match(/^sv.*$/)) {
+  vuelocale = 'sv'
 } else {
   vuelocale = 'en'
 }
