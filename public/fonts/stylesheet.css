@@ -58,3 +58,16 @@
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'Myriad';
+    font-style: normal;
+    src: url("MYRIADPRO-REGULAR.OTF") format("opentype");
+}
+
+@font-face {
+    font-family: 'Myriad';
+    font-weight: bold;
+    font-style: normal;
+    src: url("MYRIADPRO-BOLD.OTF") format("opentype");
+}

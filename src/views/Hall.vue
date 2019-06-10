@@ -54,9 +54,9 @@ export default {
     })
   },
   methods: {
-    findIndexFromArray(firebaseitem, array) {
+    findIndexFromArray (firebaseitem, array) {
       console.log('wat')
-      for (let i = 0 ; i < array.length ; i++) {
+      for (let i = 0; i < array.length; i++) {
         if (array[i] === firebaseitem.key) {
           return i
         }

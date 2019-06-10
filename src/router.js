@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Admin from './views/Admin.vue'
 import Main from './views/Main'
 import Hall from './views/Hall'
+import Series from './views/Series'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/hall/:bibId',
       name: 'hall',
       component: Hall
+    },
+    {
+      path: '/series',
+      name: 'series',
+      component: Series
     },
     {
       path: '/:eventId',

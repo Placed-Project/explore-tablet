@@ -271,7 +271,7 @@ export default {
     this.loadLinkListFromId(this.eventId)
 
     setInterval(() => {
-        this.isGlossy = !this.isGlossy
+      this.isGlossy = !this.isGlossy
     }, 15000)
   },
   destroyed () {
@@ -297,20 +297,20 @@ export default {
 #main-view.glossy:after {
   content:'';
   top:0;
-	transform:translateX(100%);
-	width:100%;
-	height:100vh;
-	position: absolute;
-	z-index:1;
-	animation: slide 1s 1 0s ;
+  transform:translateX(100%);
+  width:100%;
+  height:100vh;
+  position: absolute;
+  z-index:1;
+  animation: slide 1s 1 0s ;
   background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* W3C */
 }
 
 /* animation */
 
 @keyframes slide {
-	0% {transform:translateX(-100%);}
-	100% {transform:translateX(100vw);width: 0;}
+  0% {transform:translateX(-100%);}
+  100% {transform:translateX(100vw);width: 0;}
 }
 
 .explore-tile {

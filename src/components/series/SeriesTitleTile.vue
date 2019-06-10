@@ -1,0 +1,53 @@
+<template>
+  <div class="grid-item grid-item--width5">
+    <h1>{{eventObj.event_title}}</h1>
+    <div class="series-time-flexwrapper">
+      <div class="series-time-title">{{(new Date(activeDate.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}</div>
+      <div class="series-time-title stick-right">{{(new Date(activeDate.date_start)).getHours()}}:{{(new Date(activeDate.date_start)).getMinutes()}} - {{(new Date(activeDate.date_end)).getHours()}}:{{(new Date(activeDate.date_end)).getMinutes()}}</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: [
+    'eventObj'
+  ],
+  computed: {
+    activeDate: function () {
+      let now = new Date()
+      for (let index = 0; index < this.eventObj.dates.length; index++) {
+        const date = this.eventObj.dates[index];
+        if (index === this.eventObj.dates.length-1) {
+          return date
+        } else {
+          if (now < date.date_start) {
+            return date
+          }
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 45px;
+  line-height: 54px;
+}
+
+.series-time-title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 35px;
+  line-height: 42px;
+}
+
+.series-time-flexwrapper {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

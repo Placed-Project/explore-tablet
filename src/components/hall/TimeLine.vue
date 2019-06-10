@@ -54,7 +54,7 @@ export default {
         clearTimeout(this.autoGoUpTimer)
       }
       this.autoGoUpTimer = setTimeout(() => {
-        document.querySelector('#timeline').scrollTo(0,0)
+        document.querySelector('#timeline').scrollTo(0, 0)
       }, 60000)
     })
     fetch(`${this.$store.state.libraryApiUpcoming}${this.placeId}`)

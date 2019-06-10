@@ -1,0 +1,144 @@
+<template>
+  <div id="series-timeline">
+    <div id="line"></div>
+    <div id="tick" :style="{'top': `${position}%`}"></div>
+    <svg id="down-arrow" :style="{'opacity': `${arrowOpac}`}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125"><g transform="translate(0,-952.36218)"><path d="m 50.000068,1029.3618 c 0.7149,-0.028 1.5413,-0.3223 2.0625,-0.8125 l 18.99996,-18.0001 c 1.24529,-1.051 1.22032,-3.0729 0.0982,-4.2545 -1.12211,-1.1816 -3.10929,-1.2786 -4.2232,-0.089 l -13.9375,13.1875 0,-41.03125 c 0,-1.6568 -1.34316,-3 -2.99996,-3 -1.6569,0 -3,1.3432 -3,3 l 0,41.03125 -13.9375,-13.1875 c -1.114,-1.1894 -3.1096,-1.092 -4.2317,0.09 -1.1221,1.1816 -1.127,3.2322 0.1067,4.2541 l 19,18.0001 c 0.5818,0.5475 1.2604,0.8045 2.0625,0.8125 z" style="text-indent:0;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#eee;enable-background:accumulate;" fill="#ffffff" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
+    <h3>{{$t("series-title-label")}}</h3>
+    <SeriesEventTile v-for="ev in sortedEvents" :key="ev.event_id" :eventObj="ev" @choosed="relayChoosed"></SeriesEventTile>
+  </div>
+</template>
+
+<script>
+import parseDate from 'date-fns/parse'
+import HelperMixin from '../../helpers/HelperMixin.vue'
+//import EventMiniTile from '../hall/EventMiniTile'
+import SeriesEventTile from './SeriesEventTile'
+
+export default {
+  data: function () {
+    return {
+      placeId: 132,
+      bibId: 132,
+      events: [],
+      sortedEvents: [],
+      position: 0,
+      arrowOpac: 1,
+      autoGoUpTimer: -1
+    }
+  },
+  components: {
+    SeriesEventTile
+  },
+  mixins: [
+    HelperMixin
+  ],
+  created: function () {
+      this.bibId = this.placeId
+  },
+  mounted: function () {
+    document.querySelector('#series-timeline').addEventListener('scroll', ev => {
+      this.position = document.querySelector('#series-timeline').scrollTop / (document.querySelector('#series-timeline').scrollHeight - document.querySelector('#series-timeline').offsetHeight) * 100
+      this.arrowOpac = 1 - document.querySelector('#series-timeline').scrollTop / 200
+      if (this.autoGoUpTimer > 0) {
+        clearTimeout(this.autoGoUpTimer)
+      }
+      this.autoGoUpTimer = setTimeout(() => {
+        document.querySelector('#series-timeline').scrollTo(0, 0)
+      }, 60000)
+    })
+    fetch(`${this.$store.state.researchSeriesApi}`)
+      .then(resp => {
+        return resp.json()
+      })
+      .catch((err) => {
+        console.error(err)
+        return Promise()
+      })
+      .then((data) => {
+        if (data) {
+          this.events = data
+          this.populateDates()
+        }
+      })
+  },
+  methods: {
+    relayChoosed: function (obj) {
+      this.$emit('choosed', obj)
+      for(let ev of this.sortedEvents) {
+        if (ev.event_id != obj.event_id) {
+          ev.focused = false
+        }
+      }
+    },
+    populateDates: async function () {
+      let self = this
+
+      let gatherDate = async function (eventId, index) {
+        await fetch(`${self.$store.state.libraryApiUrl}${eventId}`)
+          .then((resp) => {
+            return resp.json()
+          })
+          .then(data => {
+            data[0].focused = false
+            self.sortedEvents.push(data[0])
+          })
+      }
+
+      for (let index = 0; index < this.events.length; index++) {
+        const event = this.events[index]
+        await gatherDate(event.event_id, index)
+      }
+
+      this.sortedEvents.sort((a, b) => {
+        return parseInt((new Date(a.dates[0])).getTime()) - parseInt((new Date(b.dates[0])).getTime())
+      })
+    }
+  }
+}
+</script>
+
+<style>
+#series-timeline {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  height: 100vh;
+  background-color: white;
+}
+
+#series-timeline > h3 {
+  font-family: 'Myriad';
+  font-weight: bold;
+  font-size: 45px;
+  line-height: 54px;
+  height: 79px;
+  margin-left: 20%;
+  margin-top: 110px;
+}
+
+#down-arrow {
+  position: fixed;
+  bottom: 0px;
+  right: 10px;
+  width: 60px;
+}
+
+#tick {
+  position: fixed;
+  margin-top: -2px;
+  right: 3px;
+  width: 10px;
+  height: 4px;
+  background-color: #E8E8E8;
+}
+
+#line {
+  position: fixed;
+  top: 0px;
+  right: 5px;
+  bottom: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #E8E8E8;
+}
+</style>

@@ -13,19 +13,33 @@ var config = {
 let apiUrl = ''
 let queryUrl = ''
 let apiUpcoming = ''
+let baseiniteventid = ''
+let researchSeriesApi = ''
 
 if (window.location.hostname === 'aa.placed.eu') {
   apiUrl = 'https://noble-stoplight.glitch.me/event/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
+  baseiniteventid = '40121'
 } else if (window.location.hostname === 'explore.placed.eu') {
   apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
   queryUrl = 'https://www.bm-lyon.fr/json_explore.php?action=search&query='
   apiUpcoming = 'https://www.bm-lyon.fr/json_explore.php?action=listEvents&subset=upcoming&place='
+  researchSeriesApi = ''
+  baseiniteventid = '4401'
+} else if (window.location.hostname === 'lb.placed.eu') {
+  apiUrl = 'https://noble-stoplight.glitch.me/event/'
+  queryUrl = 'https://noble-stoplight.glitch.me/query/'
+  apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lundby-summer'
+  baseiniteventid = 'lb1'
 } else {
   apiUrl = 'https://noble-stoplight.glitch.me/event/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lundby-summer'
+  baseiniteventid = 'lb1'
 }
 
 let firebaseApp = firebase.initializeApp(config)
@@ -37,6 +51,7 @@ export default new Vuex.Store({
     libraryApiUrl: apiUrl,
     libraryQueryUrl: queryUrl,
     libraryApiUpcoming: apiUpcoming,
+    researchSeriesApi: researchSeriesApi,
     exploreURL: 'https://' + window.location.hostname,
     currentEventId: '5006',
     currentEventIdLibrary: '5006',
@@ -127,7 +142,7 @@ export default new Vuex.Store({
         commit('CHANGE_EVENT_ID', eventId)
         commit('CHANGE_EVENT_DATA', JSON.parse(eventData))
       } else {
-        this.dispatch('changeEventId', '4401')
+        this.dispatch('changeEventId', baseiniteventid)
       }
       if (libraryDevice) {
         commit('CHANGE_LIBRARY_DEVICE', libraryDevice === 'true')
