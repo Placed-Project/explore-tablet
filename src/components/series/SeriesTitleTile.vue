@@ -2,13 +2,15 @@
   <div class="grid-item grid-item--width5">
     <h1>{{eventObj.event_title}}</h1>
     <div class="series-time-flexwrapper">
-      <div class="series-time-title">{{(new Date(activeDate.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}</div>
-      <div class="series-time-title stick-right">{{(new Date(activeDate.date_start)).getHours()}}:{{(new Date(activeDate.date_start)).getMinutes()}} - {{(new Date(activeDate.date_end)).getHours()}}:{{(new Date(activeDate.date_end)).getMinutes()}}</div>
+      <div class="series-time-title">{{(parseDate(activeDate.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}</div>
+      <div class="series-time-title stick-right">{{(parseDate(activeDate.date_start)).getHours()}}:{{("0"+(parseDate(activeDate.date_start)).getMinutes()).slice(-2)}} - {{(parseDate(activeDate.date_end)).getHours()}}:{{("0"+(parseDate(activeDate.date_end)).getMinutes()).slice(-2)}}</div>
     </div>
   </div>
 </template>
 
 <script>
+import parseDate from 'date-fns/parse'
+
 export default {
   props: [
     'eventObj'
@@ -26,6 +28,11 @@ export default {
           }
         }
       }
+    }
+  },
+  methods: {
+    parseDate: function (string) {
+      return parseDate(string)
     }
   }
 }

@@ -58,5 +58,7 @@
   "partner-label": "Partner",
   "event-canceled": "Event Canceled",
   "learn-more-label": "Learn more",
-  "series-title-label": "Sommarevenemang"
+  "series-title-label": "Sommar- evenemang",
+  "series-place-tile-header": "Location",
+  "series-place-tile-text": "Place of the event : "
 }

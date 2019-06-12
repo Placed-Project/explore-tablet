@@ -3,14 +3,15 @@
     <h3 class="series-event-mini-tile-h3">{{eventObj.event_title}}</h3>
     <img v-if="eventObj.focused" src="../../assets/selected.svg" class="series-selected"/>
     <img :src="imageSrc" class="series-event-img"/>
-    <div v-for="date in eventObj.dates" :key="date.date_id" class="series-date-box" :class="{seriesupcoming: (new Date()).getTime() < (new Date(eventObj.dates[0].date_start)).getTime()}">
-      {{(new Date(date.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}
+    <div v-for="date in eventObj.dates" :key="date.date_id" class="series-date-box" :class="{seriesupcoming: (new Date()).getTime() < (parseDate(eventObj.dates[0].date_start)).getTime()}">
+      {{(parseDate(date.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}
     </div>
   </div>
 </template>
 
 <script>
 import bmlLogo from '../../assets/bml-logo.jpg'
+import parseDate from 'date-fns/parse'
 
 export default {
   props: [
@@ -24,30 +25,36 @@ export default {
   computed: {
     imageSrc: function () {
       return this.eventObj.image_url ? this.eventObj.image_url : bmlLogo
+    },
+    locale: function () {
+      return navigator.language || navigator.userLanguage
     }
   },
   methods: {
     showPopUp: function () {
       this.$emit('choosed', this.eventObj)
       this.eventObj.focused = true
+    },
+    parseDate: function (string) {
+      return parseDate(string)
     }
   },
   mounted: function () {
     let getWeekNumber = function(d) {
       // Copy date so don't modify original
-      d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+      d = parseDate(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
       // Set to nearest Thursday: current date + 4 - current day number
       // Make Sunday's day number 7
       d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
       // Get first day of year
-      var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+      var yearStart = parseDate(Date.UTC(d.getUTCFullYear(),0,1));
       // Calculate full weeks to nearest Thursday
       var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1)/7);
       // Return array of year and week number
       return weekNo;
     }
 
-    if (getWeekNumber(new Date(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
+    if (getWeekNumber(parseDate(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
       this.currentWeek = true
       this.$emit('choosed', this.eventObj)
       this.eventObj.focused = true
@@ -56,7 +63,7 @@ export default {
     }
 
     setInterval(() => {
-      if (getWeekNumber(new Date(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
+      if (getWeekNumber(parseDate(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
         this.currentWeek = true
         this.$emit('choosed', this.eventObj)
         this.eventObj.focused = true

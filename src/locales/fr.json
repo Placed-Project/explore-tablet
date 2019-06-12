@@ -58,5 +58,7 @@
   "partner-label": "Partenaire",
   "event-canceled": "Evenement annulé",
   "learn-more-label": "En savoir plus",
-  "series-title-label": "Atelier créatif"
+  "series-title-label": "Atelier créatif",
+  "series-place-tile-header": "Location",
+  "series-place-tile-text": "Lieu de l'événement : "
 }

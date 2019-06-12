@@ -3,7 +3,8 @@
     <div id="line"></div>
     <div id="tick" :style="{'top': `${position}%`}"></div>
     <svg id="down-arrow" :style="{'opacity': `${arrowOpac}`}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125"><g transform="translate(0,-952.36218)"><path d="m 50.000068,1029.3618 c 0.7149,-0.028 1.5413,-0.3223 2.0625,-0.8125 l 18.99996,-18.0001 c 1.24529,-1.051 1.22032,-3.0729 0.0982,-4.2545 -1.12211,-1.1816 -3.10929,-1.2786 -4.2232,-0.089 l -13.9375,13.1875 0,-41.03125 c 0,-1.6568 -1.34316,-3 -2.99996,-3 -1.6569,0 -3,1.3432 -3,3 l 0,41.03125 -13.9375,-13.1875 c -1.114,-1.1894 -3.1096,-1.092 -4.2317,0.09 -1.1221,1.1816 -1.127,3.2322 0.1067,4.2541 l 19,18.0001 c 0.5818,0.5475 1.2604,0.8045 2.0625,0.8125 z" style="text-indent:0;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#eee;enable-background:accumulate;" fill="#ffffff" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
-    <h3>{{$t("series-title-label")}}</h3>
+    <h1>{{$t("series-title-label")}}</h1>
+    <div id="series-timeline-lead"></div>
     <SeriesEventTile v-for="ev in sortedEvents" :key="ev.event_id" :eventObj="ev" @choosed="relayChoosed"></SeriesEventTile>
   </div>
 </template>
@@ -106,14 +107,22 @@ export default {
   background-color: white;
 }
 
-#series-timeline > h3 {
+#series-timeline-lead {
+  height: 160px;
+}
+
+#series-timeline > h1 {
   font-family: 'Myriad';
-  font-weight: bold;
-  font-size: 45px;
-  line-height: 54px;
-  height: 79px;
-  margin-left: 20%;
-  margin-top: 110px;
+    font-weight: bold;
+    font-size: 38px;
+    line-height: 54px;
+    height: 125px;
+    padding-left: 5%;
+    padding-top: 30px;
+    position: fixed;
+    z-index: 5;
+    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.75) 54.17%, rgba(255, 255, 255, 0.6) 70.83%, rgba(255, 255, 255, 0) 100%);
+    margin: 0;
 }
 
 #down-arrow {
