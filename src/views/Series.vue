@@ -4,7 +4,13 @@
       <SeriesTitleTile v-if="eventObj" :eventObj="eventObj"></SeriesTitleTile>
       <SeriesDescTile v-if="eventObj" :eventObj="eventObj"></SeriesDescTile>
       <SeriesCoverTile v-if="eventObj" :eventObj="eventObj"></SeriesCoverTile>
-      <SeriesPlaceTile v-if="eventObj" :eventObj="eventObj"></SeriesPlaceTile>
+      <SeriesPlaceTile v-if="eventObj && eventObj.dates[0].place_name" :eventObj="eventObj"></SeriesPlaceTile>
+      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5531.JPG'"></SeriesTmpImg>
+      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5532.JPG'"></SeriesTmpImg>
+      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5533.JPG'"></SeriesTmpImg>
+      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5534.JPG'"></SeriesTmpImg>
+      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5536.JPG'"></SeriesTmpImg>
+      <SeriesImgComTile v-for="com in coms" :key="com.id" :comobj="com"></SeriesImgComTile>
     </div>
     <div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
@@ -19,17 +25,29 @@ import SeriesDescTile from '../components/series/SeriesDescTile'
 import SeriesTitleTile from '../components/series/SeriesTitleTile'
 import SeriesCoverTile from '../components/series/SeriesCoverTile'
 import SeriesPlaceTile from '../components/series/SeriesPlaceTile'
+import SeriesTmpImg from '../components/series/SeriesAaKreaTmpImgTile'
+import SeriesImgComTile from '../components/series/SeriesImgComTile'
 import Masonry from 'masonry-layout'
 
 export default {
   methods: {
-    popUp: function (obj) {
+    popUp: async function (obj) {
+      let self = this
       this.eventObj = obj
+      await fetch(this.$store.state.wsUrl)
+        .then((resp) => {
+          return resp.json()
+        })
+        .then(data => {
+          self.coms = data.posts
+        })
     }
   },
   data: function () {
     return {
-      eventObj:null
+      eventObj:null,
+      urlLocation: window.location,
+      coms: []
     }
   },
   components: {
@@ -37,7 +55,9 @@ export default {
     SeriesDescTile,
     SeriesTitleTile,
     SeriesCoverTile,
-    SeriesPlaceTile
+    SeriesPlaceTile,
+    SeriesTmpImg,
+    SeriesImgComTile
   },
   mounted: function () {
     var msnry = new Masonry('#series-detail', {
@@ -45,6 +65,17 @@ export default {
       columnWidth: 220,
       gutter: 20
     });
+
+    setInterval(() => {
+      let self = this
+      fetch(this.$store.state.wsUrl)
+        .then((resp) => {
+          return resp.json()
+        })
+        .then(data => {
+          self.coms = data.posts
+        })
+    }, 10000)
   }
 }
 </script>
@@ -100,7 +131,7 @@ export default {
 
 .grid-item {
   margin: 10px;
-  width: 200px;
+  width: 220px;
   padding: 20px;
   float: left;
 }

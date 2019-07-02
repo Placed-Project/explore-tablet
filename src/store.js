@@ -15,12 +15,14 @@ let queryUrl = ''
 let apiUpcoming = ''
 let baseiniteventid = ''
 let researchSeriesApi = ''
+let wsUrl = ''
 
 if (window.location.hostname === 'aa.placed.eu') {
   apiUrl = 'https://noble-stoplight.glitch.me/event/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/V1MfxrgEL2/')
   baseiniteventid = '40121'
 } else if (window.location.hostname === 'explore.placed.eu') {
   apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
@@ -34,12 +36,14 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lundby-summer'
   baseiniteventid = 'lb1'
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/8GYNtHYrk/')
 } else {
   apiUrl = 'https://noble-stoplight.glitch.me/event/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lundby-summer'
-  baseiniteventid = 'lb1'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/V1MfxrgEL2/')
+  baseiniteventid = '40121'
 }
 
 let firebaseApp = firebase.initializeApp(config)
@@ -62,7 +66,8 @@ export default new Vuex.Store({
     database: firebaseApp.database(),
     storage: firebaseApp.storage(),
     nbOfLinks: 1,
-    nbOfFiles: 1
+    nbOfFiles: 1,
+    wsUrl: wsUrl
   },
   mutations: {
     CHANGE_LIBRARY_DEVICE: function (state, newVal) {

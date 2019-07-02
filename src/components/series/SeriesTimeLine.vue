@@ -117,6 +117,7 @@ export default {
     font-size: 38px;
     line-height: 54px;
     height: 125px;
+    width: -webkit-fill-available;
     padding-left: 5%;
     padding-top: 30px;
     position: fixed;

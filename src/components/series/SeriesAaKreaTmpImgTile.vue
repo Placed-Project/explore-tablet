@@ -1,6 +1,6 @@
 <template>
-  <div id="series-cover-tile" class="series-tile grid-item image-tile">
-    <img :src="eventObj.image_url" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+  <div class="series-tile grid-item image-tile tmp-img-aa">
+    <img :src="eventObj" @click="zoomImg()" :class="{zoomed:zoomed}"/>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style scoped>
-#series-cover-tile {
+.tmp-img-aa {
   padding: 0;
 }
 
