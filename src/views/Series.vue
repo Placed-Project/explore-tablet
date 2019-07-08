@@ -10,7 +10,8 @@
       <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5533.JPG'"></SeriesTmpImg>
       <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5534.JPG'"></SeriesTmpImg>
       <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5536.JPG'"></SeriesTmpImg>
-      <SeriesImgComTile v-for="com in coms" :key="com.id" :comobj="com"></SeriesImgComTile>
+      <SeriesBookTile v-for="book in books" :key="book.id" :book="book"></SeriesBookTile>
+      <SeriesImgComTile v-for="com in coms" :key="com.pid" :comobj="com"></SeriesImgComTile>
     </div>
     <div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
@@ -27,6 +28,7 @@ import SeriesCoverTile from '../components/series/SeriesCoverTile'
 import SeriesPlaceTile from '../components/series/SeriesPlaceTile'
 import SeriesTmpImg from '../components/series/SeriesAaKreaTmpImgTile'
 import SeriesImgComTile from '../components/series/SeriesImgComTile'
+import SeriesBookTile from '../components/series/SeriesBookTile'
 import Masonry from 'masonry-layout'
 
 export default {
@@ -47,7 +49,8 @@ export default {
     return {
       eventObj:null,
       urlLocation: window.location,
-      coms: []
+      coms: [],
+      books: []
     }
   },
   components: {
@@ -57,7 +60,8 @@ export default {
     SeriesCoverTile,
     SeriesPlaceTile,
     SeriesTmpImg,
-    SeriesImgComTile
+    SeriesImgComTile,
+    SeriesBookTile
   },
   mounted: function () {
     var msnry = new Masonry('#series-detail', {
@@ -74,6 +78,7 @@ export default {
         })
         .then(data => {
           self.coms = data.posts
+          self.books = data.books
         })
     }, 10000)
   }
@@ -131,7 +136,7 @@ export default {
 
 .grid-item {
   margin: 10px;
-  width: 220px;
+  width: 180px;
   padding: 20px;
   float: left;
 }

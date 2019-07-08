@@ -1,15 +1,14 @@
 <template>
-  <div class="series-tile grid-item img-com-tile">
-    <img v-if="comobj.img" :src="comobj.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
-    <video v-if="comobj.vid" :src="comobj.vid" controls></video>
-    <div v-html="comobj.text"></div>
+  <div class="series-tile grid-item book-tile">
+    <img v-if="book.img" :src="book.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+    <div v-html="book.title"></div>
   </div>
 </template>
 
 <script>
 export default {
   props: [
-    'comobj'
+    'book'
   ],
   data: function () {
     return {
@@ -56,12 +55,12 @@ img.zoomed {
   box-shadow: 0px 0px 41px 35px #545454;
 }
 
-.img-com-tile {
+.book-tile {
   padding: 0;
   width: 220px;
 }
 
-.img-com-tile > div {
+.book-tile > div {
   padding: 20px;
 }
 </style>

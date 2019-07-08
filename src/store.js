@@ -22,7 +22,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/V1MfxrgEL2/')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/oM9G_h-TvT/')
   baseiniteventid = '40121'
 } else if (window.location.hostname === 'explore.placed.eu') {
   apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
@@ -36,13 +36,13 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lundby-summer'
   baseiniteventid = 'lb1'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/8GYNtHYrk/')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
 } else {
   apiUrl = 'https://noble-stoplight.glitch.me/event/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/V1MfxrgEL2/')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/oM9G_h-TvT/')
   baseiniteventid = '40121'
 }
 

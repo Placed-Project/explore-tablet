@@ -25,6 +25,7 @@ export default {
 <style scoped>
 .tmp-img-aa {
   padding: 0;
+  width: 220px;
 }
 
 img {

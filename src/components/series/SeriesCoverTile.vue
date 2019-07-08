@@ -25,6 +25,7 @@ export default {
 <style scoped>
 #series-cover-tile {
   padding: 0;
+  width: 220px;
 }
 
 img {
