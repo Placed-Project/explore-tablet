@@ -1,6 +1,7 @@
 <template>
   <div id="series-cover-tile" class="series-tile grid-item image-tile">
     <img :src="eventObj.image_url" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+    <div class="series-img-close-button" @click="zoomImg()" v-if="zoomed"><img src="../../assets/close.svg"></div>
   </div>
 </template>
 

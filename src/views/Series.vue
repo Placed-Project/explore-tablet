@@ -5,13 +5,8 @@
       <SeriesDescTile v-if="eventObj" :eventObj="eventObj"></SeriesDescTile>
       <SeriesCoverTile v-if="eventObj" :eventObj="eventObj"></SeriesCoverTile>
       <SeriesPlaceTile v-if="eventObj && eventObj.dates[0].place_name" :eventObj="eventObj"></SeriesPlaceTile>
-      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5531.JPG'"></SeriesTmpImg>
-      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5532.JPG'"></SeriesTmpImg>
-      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5533.JPG'"></SeriesTmpImg>
-      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5534.JPG'"></SeriesTmpImg>
-      <SeriesTmpImg v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')" :eventObj="'img/tmp-img-aa/IMG_5536.JPG'"></SeriesTmpImg>
-      <SeriesBookTile v-for="book in books" :key="book.id" :book="book"></SeriesBookTile>
-      <SeriesImgComTile v-for="com in coms" :key="com.pid" :comobj="com"></SeriesImgComTile>
+      <SeriesBookTile v-for="book in books" v-if="currentCom(book.eventTime)" :key="book.id" :book="book"></SeriesBookTile>
+      <SeriesImgComTile v-for="com in coms" v-if="currentCom(com.time)" :key="com.pid" :comobj="com"></SeriesImgComTile>
     </div>
     <div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
@@ -20,7 +15,7 @@
 </template>
 
 <script>
-
+//v-if="eventObj && (urlLocation.hostname === 'aa.placed.eu' || urlLocation.hostname === 'localhost')"
 import SeriesTimeLine from '../components/series/SeriesTimeLine'
 import SeriesDescTile from '../components/series/SeriesDescTile'
 import SeriesTitleTile from '../components/series/SeriesTitleTile'
@@ -30,6 +25,14 @@ import SeriesTmpImg from '../components/series/SeriesAaKreaTmpImgTile'
 import SeriesImgComTile from '../components/series/SeriesImgComTile'
 import SeriesBookTile from '../components/series/SeriesBookTile'
 import Masonry from 'masonry-layout'
+import parseDate from 'date-fns/parse'
+
+let getWeekNumber = function(d){
+  var dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+}
 
 export default {
   methods: {
@@ -43,6 +46,16 @@ export default {
         .then(data => {
           self.coms = data.posts
         })
+    },
+    currentCom: function (time) {
+      if (!this.eventObj) {
+        return false
+      } else {
+        let comWeek = getWeekNumber(new Date(parseInt(time)))
+        let startWeek = getWeekNumber(parseDate(this.eventObj.dates[0].date_start))
+        return comWeek === startWeek
+
+      }
     }
   },
   data: function () {
@@ -66,7 +79,7 @@ export default {
   mounted: function () {
     var msnry = new Masonry('#series-detail', {
       itemSelector: '.grid-item',
-      columnWidth: 220,
+      columnWidth: 240,
       gutter: 20
     });
 
@@ -80,6 +93,7 @@ export default {
           self.coms = data.posts
           self.books = data.books
         })
+      msnry.layout()
     }, 10000)
   }
 }
@@ -107,6 +121,18 @@ export default {
   position: fixed;
   width: 25vw;
   right: 0;
+}
+
+.series-img-close-button {
+  background-color: red;
+  position: fixed;
+  top: 10vh;
+  left: 10vw;
+  transform: translate(-50%, -50%);
+  width: 2vh;
+  height: 2vh;
+  border-radius: 3vh;
+  z-index: 26;
 }
 
 .series-tile {

@@ -1,6 +1,7 @@
 <template>
   <div class="series-tile grid-item book-tile">
     <img v-if="book.img" :src="book.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+    <div class="series-img-close-button" @click="zoomImg()" v-if="zoomed"><img src="../../assets/close.svg"></div>
     <div v-html="book.title"></div>
   </div>
 </template>
@@ -63,4 +64,5 @@ img.zoomed {
 .book-tile > div {
   padding: 20px;
 }
+
 </style>

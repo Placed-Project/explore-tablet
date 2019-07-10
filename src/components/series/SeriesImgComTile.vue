@@ -1,8 +1,12 @@
 <template>
   <div class="series-tile grid-item img-com-tile">
-    <img v-if="comobj.img" :src="comobj.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
-    <video v-if="comobj.vid" :src="comobj.vid" controls></video>
-    <div v-html="comobj.text"></div>
+    <img class="series-tile-img" v-if="comobj.img" :src="comobj.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+    <div v-if="comobj.vid">
+      <video :src="comobj.vid" :id="'a'+comobj.id+comobj.time"></video>
+      <div class="controls" v-if="!playing" @click="playPause"><img src="../../assets/triangle.svg"></div>
+    </div>
+    <div class="series-img-close-button" @click="zoomImg()" v-if="zoomed"><img src="../../assets/close.svg"></div>
+    <div class="series-tile-text" v-html="comobj.text"></div>
   </div>
 </template>
 
@@ -13,12 +17,25 @@ export default {
   ],
   data: function () {
     return {
-      zoomed: false
+      zoomed: false,
+      playing: false
     }
   },
   methods: {
     zoomImg: function () {
       this.zoomed = !this.zoomed
+    },
+    playPause: function () {
+      let media = document.querySelector(`#a${this.comobj.id+this.comobj.time}`)
+      if (media.paused) {
+        media.play()
+        this.playing = true
+        media.controls = true
+      }
+      media.addEventListener('pause', () => {
+        this.playing = false
+        media.controls = false
+      })
     }
   }
 }
@@ -26,7 +43,7 @@ export default {
 
 <style scoped>
 
-img {
+.series-tile-img {
   max-width: 100%;
   min-width: 100%;
   object-fit: cover;
@@ -61,7 +78,16 @@ img.zoomed {
   width: 220px;
 }
 
-.img-com-tile > div {
+.img-com-tile .series-tile-text {
   padding: 20px;
+}
+
+.controls {
+  position: absolute;
+  transform: translate(20px, -120%);
+}
+
+.controls img {
+  width: 50px;
 }
 </style>
