@@ -3,7 +3,7 @@
     <div id="line"></div>
     <div id="tick" :style="{'top': `${position}%`}"></div>
     <svg id="down-arrow" :style="{'opacity': `${arrowOpac}`}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125"><g transform="translate(0,-952.36218)"><path d="m 50.000068,1029.3618 c 0.7149,-0.028 1.5413,-0.3223 2.0625,-0.8125 l 18.99996,-18.0001 c 1.24529,-1.051 1.22032,-3.0729 0.0982,-4.2545 -1.12211,-1.1816 -3.10929,-1.2786 -4.2232,-0.089 l -13.9375,13.1875 0,-41.03125 c 0,-1.6568 -1.34316,-3 -2.99996,-3 -1.6569,0 -3,1.3432 -3,3 l 0,41.03125 -13.9375,-13.1875 c -1.114,-1.1894 -3.1096,-1.092 -4.2317,0.09 -1.1221,1.1816 -1.127,3.2322 0.1067,4.2541 l 19,18.0001 c 0.5818,0.5475 1.2604,0.8045 2.0625,0.8125 z" style="text-indent:0;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#eee;enable-background:accumulate;" fill="#ffffff" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
-    <h1>{{seriesTitle}}</h1>
+    <h1 v-html="seriesTitle"></h1>
     <div id="series-timeline-lead"></div>
     <SeriesEventTile v-for="ev in sortedEvents" :key="ev.event_id" :eventObj="ev" @choosed="relayChoosed"></SeriesEventTile>
   </div>
@@ -14,6 +14,14 @@ import parseDate from 'date-fns/parse'
 import HelperMixin from '../../helpers/HelperMixin.vue'
 //import EventMiniTile from '../hall/EventMiniTile'
 import SeriesEventTile from './SeriesEventTile'
+
+let getWeekNumber = function(d) {
+  d = parseDate(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+  var yearStart = parseDate(Date.UTC(d.getUTCFullYear(),0,1));
+  var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1)/7);
+  return weekNo;
+}
 
 export default {
   data: function () {
@@ -44,7 +52,13 @@ export default {
         clearTimeout(this.autoGoUpTimer)
       }
       this.autoGoUpTimer = setTimeout(() => {
-        document.querySelector('#series-timeline').scrollTo(0, 0)
+        for (const ev of this.sortedEvents) {
+          if (ev.focused) {
+            let element = document.querySelector(`#a${ev.event_id}`)
+            element.scrollIntoView()
+            document.querySelector('#series-timeline').scrollBy(0, -200)
+          }
+        }
       }, 60000)
     })
     fetch(`${this.$store.state.researchSeriesApi}`)
@@ -67,9 +81,9 @@ export default {
       if (window.location.hostname === 'aa.placed.eu') {
         return 'KREAværksted'
       } else if (window.location.hostname === 'lb.placed.eu') {
-        return 'Sommar- evenemang'
+        return 'Lundby bibliotek'
       } else if (window.location.hostname === 'localhost') {
-        return 'KREAværksted'
+        return 'Lundby bibliotek'
       }
     }
   },
@@ -102,8 +116,40 @@ export default {
       }
 
       this.sortedEvents.sort((a, b) => {
-        return parseInt((new Date(a.dates[0])).getTime()) - parseInt((new Date(b.dates[0])).getTime())
+        return parseInt((parseDate(a.dates[0].date_start)).getTime()) - parseInt((parseDate(b.dates[0].date_start)).getTime())
       })
+
+      let focusedExists = false
+      for (const ev of this.sortedEvents) {
+        if (ev.focused) {
+          focusedExists = true
+        }
+      }
+
+      if (!focusedExists) {
+        let validIndex = -1
+        for (let index = 0 ; index < this.sortedEvents.length ; index++) {
+          if (parseDate(this.sortedEvents[index].dates[0].date_start) < (new Date())) {
+            validIndex = index
+          } else {
+            // if we reached a future event
+            break
+          }
+        }
+        if (validIndex >= 0) {
+          this.sortedEvents[validIndex].focused = true
+        }
+      }
+
+      
+      for (const ev of this.sortedEvents) {
+        if (ev.focused) {
+          let element = document.querySelector(`#a${ev.event_id}`)
+          element.scrollIntoView()
+          document.querySelector('#series-timeline').scrollBy(0, -200)
+        }
+      }
+
     }
   }
 }

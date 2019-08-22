@@ -79,8 +79,8 @@ export default {
   mounted: function () {
     var msnry = new Masonry('#series-detail', {
       itemSelector: '.grid-item',
-      columnWidth: 240,
-      gutter: 20
+      columnWidth: 220,
+      //gutter: 20
     });
 
     setInterval(() => {
@@ -129,10 +129,15 @@ export default {
   top: 10vh;
   left: 10vw;
   transform: translate(-50%, -50%);
-  width: 2vh;
-  height: 2vh;
-  border-radius: 3vh;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
   z-index: 26;
+}
+
+.series-img-close-button img {
+  width: 25px;
+  transform: translate(50%, 50%);
 }
 
 .series-tile {

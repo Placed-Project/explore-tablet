@@ -1,5 +1,5 @@
 <template>
-  <div class="series-event-mini-tile" v-on:click="showPopUp()">
+  <div class="series-event-mini-tile" :id ="'a'+eventObj.event_id" v-on:click="showPopUp()">
     <h3 class="series-event-mini-tile-h3">{{eventObj.event_title}}</h3>
     <img v-if="eventObj.focused" src="../../assets/selected.svg" class="series-selected"/>
     <img :src="imageSrc" class="series-event-img"/>
@@ -28,11 +28,20 @@ export default {
     },
     locale: function () {
       return navigator.language || navigator.userLanguage
+    },
+    focused: function () {
+      return this.eventObj.focused
+    }
+  },
+  watch: {
+    focused: function (newValue, oldValue) {
+      if (newValue) {
+        this.$emit('choosed', this.eventObj)
+      }
     }
   },
   methods: {
     showPopUp: function () {
-      this.$emit('choosed', this.eventObj)
       this.eventObj.focused = true
     },
     parseDate: function (string) {
@@ -56,7 +65,6 @@ export default {
 
     if (getWeekNumber(parseDate(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
       this.currentWeek = true
-      this.$emit('choosed', this.eventObj)
       this.eventObj.focused = true
     } else {
       this.currentWeek = false
@@ -65,12 +73,11 @@ export default {
     setInterval(() => {
       if (getWeekNumber(parseDate(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
         this.currentWeek = true
-        this.$emit('choosed', this.eventObj)
         this.eventObj.focused = true
       } else {
         this.currentWeek = false
       }
-    }, 60000*10)
+    }, 60000)
   }
 }
 </script>

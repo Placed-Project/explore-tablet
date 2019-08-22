@@ -31,19 +31,19 @@ if (window.location.hostname === 'aa.placed.eu') {
   researchSeriesApi = ''
   baseiniteventid = '4401'
 } else if (window.location.hostname === 'lb.placed.eu') {
-  apiUrl = 'https://noble-stoplight.glitch.me/event/'
+  apiUrl = 'https://noble-stoplight.glitch.me/event-lb/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lundby-summer'
-  baseiniteventid = 'lb1'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lbv2'
+  baseiniteventid = 'event-24ddaa4f938037053d94'
   wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
 } else {
-  apiUrl = 'https://noble-stoplight.glitch.me/event/'
+  apiUrl = 'https://noble-stoplight.glitch.me/event-lb/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/oM9G_h-TvT/')
-  baseiniteventid = '40121'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lbv2'
+  baseiniteventid = 'event-24ddaa4f938037053d94'
+  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
 }
 
 let firebaseApp = firebase.initializeApp(config)
