@@ -126,7 +126,7 @@ export default {
 .series-img-close-button {
   background-color: red;
   position: fixed;
-  top: 10vh;
+  bottom: 3vh;
   left: 10vw;
   transform: translate(-50%, -50%);
   width: 50px;

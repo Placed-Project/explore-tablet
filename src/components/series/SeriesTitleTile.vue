@@ -42,7 +42,7 @@ export default {
 h1 {
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 4vw;
   line-height: 54px;
 }
 

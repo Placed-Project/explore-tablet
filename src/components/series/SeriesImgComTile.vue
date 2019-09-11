@@ -5,6 +5,13 @@
       <video :src="comobj.vid" :id="'a'+comobj.id+comobj.time"></video>
       <div class="controls" v-if="!playing" @click="playPause"><img src="../../assets/triangle.svg"></div>
     </div>
+    <div v-if="comobj.poll">
+      <div v-for="answer in comobj.poll" :key="answer.answer" class="poll-answer">
+        <div class="progress-bar" :style="{width: (answer.votes/totalVotes)*100 + '%'}">
+          {{answer.votes}} {{answer.answer}}
+        </div>
+      </div>
+    </div>
     <div class="series-img-close-button" @click="zoomImg()" v-if="zoomed"><img src="../../assets/close.svg"></div>
     <div class="series-tile-text" v-html="comobj.text"></div>
   </div>
@@ -37,11 +44,39 @@ export default {
         media.controls = false
       })
     }
+  },
+  computed: {
+    totalVotes: function () {
+      if (this.comobj.poll) {
+        let total = 0
+        for (const ans of this.comobj.poll) {
+          total += ans.votes
+        }
+        return total
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
+
+.poll-answer {
+  border-radius: 1em;
+  background-color: grey;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.poll-answer .progress-bar {
+  background-color: #4AA4FF;
+  border-radius: 1em;
+  color: white;
+  overflow: visible;
+  white-space: nowrap;
+  padding-left: 5px;
+}
 
 .series-tile-img {
   max-width: 100%;

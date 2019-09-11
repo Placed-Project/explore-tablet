@@ -18,12 +18,12 @@ let researchSeriesApi = ''
 let wsUrl = ''
 
 if (window.location.hostname === 'aa.placed.eu') {
-  apiUrl = 'https://noble-stoplight.glitch.me/event/'
+  apiUrl = 'https://noble-stoplight.glitch.me/event-aa/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aarhus-krea'
+  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aav2'
   wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/oM9G_h-TvT/')
-  baseiniteventid = '40121'
+  baseiniteventid = 'event-e3d58457f619cb2ac3e0'
 } else if (window.location.hostname === 'explore.placed.eu') {
   apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
   queryUrl = 'https://www.bm-lyon.fr/json_explore.php?action=search&query='
@@ -35,14 +35,14 @@ if (window.location.hostname === 'aa.placed.eu') {
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lbv2'
-  baseiniteventid = 'event-24ddaa4f938037053d94'
+  baseiniteventid = 'event-c3778192376f966e2a4c'
   wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
 } else {
   apiUrl = 'https://noble-stoplight.glitch.me/event-lb/'
   queryUrl = 'https://noble-stoplight.glitch.me/query/'
   apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lbv2'
-  baseiniteventid = 'event-24ddaa4f938037053d94'
+  baseiniteventid = 'event-c3778192376f966e2a4c'
   wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
 }
 
@@ -95,6 +95,9 @@ export default new Vuex.Store({
           if (resp.ok) {
             resp.json().then((data) => {
               // Check data[0].dates to see wich is the closest one
+              if (!data[0].dates) {
+                return
+              }
               let dateindex = 0
               for (let i = 0; i < data[0].dates.length; i++) {
                 let date = parseDate(data[0].dates[i].date_start)

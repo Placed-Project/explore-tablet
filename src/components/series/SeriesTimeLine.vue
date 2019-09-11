@@ -172,7 +172,7 @@ export default {
 #series-timeline > h1 {
   font-family: 'Myriad';
     font-weight: bold;
-    font-size: 38px;
+    font-size: 2.5vw;
     line-height: 54px;
     height: 125px;
     width: -webkit-fill-available;
