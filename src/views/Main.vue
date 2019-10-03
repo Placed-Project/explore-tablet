@@ -260,6 +260,7 @@ export default {
     if (this.$route.params.eventId) {
       this.$store.dispatch('changeEventId', `${this.$route.params.eventId}`)
     }
+    this.$store.dispatch('initStore')
   },
   mounted () {
     var targetNode = document.getElementById('app')

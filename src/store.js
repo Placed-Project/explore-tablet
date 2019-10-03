@@ -18,11 +18,11 @@ let researchSeriesApi = ''
 let wsUrl = ''
 
 if (window.location.hostname === 'aa.placed.eu') {
-  apiUrl = 'https://noble-stoplight.glitch.me/event-aa/'
-  queryUrl = 'https://noble-stoplight.glitch.me/query/'
-  apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/aav2'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/oM9G_h-TvT/')
+  apiUrl = 'https://noble-stoplight.herokuapp.com/event-aa/'
+  queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
+  apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/aav2'
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/socDVMqEj/')
   baseiniteventid = 'event-e3d58457f619cb2ac3e0'
 } else if (window.location.hostname === 'explore.placed.eu') {
   apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
@@ -31,19 +31,19 @@ if (window.location.hostname === 'aa.placed.eu') {
   researchSeriesApi = ''
   baseiniteventid = '4401'
 } else if (window.location.hostname === 'lb.placed.eu') {
-  apiUrl = 'https://noble-stoplight.glitch.me/event-lb/'
-  queryUrl = 'https://noble-stoplight.glitch.me/query/'
-  apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lbv2'
+  apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
+  queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
+  apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/_7sFWnl66Y/')
 } else {
-  apiUrl = 'https://noble-stoplight.glitch.me/event-lb/'
-  queryUrl = 'https://noble-stoplight.glitch.me/query/'
-  apiUpcoming = 'https://noble-stoplight.glitch.me/upcoming/'
-  researchSeriesApi = 'https://noble-stoplight.glitch.me/series/lbv2'
+  apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
+  queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
+  apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws/' + encodeURIComponent('https://placed.cc.au.dk/HXxHpUn_7s')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws2/' + encodeURIComponent('https://placed.cc.au.dk/socDVMqEj/')
 }
 
 let firebaseApp = firebase.initializeApp(config)
@@ -60,7 +60,7 @@ export default new Vuex.Store({
     currentEventId: '5006',
     currentEventIdLibrary: '5006',
     currentEventDate: 0,
-    eventData: null,
+    eventData: {},
     eventGallery: [],
     libraryDevice: false,
     database: firebaseApp.database(),

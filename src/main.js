@@ -13,7 +13,7 @@ new Vue({
   i18n,
   render: h => h(App),
   created: function () {
-    this.$store.dispatch('initStore')
+    // this.$store.dispatch('initStore')
   }
 }).$mount('#app')
 

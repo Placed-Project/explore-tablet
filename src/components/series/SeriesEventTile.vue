@@ -1,9 +1,9 @@
 <template>
-  <div class="series-event-mini-tile" :id ="'a'+eventObj.event_id" v-on:click="showPopUp()">
-    <h3 class="series-event-mini-tile-h3">{{eventObj.event_title}}</h3>
+  <div class="series-event-mini-tile" :id="'a'+eventObj.eventdata.event_id" v-on:click="showPopUp()">
+    <h3 class="series-event-mini-tile-h3">{{eventObj.eventdata.event_title}}</h3>
     <img v-if="eventObj.focused" src="../../assets/selected.svg" class="series-selected"/>
     <img :src="imageSrc" class="series-event-img"/>
-    <div v-for="date in eventObj.dates" :key="date.date_id" class="series-date-box" :class="{seriesupcoming: (new Date()).getTime() < (parseDate(date.date_start)).getTime()}">
+    <div v-for="date in eventObj.eventdata.dates" :key="date.date_id" class="series-date-box" :class="{seriesupcoming: (new Date()).getTime() < (parseDate(date.date_start)).getTime()}">
       {{(parseDate(date.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}
     </div>
   </div>
@@ -15,7 +15,8 @@ import parseDate from 'date-fns/parse'
 
 export default {
   props: [
-    'eventObj'
+    'eventObj',
+    'lastFocusedIndex'
   ],
   data: function () {
     return {
@@ -24,7 +25,7 @@ export default {
   },
   computed: {
     imageSrc: function () {
-      return this.eventObj.image_url ? this.eventObj.image_url : bmlLogo
+      return this.eventObj.eventdata.image_url ? this.eventObj.eventdata.image_url : bmlLogo
     },
     locale: function () {
       return navigator.language || navigator.userLanguage
@@ -63,7 +64,7 @@ export default {
       return weekNo;
     }
 
-    if (getWeekNumber(parseDate(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
+    if (getWeekNumber(parseDate(this.eventObj.eventdata.dates[0].date_start)) === getWeekNumber(new Date()) && this.lastFocusedIndex == -1) {
       this.currentWeek = true
       this.eventObj.focused = true
     } else {
@@ -71,13 +72,13 @@ export default {
     }
 
     setInterval(() => {
-      if (getWeekNumber(parseDate(this.eventObj.dates[0].date_start)) === getWeekNumber(new Date())) {
+      if (getWeekNumber(parseDate(this.eventObj.eventdata.dates[0].date_start)) === getWeekNumber(new Date())) {
         this.currentWeek = true
         this.eventObj.focused = true
       } else {
         this.currentWeek = false
       }
-    }, 60000)
+    }, 60000*15)
   }
 }
 </script>

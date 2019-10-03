@@ -1,12 +1,12 @@
 <template>
   <div id="series-grid">
     <div id="series-detail">
-      <SeriesTitleTile v-if="eventObj" :eventObj="eventObj"></SeriesTitleTile>
-      <SeriesDescTile v-if="eventObj" :eventObj="eventObj"></SeriesDescTile>
-      <SeriesCoverTile v-if="eventObj" :eventObj="eventObj"></SeriesCoverTile>
-      <SeriesPlaceTile v-if="eventObj && eventObj.dates[0].place_name" :eventObj="eventObj"></SeriesPlaceTile>
-      <SeriesBookTile v-for="book in books" v-if="currentCom(book.eventTime)" :key="book.id" :book="book"></SeriesBookTile>
-      <SeriesImgComTile v-for="com in coms" v-if="currentCom(com.time)" :key="com.pid" :comobj="com"></SeriesImgComTile>
+      <SeriesTitleTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesTitleTile>
+      <SeriesDescTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesDescTile>
+      <SeriesCoverTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesCoverTile>
+      <SeriesPlaceTile v-if="eventObj && eventObj.eventdata.dates[0].place_name" :eventObj="eventObj.eventdata"></SeriesPlaceTile>
+      <SeriesBookTile v-for="book in books" :key="book.id" :book="book"></SeriesBookTile>
+      <SeriesImgComTile v-for="com in coms" :key="com.pid" :comobj="com"></SeriesImgComTile>
     </div>
     <div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
@@ -37,8 +37,10 @@ let getWeekNumber = function(d){
 export default {
   methods: {
     popUp: async function (obj) {
-      let self = this
       this.eventObj = obj
+      this.coms = obj.posts
+      this.books = obj.books
+      /*
       await fetch(this.$store.state.wsUrl)
         .then((resp) => {
           return resp.json()
@@ -46,14 +48,17 @@ export default {
         .then(data => {
           self.coms = data.posts
         })
+        */
     },
     currentCom: function (time) {
       if (!this.eventObj) {
         return false
       } else {
+        const nbOfDates = this.eventObj.dates.length - 1
         let comWeek = getWeekNumber(new Date(parseInt(time)))
         let startWeek = getWeekNumber(parseDate(this.eventObj.dates[0].date_start))
-        return comWeek === startWeek
+        let endWeek = getWeekNumber(parseDate(this.eventObj.dates[nbOfDates].date_start))
+        return comWeek >= startWeek && comWeek <= endWeek
 
       }
     }
@@ -83,6 +88,7 @@ export default {
       //gutter: 20
     });
 
+/*
     setInterval(() => {
       let self = this
       fetch(this.$store.state.wsUrl)
@@ -94,7 +100,7 @@ export default {
           self.books = data.books
         })
       msnry.layout()
-    }, 10000)
+    }, 20000)*/
   }
 }
 </script>

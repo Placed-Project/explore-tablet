@@ -5,7 +5,7 @@
     <svg id="down-arrow" :style="{'opacity': `${arrowOpac}`}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125"><g transform="translate(0,-952.36218)"><path d="m 50.000068,1029.3618 c 0.7149,-0.028 1.5413,-0.3223 2.0625,-0.8125 l 18.99996,-18.0001 c 1.24529,-1.051 1.22032,-3.0729 0.0982,-4.2545 -1.12211,-1.1816 -3.10929,-1.2786 -4.2232,-0.089 l -13.9375,13.1875 0,-41.03125 c 0,-1.6568 -1.34316,-3 -2.99996,-3 -1.6569,0 -3,1.3432 -3,3 l 0,41.03125 -13.9375,-13.1875 c -1.114,-1.1894 -3.1096,-1.092 -4.2317,0.09 -1.1221,1.1816 -1.127,3.2322 0.1067,4.2541 l 19,18.0001 c 0.5818,0.5475 1.2604,0.8045 2.0625,0.8125 z" style="text-indent:0;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#eee;enable-background:accumulate;" fill="#ffffff" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
     <h1 v-html="seriesTitle"></h1>
     <div id="series-timeline-lead"></div>
-    <SeriesEventTile v-for="ev in sortedEvents" :key="ev.event_id" :eventObj="ev" @choosed="relayChoosed"></SeriesEventTile>
+    <SeriesEventTile v-for="ev in sortedEvents" :key="ev.eventdata.event_id" :eventObj="ev" @choosed="relayChoosed" :lastFocusedIndex="lastFocusedIndex"></SeriesEventTile>
   </div>
 </template>
 
@@ -28,11 +28,11 @@ export default {
     return {
       placeId: 132,
       bibId: 132,
-      events: [],
       sortedEvents: [],
       position: 0,
       arrowOpac: 1,
-      autoGoUpTimer: -1
+      autoGoUpTimer: -1,
+      lastFocusedIndex: -1
     }
   },
   components: {
@@ -54,25 +54,70 @@ export default {
       this.autoGoUpTimer = setTimeout(() => {
         for (const ev of this.sortedEvents) {
           if (ev.focused) {
-            let element = document.querySelector(`#a${ev.event_id}`)
+            let element = document.querySelector(`#a${ev.eventdata.event_id}`)
             element.scrollIntoView()
             document.querySelector('#series-timeline').scrollBy(0, -200)
           }
         }
-      }, 60000)
+      }, 60000*15)
     })
-    fetch(`${this.$store.state.researchSeriesApi}`)
+    setInterval(() => {
+      fetch(`${this.$store.state.wsUrl}`)
+        .then(resp => {
+          return resp.json()
+        })
+        .catch((err) => {
+          console.error(err)
+          //return new Promise()
+        })
+        .then((data) => {
+          this.fillSortedEvents(data)
+        })
+      }, 20000)
+    fetch(`${this.$store.state.wsUrl}`)
       .then(resp => {
         return resp.json()
       })
       .catch((err) => {
         console.error(err)
-        return Promise()
+        //return new Promise()
       })
       .then((data) => {
         if (data) {
-          this.events = data
-          this.populateDates()
+          for (let ev of data.events) {
+            ev.focused = false
+          }
+
+          this.sortedEvents = data.events
+
+          this.sortedEvents.sort((a, b) => {
+            return parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime())
+          })
+
+          let validIndex = -1
+          for (let index = 0 ; index < this.sortedEvents.length ; index++) {
+            if (parseDate(this.sortedEvents[index].eventdata.dates[0].date_start) < (new Date())) {
+              validIndex = index
+            } else {
+              // if we reached a future event
+              break
+            }
+          }
+          if (validIndex >= 0) {
+            this.sortedEvents[validIndex].focused = true
+            this.lastFocusedIndex = validIndex
+          }
+          
+
+          /*
+          for (const ev of this.sortedEvents) {
+            if (ev.eventdata.focused) {
+              let element = document.querySelector(`#a${ev.eventdata.event_id}`)
+              element.scrollIntoView()
+              document.querySelector('#series-timeline').scrollBy(0, -200)
+            }
+          }
+          */
         }
       })
   },
@@ -90,46 +135,34 @@ export default {
   methods: {
     relayChoosed: function (obj) {
       this.$emit('choosed', obj)
+      this.lastFocusedIndex = this.sortedEvents.indexOf(obj)
       for(let ev of this.sortedEvents) {
-        if (ev.event_id != obj.event_id) {
+        if (ev.eventdata.event_id != obj.eventdata.event_id) {
           ev.focused = false
         }
       }
     },
-    populateDates: async function () {
-      let self = this
-
-      let gatherDate = async function (eventId, index) {
-        await fetch(`${self.$store.state.libraryApiUrl}${eventId}`)
-          .then((resp) => {
-            return resp.json()
-          })
-          .then(data => {
-            data[0].focused = false
-            self.sortedEvents.push(data[0])
-          })
+    fillSortedEvents: function (data) {
+      for (let ev of data.events) {
+        ev.focused = false
       }
 
-      for (let index = 0; index < this.events.length; index++) {
-        const event = this.events[index]
-        await gatherDate(event.event_id, index)
-      }
+      this.sortedEvents = data.events
 
       this.sortedEvents.sort((a, b) => {
-        return parseInt((parseDate(a.dates[0].date_start)).getTime()) - parseInt((parseDate(b.dates[0].date_start)).getTime())
+        return parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime())
       })
 
       let focusedExists = false
-      for (const ev of this.sortedEvents) {
-        if (ev.focused) {
-          focusedExists = true
-        }
+      if (this.lastFocusedIndex >= 0) {
+        this.sortedEvents[this.lastFocusedIndex].focused = true
+        focusedExists = true
       }
 
       if (!focusedExists) {
         let validIndex = -1
         for (let index = 0 ; index < this.sortedEvents.length ; index++) {
-          if (parseDate(this.sortedEvents[index].dates[0].date_start) < (new Date())) {
+          if (parseDate(this.sortedEvents[index].eventdata.dates[0].date_start) < (new Date())) {
             validIndex = index
           } else {
             // if we reached a future event
@@ -138,18 +171,9 @@ export default {
         }
         if (validIndex >= 0) {
           this.sortedEvents[validIndex].focused = true
+          this.lastFocusedIndex = validIndex
         }
       }
-
-      
-      for (const ev of this.sortedEvents) {
-        if (ev.focused) {
-          let element = document.querySelector(`#a${ev.event_id}`)
-          element.scrollIntoView()
-          document.querySelector('#series-timeline').scrollBy(0, -200)
-        }
-      }
-
     }
   }
 }
