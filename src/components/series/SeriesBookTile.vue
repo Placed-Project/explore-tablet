@@ -1,8 +1,8 @@
 <template>
   <div class="series-tile grid-item book-tile">
-    <img v-if="book.img" :src="book.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+    <img v-if="book.img" :src="book.img" @click="zoomImg()" :class="{zoomed:zoomed}" class="img-book-tile"/>
     <div class="series-img-close-button" @click="zoomImg()" v-if="zoomed"><img src="../../assets/close.svg"></div>
-    <div v-html="book.title"></div>
+    <div v-html="book.title" class="book-title"></div>
   </div>
 </template>
 
@@ -26,12 +26,11 @@ export default {
 
 <style scoped>
 
-img {
-  max-width: 100%;
-  min-width: 100%;
+.img-book-tile {
+  max-width: 80%;
+  min-width: 80%;
   object-fit: cover;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  margin: 10%;
 }
 
 video {
@@ -54,6 +53,7 @@ img.zoomed {
   top: 10vh;
   left: 10vw;
   box-shadow: 0px 0px 41px 35px #545454;
+  margin: 0;
 }
 
 .book-tile {
@@ -61,7 +61,7 @@ img.zoomed {
   width: 220px;
 }
 
-.book-tile > div {
+.book-title {
   padding: 20px;
 }
 

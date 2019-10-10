@@ -30,6 +30,13 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://www.bm-lyon.fr/json_explore.php?action=listEvents&subset=upcoming&place='
   researchSeriesApi = ''
   baseiniteventid = '4401'
+} else if (window.location.hostname === 'dokk1minimaker.placed.eu') {
+  apiUrl = 'https://noble-stoplight.herokuapp.com/event-aa/'
+  queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
+  apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/aav2'
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/VHClr_IugX/')
+  baseiniteventid = 'event-e3d58457f619cb2ac3e0'
 } else if (window.location.hostname === 'lb.placed.eu') {
   apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
   queryUrl = 'https://noble-stoplight.herokuapp.com/query/'

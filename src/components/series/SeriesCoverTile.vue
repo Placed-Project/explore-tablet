@@ -1,6 +1,6 @@
 <template>
   <div id="series-cover-tile" class="series-tile grid-item image-tile">
-    <img :src="eventObj.image_url" @click="zoomImg()" :class="{zoomed:zoomed}"/>
+    <img :src="eventObj.image_url" @click="zoomImg()" :class="{zoomed:zoomed}" class="img-cover-tile"/>
     <div class="series-img-close-button" @click="zoomImg()" v-if="zoomed"><img src="../../assets/close.svg"></div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   width: 220px;
 }
 
-img {
+.img-cover-tile {
   max-width: 100%;
   object-fit: cover;
   border-radius: 6px;

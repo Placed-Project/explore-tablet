@@ -130,7 +130,7 @@ export default {
 }
 
 .series-img-close-button {
-  background-color: red;
+  background-color: #4AA4FF;
   position: fixed;
   bottom: 3vh;
   left: 10vw;
@@ -139,6 +139,7 @@ export default {
   height: 50px;
   border-radius: 50px;
   z-index: 26;
+  border: solid 2px white;
 }
 
 .series-img-close-button img {
