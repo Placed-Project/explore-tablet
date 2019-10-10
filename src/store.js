@@ -36,7 +36,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/_7sFWnl66Y/')
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/Ai1-BmJJPK/')
 } else {
   apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
   queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
