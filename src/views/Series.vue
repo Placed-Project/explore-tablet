@@ -5,8 +5,8 @@
       <SeriesDescTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesDescTile>
       <SeriesCoverTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesCoverTile>
       <SeriesPlaceTile v-if="eventObj && eventObj.eventdata.dates[0].place_name" :eventObj="eventObj.eventdata"></SeriesPlaceTile>
-      <SeriesBookTile v-for="book in books" :key="book.id" :book="book"></SeriesBookTile>
       <SeriesImgComTile v-for="com in coms" :key="com.pid" :comobj="com"></SeriesImgComTile>
+      <SeriesBookTile v-for="book in books" :key="book.id" :book="book"></SeriesBookTile>
     </div>
     <div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
