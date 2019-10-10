@@ -3,7 +3,7 @@
     <h3 class="series-event-mini-tile-h3">{{eventObj.eventdata.event_title}}</h3>
     <img v-if="eventObj.focused" src="../../assets/selected.svg" class="series-selected"/>
     <img :src="imageSrc" class="series-event-img"/>
-    <div v-for="date in eventObj.eventdata.dates" :key="date.date_id" class="series-date-box" :class="{seriesupcoming: (new Date()).getTime() < (parseDate(date.date_start)).getTime()}">
+    <div v-for="date in sortedDates" :key="date.date_id" class="series-date-box" :class="{seriesupcoming: (new Date()).getTime() < (parseDate(date.date_start)).getTime()}">
       {{(parseDate(date.date_start)).toLocaleDateString('da', { year: 'numeric', month: 'long', day: 'numeric' })}}
     </div>
   </div>
@@ -32,6 +32,11 @@ export default {
     },
     focused: function () {
       return this.eventObj.focused
+    },
+    sortedDates: function () {
+      return this.eventObj.eventdata.dates.sort((a,b) => {
+        return parseDate(b.date_start) - parseDate(a.date_start)
+      })
     }
   },
   watch: {

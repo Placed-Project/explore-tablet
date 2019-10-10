@@ -91,7 +91,7 @@ export default {
           this.sortedEvents = data.events
 
           this.sortedEvents.sort((a, b) => {
-            return parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime())
+            return parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime())
           })
 
           let validIndex = -1
@@ -152,7 +152,7 @@ export default {
       this.sortedEvents = data.events
 
       this.sortedEvents.sort((a, b) => {
-        return parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime())
+        return parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime())
       })
 
       let focusedExists = false

@@ -50,7 +50,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws2/' + encodeURIComponent('https://placed.cc.au.dk/socDVMqEj/')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws2/' + encodeURIComponent('https://placed.cc.au.dk/Ai1-BmJJPK/')
 }
 
 let firebaseApp = firebase.initializeApp(config)

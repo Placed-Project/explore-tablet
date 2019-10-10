@@ -18,12 +18,13 @@ export default {
   computed: {
     activeDate: function () {
       let now = new Date()
-      for (let index = 0; index < this.eventObj.dates.length; index++) {
+      // dates are sorted from bigger to smaller
+      for (let index = this.eventObj.dates.length -1; index >= 0 ; index--) {
         const date = this.eventObj.dates[index];
-        if (index === this.eventObj.dates.length-1) {
+        if (index === 0) {
           return date
         } else {
-          if (now < date.date_start) {
+          if (now < parseDate(date.date_start)) {
             return date
           }
         }
