@@ -48,7 +48,11 @@ export default {
   },
   methods: {
     showPopUp: function () {
-      this.eventObj.focused = true
+      if (this.eventObj.focused) {
+        this.eventObj.focused = false
+      } else {
+        this.eventObj.focused = true
+      }
     },
     parseDate: function (string) {
       return parseDate(string)
@@ -71,7 +75,7 @@ export default {
 
     if (getWeekNumber(parseDate(this.eventObj.eventdata.dates[0].date_start)) === getWeekNumber(new Date()) && this.lastFocusedIndex == -1) {
       this.currentWeek = true
-      this.eventObj.focused = true
+      //this.eventObj.focused = true
     } else {
       this.currentWeek = false
     }

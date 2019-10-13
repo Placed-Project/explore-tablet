@@ -30,7 +30,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://www.bm-lyon.fr/json_explore.php?action=listEvents&subset=upcoming&place='
   researchSeriesApi = ''
   baseiniteventid = '4401'
-} else if (window.location.hostname === 'dokk1minimaker.placed.eu') {
+} else if (window.location.hostname === 'mm.placed.eu') {
   apiUrl = 'https://noble-stoplight.herokuapp.com/event-aa/'
   queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
@@ -50,7 +50,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws2/' + encodeURIComponent('https://placed.cc.au.dk/Ai1-BmJJPK/')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws2/' + encodeURIComponent('https://placed.cc.au.dk/VHClr_IugX/')
 }
 
 let firebaseApp = firebase.initializeApp(config)

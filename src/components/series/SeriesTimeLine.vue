@@ -127,7 +127,7 @@ export default {
         return 'KREAværksted'
       } else if (window.location.hostname === 'lb.placed.eu') {
         return 'Lundby bibliotek'
-      } else if (window.location.hostname === 'dokk1minimaker.placed.eu') {
+      } else if (window.location.hostname === 'mm.placed.eu') {
         return 'Mini Maker Faire'
       } else if (window.location.hostname === 'localhost') {
         return 'Lundby bibliotek'
