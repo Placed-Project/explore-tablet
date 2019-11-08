@@ -2,7 +2,7 @@
   <div class="series-tile grid-item img-com-tile">
     <img class="series-tile-img" v-if="comobj.img" :src="comobj.img" @click="zoomImg()" :class="{zoomed:zoomed}"/>
     <div v-if="comobj.vid">
-      <video :src="comobj.vid" :id="'a'+comobj.id+comobj.time"></video>
+      <video :src="comobj.vid" :id="'a'+comobj.id+comobj.time" preload="metadata"></video>
       <div class="controls" v-if="!playing" @click="playPause"><img src="../../assets/triangle.svg"></div>
     </div>
     <div v-if="comobj.poll">
@@ -92,6 +92,7 @@ video {
   object-fit: cover;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+  background-color: #4AA4FF;
 }
 
 

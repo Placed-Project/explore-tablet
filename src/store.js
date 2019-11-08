@@ -22,7 +22,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/aav2'
-  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/socDVMqEj/')
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/aa' // + encodeURIComponent('https://placed.cc.au.dk/socDVMqEj/')
   baseiniteventid = 'event-e3d58457f619cb2ac3e0'
 } else if (window.location.hostname === 'explore.placed.eu') {
   apiUrl = 'https://www.bm-lyon.fr/json_explore.php?action=detail&id='
@@ -35,7 +35,7 @@ if (window.location.hostname === 'aa.placed.eu') {
   queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/aav2'
-  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/VHClr_IugX/')
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/mm' // + encodeURIComponent('https://placed.cc.au.dk/VHClr_IugX/')
   baseiniteventid = 'event-e3d58457f619cb2ac3e0'
 } else if (window.location.hostname === 'lb.placed.eu') {
   apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
@@ -43,14 +43,21 @@ if (window.location.hostname === 'aa.placed.eu') {
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/Ai1-BmJJPK/')
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/lb' // + encodeURIComponent('https://placed.cc.au.dk/Ai1-BmJJPK/')
+} else if (window.location.hostname === 'atable.placed.eu') {
+  apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
+  queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
+  apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
+  researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
+  baseiniteventid = 'event-c3778192376f966e2a4c'
+  wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/atable' // + encodeURIComponent('https://placed.cc.au.dk/Y2p7kat0Vu/')
 } else {
   apiUrl = 'https://noble-stoplight.herokuapp.com/event-lb/'
   queryUrl = 'https://noble-stoplight.herokuapp.com/query/'
   apiUpcoming = 'https://noble-stoplight.herokuapp.com/upcoming/'
   researchSeriesApi = 'https://noble-stoplight.herokuapp.com/series/lbv2'
   baseiniteventid = 'event-c3778192376f966e2a4c'
-  wsUrl = 'https://noble-stoplight.glitch.me/ws2/' + encodeURIComponent('https://placed.cc.au.dk/VHClr_IugX/')
+  wsUrl = 'https://noble-stoplight.glitch.me/ws2/aa' // + encodeURIComponent('https://placed.cc.au.dk/Ai1-BmJJPK/')
 }
 
 let firebaseApp = firebase.initializeApp(config)

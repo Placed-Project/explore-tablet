@@ -4,6 +4,7 @@ import Admin from './views/Admin.vue'
 import Main from './views/Main'
 import Hall from './views/Hall'
 import Series from './views/Series'
+import TATable from './views/TATable-web'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/series',
       name: 'series',
       component: Series
+    },
+    {
+      path: '/tatableweb',
+      name: 'tatable',
+      component: TATable
     },
     {
       path: '/:eventId',

@@ -4,8 +4,12 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import i18n from './i18n'
+// import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false
+/* Vue.use(VueLazyload, {
+  lazyComponent: true
+}) */
 
 new Vue({
   router,

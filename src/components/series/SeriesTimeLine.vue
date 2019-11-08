@@ -61,7 +61,7 @@ export default {
         }
       }, 60000*15)
     })
-    setInterval(() => {
+    /*setInterval(() => {
       fetch(`${this.$store.state.wsUrl}`)
         .then(resp => {
           return resp.json()
@@ -73,7 +73,7 @@ export default {
         .then((data) => {
           this.fillSortedEvents(data)
         })
-      }, 20000)
+      }, 20000)*/
     fetch(`${this.$store.state.wsUrl}`)
       .then(resp => {
         return resp.json()

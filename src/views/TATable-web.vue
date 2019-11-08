@@ -1,16 +1,11 @@
 <template>
   <div id="series-grid">
     <div id="series-detail">
-      <SeriesTitleTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesTitleTile>
-      <SeriesDescTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesDescTile>
-      <SeriesCoverTile v-if="eventObj" :eventObj="eventObj.eventdata"></SeriesCoverTile>
-      <SeriesPlaceTile v-if="eventObj && eventObj.eventdata.dates[0].place_name" :eventObj="eventObj.eventdata"></SeriesPlaceTile>
       <SeriesImgComTile v-for="com in coms" :key="com.pid" :comobj="com"></SeriesImgComTile>
-      <SeriesBookTile v-for="book in books" :key="book.id" :book="book"></SeriesBookTile>
     </div>
-    <div id="series-list">
+    <!--<div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -40,28 +35,24 @@ export default {
       this.eventObj = obj
       this.coms = obj.posts
       this.books = obj.books
-      
+      /*
       await fetch(this.$store.state.wsUrl)
         .then((resp) => {
           return resp.json()
         })
         .then(data => {
-          let obj = data.events.find((el) => {
-            return el.eventdata.event_description == this.eventObj.eventdata.event_description
-          })
-          this.coms = obj.posts
-          this.books = obj.books
+          self.coms = data.posts
         })
-        
+        */
     },
     currentCom: function (time) {
       if (!this.eventObj) {
         return false
       } else {
-        const nbOfDates = this.eventObj.eventdata.dates.length - 1
+        const nbOfDates = this.eventObj.dates.length - 1
         let comWeek = getWeekNumber(new Date(parseInt(time)))
-        let startWeek = getWeekNumber(parseDate(this.eventObj.eventdata.dates[0].date_start))
-        let endWeek = getWeekNumber(parseDate(this.eventObj.eventdata.dates[nbOfDates].date_start))
+        let startWeek = getWeekNumber(parseDate(this.eventObj.dates[0].date_start))
+        let endWeek = getWeekNumber(parseDate(this.eventObj.dates[nbOfDates].date_start))
         return comWeek >= startWeek && comWeek <= endWeek
 
       }
@@ -92,6 +83,24 @@ export default {
       //gutter: 20
     });
 
+    let wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/Y2p7kat0Vu/')
+    fetch(`${wsUrl}`)
+      .then(resp => {
+        return resp.json()
+      })
+      .catch((err) => {
+        console.error(err)
+        //return new Promise()
+      })
+      .then((data) => {
+        if (data) {
+          this.eventObj = data.events[0]
+          this.coms = data.events[0].posts
+          this.books = data.events[0].books
+        }
+      })
+
+/*
     setInterval(() => {
       let self = this
       fetch(this.$store.state.wsUrl)
@@ -99,28 +108,30 @@ export default {
           return resp.json()
         })
         .then(data => {
-          let obj = data.events.find((el) => {
-            return el.eventdata.event_description == self.eventObj.eventdata.event_description
-          })
-          self.coms = obj.posts
-          self.books = obj.books
-          
+          self.coms = data.posts
+          self.books = data.books
         })
       msnry.layout()
-    }, 20000)
+    }, 20000)*/
   }
 }
 </script>
 
 
-<style>
+<style scoped>
+.series-tile-text {
+  background-color: #3e0449;
+  color: white;
+}
+
 #series-grid {
   display: grid;
-  grid-template-columns: 75vw 25vw;
+  grid-template-columns: 100vw;
   width: 100%;
-  background-color: #E8E8E8;
+  background-color: white;
   font-family: 'Myriad';
   overflow: scroll;
+  overflow-x: hidden;
   min-height: 100vh;
   position: fixed;
 }
@@ -137,7 +148,7 @@ export default {
 }
 
 .series-img-close-button {
-  background-color: #4AA4FF;
+  background-color: #3e0449;
   position: fixed;
   bottom: 3vh;
   left: 10vw;
@@ -155,7 +166,8 @@ export default {
 }
 
 .series-tile {
-  background-color: white;
+  background-color: #3e0449;
+  color: white;
   border-radius: 6px;
 }
 
@@ -182,7 +194,7 @@ export default {
 .grid-item {
   margin: 10px;
   width: 180px;
-  padding: 20px;
+  padding: 2px;
   float: left;
 }
 
