@@ -1,7 +1,11 @@
 <template>
   <div id="series-grid">
     <div id="series-detail">
-      <SeriesImgComTile v-for="com in coms" :key="com.pid" :comobj="com"></SeriesImgComTile>
+      <p v-if="coms.length == 0" class="recette-loader">
+        Chargement des recettes 😋
+      </p>
+      <SeriesRecetteTile v-for="com in coms" :key="com.pid" :comobj="com" @expand-recette="expandRecette"></SeriesRecetteTile>
+      <SeriesExpandedRecetteTile :comobj="expandedcom" v-if="expandedcom && openExpand"  @close-expand="openExpand = false"></SeriesExpandedRecetteTile>
     </div>
     <!--<div id="series-list">
         <SeriesTimeLine @choosed="popUp"></SeriesTimeLine>
@@ -19,6 +23,8 @@ import SeriesPlaceTile from '../components/series/SeriesPlaceTile'
 import SeriesTmpImg from '../components/series/SeriesAaKreaTmpImgTile'
 import SeriesImgComTile from '../components/series/SeriesImgComTile'
 import SeriesBookTile from '../components/series/SeriesBookTile'
+import SeriesRecetteTile from '../components/series/SeriesRecetteTile'
+import SeriesExpandedRecetteTile from '../components/series/SeriesExpandedRecetteTile'
 import Masonry from 'masonry-layout'
 import parseDate from 'date-fns/parse'
 
@@ -56,6 +62,10 @@ export default {
         return comWeek >= startWeek && comWeek <= endWeek
 
       }
+    },
+    expandRecette: function (param) {
+      this.openExpand = true
+      this.expandedcom = param
     }
   },
   data: function () {
@@ -63,7 +73,9 @@ export default {
       eventObj:null,
       urlLocation: window.location,
       coms: [],
-      books: []
+      books: [],
+      expandedcom: null,
+      openExpand: true
     }
   },
   components: {
@@ -74,7 +86,9 @@ export default {
     SeriesPlaceTile,
     SeriesTmpImg,
     SeriesImgComTile,
-    SeriesBookTile
+    SeriesBookTile,
+    SeriesRecetteTile,
+    SeriesExpandedRecetteTile
   },
   mounted: function () {
     var msnry = new Masonry('#series-detail', {
@@ -83,7 +97,7 @@ export default {
       //gutter: 20
     });
 
-    let wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/' + encodeURIComponent('https://placed.cc.au.dk/Y2p7kat0Vu/')
+    let wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/atable'// + encodeURIComponent('https://placed.cc.au.dk/Y2p7kat0Vu/')
     fetch(`${wsUrl}`)
       .then(resp => {
         return resp.json()
@@ -130,7 +144,7 @@ export default {
   width: 100%;
   background-color: white;
   font-family: 'Myriad';
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   min-height: 100vh;
   position: fixed;
@@ -166,9 +180,10 @@ export default {
 }
 
 .series-tile {
-  background-color: #3e0449;
-  color: white;
+  background-color: #ffcc33;
+  color: #3e0449;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .series-tile-header {
@@ -189,6 +204,22 @@ export default {
 
 .series-tile-textpostheader {
   margin-top: 40px;
+}
+
+.recette-loader {
+  animation:blink normal 1s infinite ease-in-out;
+}
+
+@keyframes blink {
+    0% {
+        color : rgba(255,0,0,1);
+    }
+    50% {
+        color : rgba(255,0,0,0.5);
+    }
+    100% {
+        color : rgba(255,0,0,1);
+    }
 }
 
 .grid-item {

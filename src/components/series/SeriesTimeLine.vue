@@ -61,19 +61,54 @@ export default {
         }
       }, 60000*15)
     })
-    /*setInterval(() => {
-      fetch(`${this.$store.state.wsUrl}`)
-        .then(resp => {
-          return resp.json()
-        })
-        .catch((err) => {
-          console.error(err)
-          //return new Promise()
-        })
-        .then((data) => {
-          this.fillSortedEvents(data)
-        })
-      }, 20000)*/
+    setInterval(() => {
+          fetch(`${this.$store.state.wsUrl}`)
+            .then(resp => {
+              return resp.json()
+            })
+            .catch((err) => {
+              console.error(err)
+              //return new Promise()
+            })
+            .then((data) => {
+              if (data) {
+                for (let ev of data.events) {
+                  ev.focused = false
+                }
+
+                this.sortedEvents = data.events
+
+                this.sortedEvents.sort((a, b) => {
+                  return parseInt((parseDate(b.eventdata.dates[0].date_start)).getTime()) - parseInt((parseDate(a.eventdata.dates[0].date_start)).getTime())
+                })
+
+                let validIndex = -1
+                for (let index = 0 ; index < this.sortedEvents.length ; index++) {
+                  if (parseDate(this.sortedEvents[index].eventdata.dates[0].date_start) < (new Date())) {
+                    validIndex = index
+                  } else {
+                    // if we reached a future event
+                    break
+                  }
+                }
+                if (validIndex >= 0) {
+                  this.sortedEvents[validIndex].focused = true
+                  this.lastFocusedIndex = validIndex
+                }
+                
+
+                /*
+                for (const ev of this.sortedEvents) {
+                  if (ev.eventdata.focused) {
+                    let element = document.querySelector(`#a${ev.eventdata.event_id}`)
+                    element.scrollIntoView()
+                    document.querySelector('#series-timeline').scrollBy(0, -200)
+                  }
+                }
+                */
+              }
+            })
+      }, 200000)
     fetch(`${this.$store.state.wsUrl}`)
       .then(resp => {
         return resp.json()
