@@ -4,12 +4,16 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import i18n from './i18n'
-// import VueLazyload from 'vue-lazyload'
+import VueLazyload from 'vue-lazyload'
+import VueSocialSharing from 'vue-social-sharing'
 
 Vue.config.productionTip = false
 /* Vue.use(VueLazyload, {
   lazyComponent: true
 }) */
+
+Vue.use(VueLazyload)
+Vue.use(VueSocialSharing)
 
 new Vue({
   router,

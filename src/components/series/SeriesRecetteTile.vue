@@ -1,6 +1,6 @@
 <template>
-  <div class="series-tile grid-item img-com-tile" @click="expandRecette">
-    <img class="series-tile-img" v-if="comobj.img" :src="comobj.img" :class="{zoomed:zoomed}"/>
+  <div class="series-tile grid-item img-com-tile" @click="expandRecette" v-lazy-container="{selector:'img'}">
+    <img class="series-tile-img" v-if="comobj.img" :data-src="comobj.img" :class="{zoomed:zoomed}"/>
     <div v-if="comobj.vid">
       <video :src="comobj.vid" :id="'a'+comobj.id+comobj.time" preload="metadata"></video>
       <div class="controls" v-if="!playing" @click="playPause"><img src="../../assets/triangle.svg"></div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   props: [
     'comobj'
@@ -99,6 +100,7 @@ export default {
 .series-tile-img {
   max-width: 100%;
   min-width: 100%;
+  height: 100px;
   object-fit: cover;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;

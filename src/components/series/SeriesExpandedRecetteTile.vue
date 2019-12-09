@@ -14,7 +14,28 @@
           <div class="atable-expanded-title" v-html="recetteObj.title"></div>
           <em class="atable-expanded-author" v-html="recetteObj.author"></em>
           <div class="atable-expanded-recette-text" v-html="recetteObj.content.innerHTML"></div>
+          <social-sharing url="https://www.bm-lyon.fr/expositions-en-ligne/tous-a-table/article/vos-recettes"
+                    :title="recetteObj.title+' : à retrouver sur le site de Tous à Table ! Bibliothèque Municipale de Lyon'"
+                    :quote="recetteObj.title+' : une recette à retrouver sur le site de Tous à Table ! Bibliothèque Municipale de Lyon'"
+                    :description="recetteObj.author"
+                    hashtags="bml,recette,diy,tousatable"
+                    inline-template>
+            <div>
+                <p>Partager :</p>
+                <network network="facebook">
+                  <i class="fa fa-facebook"></i> Facebook
+                </network>
+                <network network="pinterest">
+                  <i class="fa fa-pinterest"></i> Pinterest
+                </network>
+                <network network="twitter">
+                  <i class="fa fa-twitter"></i> Twitter
+                </network>
+            </div>
+          </social-sharing>
+          
         </div>
+        
       </div>
     </div>
   </div>
@@ -214,7 +235,7 @@ img.zoomed {
 
 .atable-expanded-recette-text {
   margin-top: 20px;
-  height: 85%;
+  /*height: 85%;*/
 }
 
 .atable-scroll-wrapper {
@@ -260,5 +281,11 @@ img.zoomed {
 .atable-expanded-close-button img {
   width: 25px;
   transform: translate(50%, 50%);
+}
+
+@media (max-width : 650px) {
+  .atable-expanded-recette{
+    width: 70vw;
+  }
 }
 </style>

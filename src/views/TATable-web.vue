@@ -91,12 +91,12 @@ export default {
     SeriesExpandedRecetteTile
   },
   mounted: function () {
-    var msnry = new Masonry('#series-detail', {
+    /*var msnry = new Masonry('#series-detail', {
       itemSelector: '.grid-item',
-      columnWidth: 220,
-      //gutter: 20
+      columnWidth: 184,
+      gutter: 20
     });
-
+    */
     let wsUrl = 'https://noble-stoplight.herokuapp.com/ws2/atable'// + encodeURIComponent('https://placed.cc.au.dk/Y2p7kat0Vu/')
     fetch(`${wsUrl}`)
       .then(resp => {
@@ -153,6 +153,19 @@ export default {
 #series-detail {
   margin-left: 120px;
   margin-right: 120px;
+  display: flex; 
+  flex-direction: row; 
+  flex-wrap: wrap;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: calc(100vw - 240px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#series-detail::-webkit-scrollbar {
+  width: 0px;
 }
 
 #series-list {
@@ -226,7 +239,7 @@ export default {
   margin: 10px;
   width: 180px;
   padding: 2px;
-  float: left;
+  /*float: left;*/
 }
 
 .grid-item--width2 {

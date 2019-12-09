@@ -91,8 +91,8 @@ export default {
                     break
                   }
                 }
-                if (validIndex >= 0) {
-                  this.sortedEvents[validIndex].focused = true
+                if (this.lastFocusedIndex >= 0) {
+                  this.sortedEvents[lastFocusedIndex].focused = true
                   this.lastFocusedIndex = validIndex
                 }
                 
@@ -108,7 +108,7 @@ export default {
                 */
               }
             })
-      }, 200000)
+      }, 60000)
     fetch(`${this.$store.state.wsUrl}`)
       .then(resp => {
         return resp.json()
