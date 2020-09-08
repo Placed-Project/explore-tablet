@@ -74,7 +74,7 @@ export default {
 
       // Test BmlVideo
       let bmlvid = this.comobj.text.match(/.*(www\.bm-lyon\.fr\/spip\.php\?page=video&id_video=[0-9]+).*/)
-      console.log(bmlvid)
+      //console.log(bmlvid)
       if (bmlvid) {
         fetch('https://' + bmlvid[1])
           .then(t => {

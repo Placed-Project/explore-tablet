@@ -40,6 +40,7 @@ export default {
       this.eventObj = obj
       this.coms = obj.posts
       this.books = obj.books
+
       
       await fetch(this.$store.state.wsUrl)
         .then((resp) => {
@@ -52,6 +53,18 @@ export default {
           this.coms = obj.posts
           this.books = obj.books
         })
+      
+      
+      this.msnry = new Masonry('#series-detail', {
+        itemSelector: '.grid-item',
+        columnWidth: 240,
+        //gutter: 20
+      })
+
+      
+      this.msnry.reloadItems()
+      this.msnry.layout()
+      //console.log(this.msnry)
         
     },
     currentCom: function (time) {
@@ -72,7 +85,8 @@ export default {
       eventObj:null,
       urlLocation: window.location,
       coms: [],
-      books: []
+      books: [],
+      msnry: null
     }
   },
   components: {
@@ -86,11 +100,6 @@ export default {
     SeriesBookTile
   },
   mounted: function () {
-    var msnry = new Masonry('#series-detail', {
-      itemSelector: '.grid-item',
-      columnWidth: 220,
-      //gutter: 20
-    });
 
     setInterval(() => {
       let self = this
@@ -106,7 +115,7 @@ export default {
           self.books = obj.books
           
         })
-      msnry.layout()
+      //self.msnry.layout()
     }, 20000)
   }
 }
