@@ -41,6 +41,17 @@ export default {
       this.coms = obj.posts
       this.books = obj.books
 
+
+      this.msnry = new Masonry('#series-detail', {
+        itemSelector: '.grid-item',
+        columnWidth: 240,
+        //gutter: 20
+      })
+
+      setTimeout(() => {
+        this.msnry.reloadItems()
+        this.msnry.layout()
+      }, 300)
       
       await fetch(this.$store.state.wsUrl)
         .then((resp) => {
@@ -55,15 +66,6 @@ export default {
         })
       
       
-      this.msnry = new Masonry('#series-detail', {
-        itemSelector: '.grid-item',
-        columnWidth: 240,
-        //gutter: 20
-      })
-
-      
-      this.msnry.reloadItems()
-      this.msnry.layout()
       //console.log(this.msnry)
         
     },
