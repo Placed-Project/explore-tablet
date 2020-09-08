@@ -131,6 +131,7 @@ export default {
   font-family: 'Myriad';
   overflow: scroll;
   min-height: 100vh;
+  max-height: 100vh;
   position: fixed;
 }
 
