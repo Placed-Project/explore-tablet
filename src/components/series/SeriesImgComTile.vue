@@ -68,31 +68,46 @@ export default {
       })
     },
     upgradeVignette: function () {
-      if (this.comobj.img) {
-        return
-      }
+      if (!this.comobj.img) {    
+      
+        // Test BmlVideo
+        let bmlvid = this.comobj.text.match(/.*(www\.bm-lyon\.fr\/spip\.php\?page=video&id_video=[0-9]+).*/)
+        //console.log(bmlvid)
+        if (bmlvid) {
+          fetch('https://' + bmlvid[1])
+            .then(t => {
+              return t.text()
+            })
+            .then(text => {
+              console.log(text)
+              let res = text.match(/.*<a class='download_video' .* href="(.*)" .*>.*<\/a>.*/)[1]
+              this.vidurl = res
+            })
+        }
+        let influx = this.comobj.text.match(/.*linflux\.com.*/)
+        if (influx) {
+          this.thumbImg = influxImg
+        }
+        let wikipedia = this.comobj.text.match(/.*wikipedia\.org.*/)
+        if (wikipedia) {
+          this.thumbImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png'
+        }
 
-      // Test BmlVideo
-      let bmlvid = this.comobj.text.match(/.*(www\.bm-lyon\.fr\/spip\.php\?page=video&id_video=[0-9]+).*/)
-      //console.log(bmlvid)
-      if (bmlvid) {
-        fetch('https://' + bmlvid[1])
-          .then(t => {
-            return t.text()
-          })
-          .then(text => {
-            console.log(text)
-            let res = text.match(/.*<a class='download_video' .* href="(.*)" .*>.*<\/a>.*/)[1]
-            this.vidurl = res
-          })
-      }
-      let influx = this.comobj.text.match(/.*linflux\.com.*/)
-      if (influx) {
-        this.thumbImg = influxImg
-      }
-      let wikipedia = this.comobj.text.match(/.*wikipedia\.org.*/)
-      if (wikipedia) {
-        this.thumbImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png'
+        let guichet = this.comobj.text.match(/.*guichetdusavoir\.org.*/)
+        if (guichet) {
+          this.thumbImg = 'https://images.unsplash.com/photo-1557318041-1ce374d55ebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
+        }
+        
+        let url = this.comobj.text.match(/<a.*>.*<\/a>/)
+        let bmlyon = this.comobj.text.match(/.*bm-lyon\.fr.*/)
+
+        if (bmlyon && !influx && !bmlvid) {
+          this.thumbImg = bmImg
+        }
+
+        if (url && !ytVid && !wikipedia && !influx && !bmlvid && !soundcloud && !bmlyon && !guichet) {
+          this.thumbImg = linkImg
+        }
       }
 
       let ytVid = this.comobj.text.match(/^.*(youtu\.be\/|vi?\/|u\/\w\/|embed\/|\?vi?=|&vi?=)([^#&?]*).*/)
@@ -105,22 +120,9 @@ export default {
         this.soundcloudfeed = this.comobj.text.match(/>.*(soundcloud\.com.*)<\/a>/)[1]
       }
 
-      let guichet = this.comobj.text.match(/.*guichetdusavoir\.org.*/)
-      if (guichet) {
-        this.thumbImg = 'https://images.unsplash.com/photo-1557318041-1ce374d55ebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
-      }
-
       this.comobj.text = this.comobj.text.replace(/>http[s]?:\/\/[^./]*\.([^./]*\.[^./]*)(\/.*)?<\/a>/, '>$1/...</a>')
-      let url = this.comobj.text.match(/<a.*>.*<\/a>/)
-      let bmlyon = this.comobj.text.match(/.*bm-lyon\.fr.*/)
-
-      if (bmlyon && !influx && !bmlvid) {
-        this.thumbImg = bmImg
-      }
-
-      if (url && !ytVid && !wikipedia && !influx && !bmlvid && !soundcloud && !bmlyon && !guichet) {
-        this.thumbImg = linkImg
-      }
+      this.comobj.text = this.comobj.text.replace(/<a/g,'<br><br><a')
+      this.comobj.text = this.comobj.text.replace(/\/a>/g,'/a><br>')
     }
   },
   computed: {

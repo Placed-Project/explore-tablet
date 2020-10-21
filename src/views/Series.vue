@@ -210,4 +210,8 @@ export default {
 .grid-item--width5 {
   width: 100%;
 }
+
+a{
+  color: #4AA4FF;
+}
 </style>
