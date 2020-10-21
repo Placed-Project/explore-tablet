@@ -24,7 +24,7 @@
     <div v-if="soundcloudfeed">
       <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" :src="`https://w.soundcloud.com/player/?url=${soundcloudfeed}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`"></iframe>
     </div>
-    <div class="series-tile-text" v-html="comobj.text"></div>
+    <div class="series-tile-text" v-html="comobj.text.replace(/>http[s]?:\/\/[^./]*\.([^./]*\.[^./]*)(\/.*)?<\/a>/, '>$1/...</a>').replace(/<a/g,'<br><br><a').replace(/\/a>/g,'/a><br>')"></div>
     <div class="series-tile-librarian" v-if="false">{{$t('series-place-tile-librarian')}}</div>
   </div>
 </template>
@@ -120,9 +120,7 @@ export default {
         this.soundcloudfeed = this.comobj.text.match(/>.*(soundcloud\.com.*)<\/a>/)[1]
       }
 
-      this.comobj.text = this.comobj.text.replace(/>http[s]?:\/\/[^./]*\.([^./]*\.[^./]*)(\/.*)?<\/a>/, '>$1/...</a>')
-      this.comobj.text = this.comobj.text.replace(/<a/g,'<br><br><a')
-      this.comobj.text = this.comobj.text.replace(/\/a>/g,'/a><br>')
+      //this.comobj.text = this.comobj.text.replace(/>http[s]?:\/\/[^./]*\.([^./]*\.[^./]*)(\/.*)?<\/a>/, '>$1/...</a>').replace(/<a/g,'<br><br><a').replace(/\/a>/g,'/a><br>')
     }
   },
   computed: {

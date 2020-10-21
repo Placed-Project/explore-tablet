@@ -51,7 +51,7 @@ export default {
       setTimeout(() => {
         this.msnry.reloadItems()
         this.msnry.layout()
-      }, 300)
+      }, 400)
       
       await fetch(this.$store.state.wsUrl)
         .then((resp) => {
@@ -64,6 +64,11 @@ export default {
           this.coms = obj.posts
           this.books = obj.books
         })
+
+      setTimeout(() => {
+        this.msnry.reloadItems()
+        this.msnry.layout()
+      }, 400)
       
       
       //console.log(this.msnry)
@@ -117,7 +122,7 @@ export default {
           self.books = obj.books
           
         })
-      //self.msnry.layout()
+      self.msnry.layout()
     }, 20000)
   }
 }
